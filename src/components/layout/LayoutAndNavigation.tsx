@@ -8,6 +8,7 @@ import CogsIcon from '../../assets/icons/CogsIcon';
 import ImageHistoryPage from '../../pages/ImageHistoryPage';
 import CameraIcon from '../../assets/icons/CameraIcon';
 import React, {useCallback} from 'react';
+import {useTranslation} from 'react-i18next';
 
 const Tab = createBottomTabNavigator();
 
@@ -34,6 +35,8 @@ interface TabBarIconFactoryProps {
  * * and the navigation bar at the bottom (footer).
  */
 function LayoutAndNavigation(): JSX.Element {
+  const {t} = useTranslation();
+
   const createMapIcon = useCallback<
     (props: TabBarIconFactoryProps) => JSX.Element
   >(({size, focused}) => <MapIcon size={size} colored={focused} />, []);
@@ -56,8 +59,8 @@ function LayoutAndNavigation(): JSX.Element {
         name="map"
         component={MapPage}
         options={{
-          headerTitle: 'Mow-E',
-          tabBarLabel: 'Map',
+          headerTitle: t('routes.map.headerTitle')!,
+          tabBarLabel: t('routes.map.tabBarLabel')!,
           tabBarShowLabel: SHOW_TAB_BAR_LABELS,
           tabBarIcon: createMapIcon,
         }}
@@ -66,8 +69,8 @@ function LayoutAndNavigation(): JSX.Element {
         name="mower-connections"
         component={MowerConnectionsPage}
         options={{
-          headerTitle: 'Mower Connections',
-          tabBarLabel: 'Mower',
+          headerTitle: t('routes.mowerConnections.headerTitle')!,
+          tabBarLabel: t('routes.mowerConnections.tabBarLabel')!,
           tabBarShowLabel: SHOW_TAB_BAR_LABELS,
           tabBarIcon: createMowerConnectionsIcon,
         }}
@@ -76,8 +79,8 @@ function LayoutAndNavigation(): JSX.Element {
         name="settings"
         component={SettingsPage}
         options={{
-          headerTitle: 'Settings',
-          tabBarLabel: 'Settings',
+          headerTitle: t('routes.settings.headerTitle')!,
+          tabBarLabel: t('routes.settings.tabBarLabel')!,
           tabBarShowLabel: SHOW_TAB_BAR_LABELS,
           tabBarIcon: createSettingsIcon,
         }}
@@ -86,8 +89,8 @@ function LayoutAndNavigation(): JSX.Element {
         name="image-history"
         component={ImageHistoryPage}
         options={{
-          headerTitle: 'Image History',
-          tabBarLabel: 'Images',
+          headerTitle: t('routes.imageHistory.headerTitle')!,
+          tabBarLabel: t('routes.imageHistory.tabBarLabel')!,
           tabBarShowLabel: SHOW_TAB_BAR_LABELS,
           tabBarIcon: createImageHistoryIcon,
         }}
