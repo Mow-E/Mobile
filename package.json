@@ -9,7 +9,7 @@
     "lint:fix": "eslint --fix src && eslint --fix __tests__ && prettier --write --ignore-unknown src && prettier --write --ignore-unknown __tests__",
     "lint:staged": "lint-staged",
     "start": "react-native start",
-    "test": "jest",
+    "test": "jest --verbose --coverage",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -48,6 +48,7 @@
   },
   "jest": {
     "preset": "react-native",
+    "cacheDirectory": "./cache",
     "setupFiles": [
       "<rootDir>/jest/setup.js"
     ],
@@ -61,7 +62,15 @@
     ],
     "transformIgnorePatterns": [
       "node_modules/(?!react-native|@react-native|@react-navigation)"
-    ]
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 83,
+        "branches": 65,
+        "functions": 84,
+        "lines": 83
+      }
+    }
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json}": [
