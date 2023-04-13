@@ -15,7 +15,9 @@
     "@react-navigation/bottom-tabs": "6.5.7",
     "@react-navigation/native": "6.1.6",
     "@react-navigation/native-stack": "6.9.12",
+    "i18next": "22.4.14",
     "react": "18.2.0",
+    "react-i18next": "12.2.0",
     "react-native": "0.71.6",
     "react-native-gesture-handler": "2.9.0",
     "react-native-reanimated": "3.0.2",
@@ -46,7 +48,12 @@
       "<rootDir>/jest/setup.js"
     ],
     "moduleFileExtensions": [
-      "ts", "tsx", "js", "jsx", "json", "node"
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
     ],
     "transformIgnorePatterns": [
       "node_modules/(?!react-native|@react-native|@react-navigation)"
