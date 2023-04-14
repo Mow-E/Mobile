@@ -23,3 +23,6 @@ jest.mock('react-native-reanimated', () => {
 // Silence the warning: Animated: `useNativeDriver` is not supported because the native animated module is missing
 // eslint-disable-next-line no-undef
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
+
+// So that tests execute without warnings that don't load `App.tsx`
+import '../src/i18n.config';
