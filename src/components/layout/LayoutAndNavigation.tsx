@@ -9,10 +9,11 @@ import ImageHistoryPage from '../../pages/ImageHistoryPage';
 import CameraIcon from '../../assets/icons/CameraIcon';
 import React, {useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
+import colors from '../../styles/colors';
 
 const Tab = createBottomTabNavigator();
 
-const SHOW_TAB_BAR_LABELS: boolean = false;
+const SHOW_TAB_BAR_LABELS: boolean = true;
 
 /**
  * Properties an icon in the bottom navigation bar can accept.
@@ -39,19 +40,22 @@ function LayoutAndNavigation(): JSX.Element {
 
   const createMapIcon = useCallback<
     (props: TabBarIconFactoryProps) => JSX.Element
-  >(({size, focused}) => <MapIcon size={size} colored={focused} />, []);
+  >(({size, focused}) => <MapIcon size={size * 1.2} colored={focused} />, []);
 
   const createMowerConnectionsIcon = useCallback<
     (props: TabBarIconFactoryProps) => JSX.Element
-  >(({size, focused}) => <MowEIcon size={size} colored={focused} />, []);
+  >(({size, focused}) => <MowEIcon size={size * 1.2} colored={focused} />, []);
 
   const createSettingsIcon = useCallback<
     (props: TabBarIconFactoryProps) => JSX.Element
-  >(({size, focused}) => <CogsIcon size={size} colored={focused} />, []);
+  >(({size, focused}) => <CogsIcon size={size * 1.2} colored={focused} />, []);
 
   const createImageHistoryIcon = useCallback<
     (props: TabBarIconFactoryProps) => JSX.Element
-  >(({size, focused}) => <CameraIcon size={size} colored={focused} />, []);
+  >(
+    ({size, focused}) => <CameraIcon size={size * 1.2} colored={focused} />,
+    [],
+  );
 
   return (
     <Tab.Navigator initialRouteName="map">
@@ -63,6 +67,7 @@ function LayoutAndNavigation(): JSX.Element {
           tabBarLabel: t('routes.map.tabBarLabel')!,
           tabBarShowLabel: SHOW_TAB_BAR_LABELS,
           tabBarIcon: createMapIcon,
+          tabBarActiveTintColor: colors.iconPurpleDark,
         }}
       />
       <Tab.Screen
@@ -73,6 +78,7 @@ function LayoutAndNavigation(): JSX.Element {
           tabBarLabel: t('routes.mowerConnections.tabBarLabel')!,
           tabBarShowLabel: SHOW_TAB_BAR_LABELS,
           tabBarIcon: createMowerConnectionsIcon,
+          tabBarActiveTintColor: colors.iconPurpleDark,
         }}
       />
       <Tab.Screen
@@ -83,6 +89,7 @@ function LayoutAndNavigation(): JSX.Element {
           tabBarLabel: t('routes.settings.tabBarLabel')!,
           tabBarShowLabel: SHOW_TAB_BAR_LABELS,
           tabBarIcon: createSettingsIcon,
+          tabBarActiveTintColor: colors.iconPurpleDark,
         }}
       />
       <Tab.Screen
@@ -93,6 +100,7 @@ function LayoutAndNavigation(): JSX.Element {
           tabBarLabel: t('routes.imageHistory.tabBarLabel')!,
           tabBarShowLabel: SHOW_TAB_BAR_LABELS,
           tabBarIcon: createImageHistoryIcon,
+          tabBarActiveTintColor: colors.iconPurpleDark,
         }}
       />
     </Tab.Navigator>
