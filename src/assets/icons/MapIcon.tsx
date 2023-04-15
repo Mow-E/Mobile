@@ -107,13 +107,28 @@ function SvgComponent(props: SvgProps): JSX.Element {
  * An icon that shows a map.
  * Used as the main icon for the map section(s).
  */
-function MapIcon({size = 24, colored = false}: IconProps): JSX.Element {
+function MapIcon({
+  size = 24,
+  colored = false,
+  darkModeInverted = false,
+}: IconProps): JSX.Element {
+  const strokeColor = darkModeInverted
+    ? colors.gray['300']
+    : colors.gray['950'];
+  const coloredFillColor = darkModeInverted
+    ? colors.red.light
+    : colors.red.dark;
+  const grayscaleFillColor = darkModeInverted
+    ? colors.gray['50']
+    : colors.gray['300'];
+  const fillColor = colored ? coloredFillColor : grayscaleFillColor;
+
   return (
     <SvgComponent
       height={size}
       width={size}
-      stroke="#000000"
-      fill={colored ? colors.iconRed : colors.iconGrayscaleLight}
+      stroke={strokeColor}
+      fill={fillColor}
     />
   );
 }

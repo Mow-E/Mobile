@@ -8,6 +8,7 @@ exports[`renders colored correctly 1`] = `
   fill="none"
   focusable={false}
   height={24}
+  lensColor="#ffffff"
   meetOrSlice={0}
   minX={0}
   minY={0}
@@ -98,7 +99,7 @@ exports[`renders colored correctly 1`] = `
       cy="33.948772"
       fill={
         {
-          "payload": 4294966524,
+          "payload": 4294967295,
           "type": 0,
         }
       }
@@ -234,6 +235,7 @@ exports[`renders default correctly 1`] = `
   fill="none"
   focusable={false}
   height={24}
+  lensColor="#ffffff"
   meetOrSlice={0}
   minX={0}
   minY={0}
@@ -324,7 +326,7 @@ exports[`renders default correctly 1`] = `
       cy="33.948772"
       fill={
         {
-          "payload": 4294966524,
+          "payload": 4294967295,
           "type": 0,
         }
       }
@@ -460,6 +462,7 @@ exports[`renders uncolored correctly 1`] = `
   fill="none"
   focusable={false}
   height={24}
+  lensColor="#ffffff"
   meetOrSlice={0}
   minX={0}
   minY={0}
@@ -550,7 +553,7 @@ exports[`renders uncolored correctly 1`] = `
       cy="33.948772"
       fill={
         {
-          "payload": 4294966524,
+          "payload": 4294967295,
           "type": 0,
         }
       }

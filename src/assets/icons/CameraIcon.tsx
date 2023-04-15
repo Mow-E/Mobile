@@ -16,6 +16,10 @@ type SvgComponentProps = Omit<SvgProps, 'fill'> & {
    * The secondary color of the icon, used for the lens section of the camera.
    */
   secondaryColor: ColorValue;
+  /**
+   * The color of the lens in the icon.
+   */
+  lensColor: ColorValue;
 };
 
 const SvgComponent = (props: SvgComponentProps) => (
@@ -39,7 +43,7 @@ const SvgComponent = (props: SvgComponentProps) => (
       cx={54.806999}
       cy={33.948772}
       r={11.8509}
-      fill="#fffcfc"
+      fill={props.lensColor}
       stroke={props.stroke}
     />
     <Line
@@ -81,16 +85,43 @@ const SvgComponent = (props: SvgComponentProps) => (
  * An icon that shows a camera.
  * Used as the main icon for the image history section(s).
  */
-function CameraIcon({size = 24, colored = false}: IconProps): JSX.Element {
+function CameraIcon({
+  size = 24,
+  colored = false,
+  darkModeInverted = false,
+}: IconProps): JSX.Element {
+  const darkModeStrokeColor = colored ? colors.gray['50'] : colors.gray['450'];
+  const strokeColor = darkModeInverted
+    ? darkModeStrokeColor
+    : colors.gray['950'];
+
+  const primaryColoredFillColor = colors.primary.dark;
+  const primaryGrayscaleFillColor = darkModeInverted
+    ? colors.gray['300']
+    : colors.gray['400'];
+  const primaryFillColor = colored
+    ? primaryColoredFillColor
+    : primaryGrayscaleFillColor;
+
+  const secondaryColoredFillColor = colors.primary.light;
+  const secondaryGrayscaleFillColor = darkModeInverted
+    ? colors.gray['400']
+    : colors.gray['300'];
+  const secondaryFillColor = colored
+    ? secondaryColoredFillColor
+    : secondaryGrayscaleFillColor;
+
+  const lensColor =
+    colored && darkModeInverted ? colors.gray['700'] : colors.gray['50'];
+
   return (
     <SvgComponent
       height={size}
       width={size}
-      stroke="#000000"
-      primaryColor={colored ? colors.iconGreenDark : colors.iconGrayscaleDark}
-      secondaryColor={
-        colored ? colors.iconGreenLight : colors.iconGrayscaleLight
-      }
+      stroke={strokeColor}
+      primaryColor={primaryFillColor}
+      secondaryColor={secondaryFillColor}
+      lensColor={lensColor}
     />
   );
 }

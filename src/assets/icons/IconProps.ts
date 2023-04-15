@@ -10,6 +10,10 @@ interface IconProps {
    * Whether the icon should be shown colored or in grayscale.
    */
   colored?: boolean;
+  /**
+   * Whether the icon should be shown as a dark-mode inverted version.
+   */
+  darkModeInverted?: boolean;
 }
 
 export default IconProps;

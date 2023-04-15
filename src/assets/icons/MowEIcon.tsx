@@ -7,8 +7,8 @@ const SvgComponent = (props: SvgProps) => (
   <Svg width={24} height={24} viewBox="0 0 79 59.25" fill="none" {...props}>
     <Path
       d="m 33.6481,12.4353 h 12.4352 v 7.3148 H 33.6481 Z"
-      fill="#d9d9d9"
-      stroke="#d9d9d9"
+      fill={colors.gray['300']}
+      stroke={colors.gray['300']}
     />
     <Rect
       x={12.9352}
@@ -23,7 +23,7 @@ const SvgComponent = (props: SvgProps) => (
       y={35.611099}
       width={26.796301}
       height={23.138901}
-      fill="#d9d9d9"
+      fill={colors.gray['300']}
       stroke={props.stroke}
     />
     <Rect
@@ -31,24 +31,24 @@ const SvgComponent = (props: SvgProps) => (
       y={35.611099}
       width={26.796301}
       height={23.138901}
-      fill="#d9d9d9"
+      fill={colors.gray['300']}
       stroke={props.stroke}
     />
-    <Path d="m 33.6481,12.4353 v 7.3148 Z" fill="#d9d9d9" />
-    <Path d="m 46.0833,12.4353 v 7.3148 Z" fill="#d9d9d9" />
+    <Path d="m 33.6481,12.4353 v 7.3148 Z" fill={colors.gray['300']} />
+    <Path d="m 46.0833,12.4353 v 7.3148 Z" fill={colors.gray['300']} />
     <Rect
       x={23.1759}
       y={0.5}
       width={32.648102}
       height={11.4352}
-      fill="#d9d9d9"
+      fill={colors.gray['300']}
       stroke={props.stroke}
     />
     <Circle
       cx={32.5509}
       cy={6.21769}
       r={3.0416701}
-      fill="#eeecec"
+      fill={colors.gray['200']}
       stroke={props.stroke}
       strokeWidth={0.5}
     />
@@ -56,12 +56,22 @@ const SvgComponent = (props: SvgProps) => (
       cx={46.4491}
       cy={6.21769}
       r={3.0416701}
-      fill="#eeecec"
+      fill={colors.gray['200']}
       stroke={props.stroke}
       strokeWidth={0.5}
     />
-    <Circle cx={32.916698} cy={6.5833602} r={2.1944399} fill="#000000" />
-    <Circle cx={46.083302} cy={6.5833602} r={2.1944399} fill="#000000" />
+    <Circle
+      cx={32.916698}
+      cy={6.5833602}
+      r={2.1944399}
+      fill={colors.gray['950']}
+    />
+    <Circle
+      cx={46.083302}
+      cy={6.5833602}
+      r={2.1944399}
+      fill={colors.gray['950']}
+    />
     <Line
       x1={2.1944399}
       y1={38.5186}
@@ -149,13 +159,26 @@ const SvgComponent = (props: SvgProps) => (
  * An icon that shows our robot mascot, Mow-E.
  * Used as the main icon for the mower connections section(s).
  */
-function MowEIcon({size = 24, colored = false}: IconProps): JSX.Element {
+function MowEIcon({
+  size = 24,
+  colored = false,
+  darkModeInverted = false,
+}: IconProps): JSX.Element {
+  const strokeColor = darkModeInverted
+    ? colors.gray['700']
+    : colors.gray['950'];
+  const coloredFillColor = colors.primary.dark;
+  const grayscaleFillColor = darkModeInverted
+    ? colors.gray['400']
+    : colors.gray['300'];
+  const fillColor = colored ? coloredFillColor : grayscaleFillColor;
+
   return (
     <SvgComponent
       height={size}
       width={size}
-      stroke="#000000"
-      fill={colored ? colors.iconGreenDark : colors.iconGrayscaleLight}
+      stroke={strokeColor}
+      fill={fillColor}
     />
   );
 }

@@ -9,11 +9,10 @@ import ImageHistoryPage from '../../pages/ImageHistoryPage';
 import CameraIcon from '../../assets/icons/CameraIcon';
 import React, {useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
-import colors from '../../styles/colors';
+import useIsInDarkMode from '../../hooks/useIsInDarkMode';
+import getStyles from './LayoutAndNavigation.style';
 
 const Tab = createBottomTabNavigator();
-
-const SHOW_TAB_BAR_LABELS: boolean = true;
 
 /**
  * Properties an icon in the bottom navigation bar can accept.
@@ -37,37 +36,79 @@ interface TabBarIconFactoryProps {
  */
 function LayoutAndNavigation(): JSX.Element {
   const {t} = useTranslation();
+  const isInDarkMode = useIsInDarkMode();
+  const styles = getStyles(isInDarkMode);
 
   const createMapIcon = useCallback<
     (props: TabBarIconFactoryProps) => JSX.Element
-  >(({size, focused}) => <MapIcon size={size * 1.2} colored={focused} />, []);
+  >(
+    ({size, focused}) => (
+      <MapIcon
+        size={size * 1.2}
+        colored={focused}
+        darkModeInverted={isInDarkMode}
+      />
+    ),
+    [isInDarkMode],
+  );
 
   const createMowerConnectionsIcon = useCallback<
     (props: TabBarIconFactoryProps) => JSX.Element
-  >(({size, focused}) => <MowEIcon size={size * 1.2} colored={focused} />, []);
+  >(
+    ({size, focused}) => (
+      <MowEIcon
+        size={size * 1.2}
+        colored={focused}
+        darkModeInverted={isInDarkMode}
+      />
+    ),
+    [isInDarkMode],
+  );
 
   const createSettingsIcon = useCallback<
     (props: TabBarIconFactoryProps) => JSX.Element
-  >(({size, focused}) => <CogsIcon size={size * 1.2} colored={focused} />, []);
+  >(
+    ({size, focused}) => (
+      <CogsIcon
+        size={size * 1.2}
+        colored={focused}
+        darkModeInverted={isInDarkMode}
+      />
+    ),
+    [isInDarkMode],
+  );
 
   const createImageHistoryIcon = useCallback<
     (props: TabBarIconFactoryProps) => JSX.Element
   >(
-    ({size, focused}) => <CameraIcon size={size * 1.2} colored={focused} />,
-    [],
+    ({size, focused}) => (
+      <CameraIcon
+        size={size * 1.2}
+        colored={focused}
+        darkModeInverted={isInDarkMode}
+      />
+    ),
+    [isInDarkMode],
   );
 
   return (
-    <Tab.Navigator initialRouteName="map">
+    <Tab.Navigator
+      initialRouteName="map"
+      screenOptions={{
+        tabBarShowLabel: true,
+        tabBarActiveTintColor: styles.tabBarActiveTintColor.color,
+        headerStyle: styles.headerStyle,
+        headerTitleStyle: styles.headerTitleStyle,
+        tabBarStyle: styles.tabBarStyle,
+      }}
+      sceneContainerStyle={styles.sceneContainerStyle}>
       <Tab.Screen
         name="map"
         component={MapPage}
         options={{
           headerTitle: t('routes.map.headerTitle')!,
           tabBarLabel: t('routes.map.tabBarLabel')!,
-          tabBarShowLabel: SHOW_TAB_BAR_LABELS,
           tabBarIcon: createMapIcon,
-          tabBarActiveTintColor: colors.iconPurpleDark,
         }}
       />
       <Tab.Screen
@@ -76,9 +117,7 @@ function LayoutAndNavigation(): JSX.Element {
         options={{
           headerTitle: t('routes.mowerConnections.headerTitle')!,
           tabBarLabel: t('routes.mowerConnections.tabBarLabel')!,
-          tabBarShowLabel: SHOW_TAB_BAR_LABELS,
           tabBarIcon: createMowerConnectionsIcon,
-          tabBarActiveTintColor: colors.iconPurpleDark,
         }}
       />
       <Tab.Screen
@@ -87,9 +126,7 @@ function LayoutAndNavigation(): JSX.Element {
         options={{
           headerTitle: t('routes.settings.headerTitle')!,
           tabBarLabel: t('routes.settings.tabBarLabel')!,
-          tabBarShowLabel: SHOW_TAB_BAR_LABELS,
           tabBarIcon: createSettingsIcon,
-          tabBarActiveTintColor: colors.iconPurpleDark,
         }}
       />
       <Tab.Screen
@@ -98,9 +135,7 @@ function LayoutAndNavigation(): JSX.Element {
         options={{
           headerTitle: t('routes.imageHistory.headerTitle')!,
           tabBarLabel: t('routes.imageHistory.tabBarLabel')!,
-          tabBarShowLabel: SHOW_TAB_BAR_LABELS,
           tabBarIcon: createImageHistoryIcon,
-          tabBarActiveTintColor: colors.iconPurpleDark,
         }}
       />
     </Tab.Navigator>
