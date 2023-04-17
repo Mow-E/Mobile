@@ -1,0 +1,24 @@
+{
+  "routes": {
+    "map": {
+      "headerTitle": "Mow-E Map",
+      "tabBarLabel": "Map",
+      "pagePlaceholder": "Map placeholder"
+    },
+    "mowerConnections": {
+      "headerTitle": "Mower Connections",
+      "tabBarLabel": "Mower",
+      "pagePlaceholder": "Mower connections placeholder"
+    },
+    "settings": {
+      "headerTitle": "Settings",
+      "tabBarLabel": "Settings",
+      "pagePlaceholder": "Settings placeholder"
+    },
+    "imageHistory": {
+      "headerTitle": "Image History",
+      "tabBarLabel": "Images",
+      "pagePlaceholder": "Image history placeholder"
+    }
+  }
+}

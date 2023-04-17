@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="69.470993"
+   height="67.297112"
+   viewBox="0 0 69.470993 67.297112"
+   fill="none"
+   version="1.1"
+   id="svg26"
+   sodipodi:docname="Map Icon.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs30" />
+  <sodipodi:namedview
+     id="namedview28"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="3.4705882"
+     inkscape:cx="34.864407"
+     inkscape:cy="34"
+     inkscape:window-width="1269"
+     inkscape:window-height="456"
+     inkscape:window-x="171"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg26" />
+  <line
+     y1="26.296127"
+     x2="0.85401821"
+     y2="67.291687"
+     stroke="#000000"
+     id="line2"
+     x1="1.3100156" />
+  <line
+     y1="17.829628"
+     x2="68.51503"
+     y2="58.825188"
+     stroke="#000000"
+     id="line4"
+     x1="68.971024" />
+  <line
+     y1="26.296127"
+     x2="45.963028"
+     y2="67.291687"
+     stroke="#000000"
+     id="line6"
+     x1="46.419025" />
+  <line
+     y1="17.829628"
+     x2="23.410929"
+     y2="58.825188"
+     stroke="#000000"
+     id="line8"
+     x1="23.866926" />
+  <line
+     y1="25.82403"
+     x2="23.182575"
+     y2="17.357529"
+     stroke="#000000"
+     id="line10"
+     x1="0.63054752"
+     style="stroke-width:0.999984" />
+  <line
+     y1="17.356358"
+     x2="46.090553"
+     y2="25.822845"
+     stroke="#000000"
+     id="line12"
+     x1="23.087475"
+     style="stroke-width:0.999984" />
+  <line
+     y1="26.273958"
+     x2="68.869011"
+     y2="17.80747"
+     stroke="#000000"
+     id="line14"
+     x1="45.865936"
+     style="stroke-width:0.999984" />
+  <line
+     y1="66.819733"
+     x2="22.731525"
+     y2="58.35323"
+     stroke="#000000"
+     id="line16"
+     x1="0.1794975"
+     style="stroke-width:0.999984" />
+  <line
+     y1="58.352058"
+     x2="46.090553"
+     y2="66.818542"
+     stroke="#000000"
+     id="line18"
+     x1="23.087475"
+     style="stroke-width:0.999984" />
+  <line
+     y1="66.819733"
+     x2="68.286682"
+     y2="58.35323"
+     stroke="#000000"
+     id="line20"
+     x1="45.734657"
+     style="stroke-width:0.999984" />
+  <circle
+     cx="34.412552"
+     cy="14.1218"
+     r="14.1218"
+     fill="#ad2727"
+     id="circle22" />
+  <path
+     d="m 34.116455,42.4782 -13.6445,-24.5226 27.7313,0.2453 z"
+     fill="#ad2727"
+     id="path24" />
+</svg>
