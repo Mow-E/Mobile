@@ -10,7 +10,7 @@ import CameraIcon from '../../assets/icons/CameraIcon';
 import React, {useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
 import useIsInDarkMode from '../../hooks/useIsInDarkMode';
-import getStyles from './LayoutAndNavigation.style';
+import useStyles from '../../hooks/useStyles';
 
 const Tab = createBottomTabNavigator();
 
@@ -37,7 +37,7 @@ interface TabBarIconFactoryProps {
 function LayoutAndNavigation(): JSX.Element {
   const {t} = useTranslation();
   const isInDarkMode = useIsInDarkMode();
-  const styles = getStyles(isInDarkMode);
+  const styles = useStyles();
 
   const createMapIcon = useCallback<
     (props: TabBarIconFactoryProps) => JSX.Element
@@ -96,12 +96,12 @@ function LayoutAndNavigation(): JSX.Element {
       initialRouteName="map"
       screenOptions={{
         tabBarShowLabel: true,
-        tabBarActiveTintColor: styles.tabBarActiveTintColor.color,
-        headerStyle: styles.headerStyle,
-        headerTitleStyle: styles.headerTitleStyle,
-        tabBarStyle: styles.tabBarStyle,
+        tabBarActiveTintColor: styles.layoutTabBarActiveTintColor.color,
+        headerStyle: styles.layoutHeaderStyle,
+        headerTitleStyle: styles.layoutHeaderTitleStyle,
+        tabBarStyle: styles.layoutTabBarStyle,
       }}
-      sceneContainerStyle={styles.sceneContainerStyle}>
+      sceneContainerStyle={styles.layoutSceneContainerStyle}>
       <Tab.Screen
         name="map"
         component={MapPage}
