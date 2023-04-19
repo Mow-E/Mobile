@@ -107,8 +107,8 @@ function LayoutAndNavigation(): JSX.Element {
         name="Map"
         component={MapPage}
         options={{
-          headerTitle: t('routes.map.headerTitle')!,
-          tabBarLabel: t('routes.map.tabBarLabel')!,
+          title: t('routes.map.headerTitle') ?? undefined,
+          tabBarLabel: t('routes.map.tabBarLabel') ?? undefined,
           tabBarIcon: createMapIcon,
         }}
       />
@@ -116,8 +116,8 @@ function LayoutAndNavigation(): JSX.Element {
         name="MowerConnections"
         component={MowerConnectionsPage}
         options={{
-          headerTitle: t('routes.mowerConnections.headerTitle')!,
-          tabBarLabel: t('routes.mowerConnections.tabBarLabel')!,
+          title: t('routes.mowerConnections.headerTitle') ?? undefined,
+          tabBarLabel: t('routes.mowerConnections.tabBarLabel') ?? undefined,
           tabBarIcon: createMowerConnectionsIcon,
         }}
       />
@@ -125,8 +125,8 @@ function LayoutAndNavigation(): JSX.Element {
         name="Settings"
         component={SettingsPage}
         options={{
-          headerTitle: t('routes.settings.headerTitle')!,
-          tabBarLabel: t('routes.settings.tabBarLabel')!,
+          title: t('routes.settings.headerTitle') ?? undefined,
+          tabBarLabel: t('routes.settings.tabBarLabel') ?? undefined,
           tabBarIcon: createSettingsIcon,
         }}
       />
@@ -134,8 +134,8 @@ function LayoutAndNavigation(): JSX.Element {
         name="ImageHistory"
         component={ImageHistoryPage}
         options={{
-          headerTitle: t('routes.imageHistory.headerTitle')!,
-          tabBarLabel: t('routes.imageHistory.tabBarLabel')!,
+          title: t('routes.imageHistory.headerTitle') ?? undefined,
+          tabBarLabel: t('routes.imageHistory.tabBarLabel') ?? undefined,
           tabBarIcon: createImageHistoryIcon,
         }}
       />
