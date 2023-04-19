@@ -18,8 +18,8 @@ const colors = {
     dark: '#ad2727',
   },
   primary: {
-    light: '#a8c7a9',
-    dark: '#258e75',
+    light: '#8DDFA9',
+    dark: '#24B655',
   },
   secondary: {
     light: '#9092bd',

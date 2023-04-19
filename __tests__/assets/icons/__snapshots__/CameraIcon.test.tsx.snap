@@ -12,8 +12,8 @@ exports[`renders colored correctly 1`] = `
   meetOrSlice={0}
   minX={0}
   minY={0}
-  primaryColor="#258e75"
-  secondaryColor="#a8c7a9"
+  primaryColor="#24B655"
+  secondaryColor="#8DDFA9"
   stroke="#000000"
   style={
     [
@@ -50,7 +50,7 @@ exports[`renders colored correctly 1`] = `
     <RNSVGRect
       fill={
         {
-          "payload": 4280651381,
+          "payload": 4280596053,
           "type": 0,
         }
       }
@@ -76,7 +76,7 @@ exports[`renders colored correctly 1`] = `
       cy="33.562572"
       fill={
         {
-          "payload": 4289251241,
+          "payload": 4287487913,
           "type": 0,
         }
       }
@@ -213,7 +213,7 @@ exports[`renders colored correctly 1`] = `
       d="m 50.1754,0.75557355 -0.3779,0.43643995 -6.0166,6.94736 -0.7165,0.82733 H 70.0144 l -0.3779,-0.43643995 -6.0166,-6.94736 -0.7165,-0.82733 Z"
       fill={
         {
-          "payload": 4280651381,
+          "payload": 4280596053,
           "type": 0,
         }
       }

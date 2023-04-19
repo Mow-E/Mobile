@@ -5,7 +5,7 @@ exports[`renders colored correctly 1`] = `
   align="xMidYMid"
   bbHeight="24"
   bbWidth="24"
-  fill="#258e75"
+  fill="#24B655"
   focusable={false}
   height={24}
   meetOrSlice={0}
@@ -32,7 +32,7 @@ exports[`renders colored correctly 1`] = `
   <RNSVGGroup
     fill={
       {
-        "payload": 4280651381,
+        "payload": 4280596053,
         "type": 0,
       }
     }
@@ -73,7 +73,7 @@ exports[`renders colored correctly 1`] = `
     <RNSVGRect
       fill={
         {
-          "payload": 4280651381,
+          "payload": 4280596053,
           "type": 0,
         }
       }
