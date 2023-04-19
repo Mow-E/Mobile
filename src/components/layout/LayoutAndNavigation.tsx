@@ -11,8 +11,9 @@ import React, {useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
 import useIsInDarkMode from '../../hooks/useIsInDarkMode';
 import useStyles from '../../hooks/useStyles';
+import {RootRoutes} from '../../pages/navigation';
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<RootRoutes>();
 
 /**
  * Properties an icon in the bottom navigation bar can accept.
@@ -93,7 +94,7 @@ function LayoutAndNavigation(): JSX.Element {
 
   return (
     <Tab.Navigator
-      initialRouteName="map"
+      initialRouteName="Map"
       screenOptions={{
         tabBarShowLabel: true,
         tabBarActiveTintColor: styles.layoutTabBarActiveTintColor.color,
@@ -103,7 +104,7 @@ function LayoutAndNavigation(): JSX.Element {
       }}
       sceneContainerStyle={styles.layoutSceneContainerStyle}>
       <Tab.Screen
-        name="map"
+        name="Map"
         component={MapPage}
         options={{
           headerTitle: t('routes.map.headerTitle')!,
@@ -112,7 +113,7 @@ function LayoutAndNavigation(): JSX.Element {
         }}
       />
       <Tab.Screen
-        name="mower-connections"
+        name="MowerConnections"
         component={MowerConnectionsPage}
         options={{
           headerTitle: t('routes.mowerConnections.headerTitle')!,
@@ -121,7 +122,7 @@ function LayoutAndNavigation(): JSX.Element {
         }}
       />
       <Tab.Screen
-        name="settings"
+        name="Settings"
         component={SettingsPage}
         options={{
           headerTitle: t('routes.settings.headerTitle')!,
@@ -130,7 +131,7 @@ function LayoutAndNavigation(): JSX.Element {
         }}
       />
       <Tab.Screen
-        name="image-history"
+        name="ImageHistory"
         component={ImageHistoryPage}
         options={{
           headerTitle: t('routes.imageHistory.headerTitle')!,
