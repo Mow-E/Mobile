@@ -6,9 +6,20 @@
       "pagePlaceholder": "Map placeholder"
     },
     "mowerConnections": {
-      "headerTitle": "Mower Connections",
       "tabBarLabel": "Mower",
-      "pagePlaceholder": "Mower connections placeholder"
+      "mowerConnectionsList": {
+        "headerTitle": "Mower Connections",
+        "activeConnection": {
+          "heading": "Connection",
+          "noActiveConnection": "No connection"
+        },
+        "availableConnections": {
+          "heading": "Other Mowers Found"
+        },
+        "drivingMode": {
+          "heading": "Driving Mode"
+        }
+      }
     },
     "settings": {
       "headerTitle": "Settings",
@@ -19,6 +30,11 @@
       "headerTitle": "Image History",
       "tabBarLabel": "Images",
       "pagePlaceholder": "Image history placeholder"
+    }
+  },
+  "layout": {
+    "header": {
+      "back": "Back"
     }
   }
 }

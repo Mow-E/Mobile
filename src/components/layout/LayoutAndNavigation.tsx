@@ -116,9 +116,9 @@ function LayoutAndNavigation(): JSX.Element {
         name="MowerConnections"
         component={MowerConnectionsPage}
         options={{
-          title: t('routes.mowerConnections.headerTitle') ?? undefined,
           tabBarLabel: t('routes.mowerConnections.tabBarLabel') ?? undefined,
           tabBarIcon: createMowerConnectionsIcon,
+          headerShown: false,
         }}
       />
       <Tab.Screen
