@@ -23,6 +23,12 @@ it('renders uncolored correctly', () => {
   expect(tree).toMatchSnapshot();
 });
 
+it('renders in dark mode correctly', () => {
+  const tree = renderer.create(<CameraIcon darkModeInverted />).toJSON();
+
+  expect(tree).toMatchSnapshot();
+});
+
 it('renders in different sizes', () => {
   const treeSmall = renderer.create(<CameraIcon size={24} />).toJSON();
   const treeLarge = renderer.create(<CameraIcon size={48} />).toJSON();

@@ -23,6 +23,12 @@ it('renders uncolored correctly', () => {
   expect(tree).toMatchSnapshot();
 });
 
+it('renders in dark mode correctly', () => {
+  const tree = renderer.create(<MapIcon darkModeInverted />).toJSON();
+
+  expect(tree).toMatchSnapshot();
+});
+
 it('renders in different sizes', () => {
   const treeSmall = renderer.create(<MapIcon size={24} />).toJSON();
   const treeLarge = renderer.create(<MapIcon size={48} />).toJSON();
