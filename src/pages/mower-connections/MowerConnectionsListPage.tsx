@@ -51,8 +51,7 @@ function MowerModeSelection(): JSX.Element {
   return (
     <SectionWithHeading
       heading={
-        t('routes.mowerConnections.mowerConnectionsList.drivingMode.heading') ??
-        undefined
+        t('routes.mowerConnections.mowerConnectionsList.drivingMode.heading')!
       }>
       <ModeSelect
         activeMode={activeMode}
@@ -123,7 +122,7 @@ function MowerConnectionsListPage({
         heading={
           t(
             'routes.mowerConnections.mowerConnectionsList.activeConnection.heading',
-          ) ?? undefined
+          )!
         }>
         <View style={styles.border}>
           <ActiveMowerConnectionListItem
@@ -135,7 +134,7 @@ function MowerConnectionsListPage({
         heading={
           t(
             'routes.mowerConnections.mowerConnectionsList.availableConnections.heading',
-          ) ?? undefined
+          )!
         }>
         <AvailableMowerConnectionsList
           availableConnections={availableConnectionsWithoutActiveOne}

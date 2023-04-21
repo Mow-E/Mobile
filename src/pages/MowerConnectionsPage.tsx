@@ -25,16 +25,14 @@ function MowerConnectionsPage(): JSX.Element {
         headerTitleStyle: styles.layoutHeaderTitleStyle,
         headerTintColor: colors.secondary.light,
         cardStyle: styles.layoutSceneContainerStyle,
-        headerBackTitle: t('layout.header.back') ?? undefined,
+        headerBackTitle: t('layout.header.back')!,
         animationTypeForReplace: 'pop',
       }}>
       <Stack.Screen
         name="MowerConnectionsList"
         component={MowerConnectionsListPage}
         options={{
-          title:
-            t('routes.mowerConnections.mowerConnectionsList.headerTitle') ??
-            undefined,
+          title: t('routes.mowerConnections.mowerConnectionsList.headerTitle')!,
         }}
       />
       <Stack.Screen
