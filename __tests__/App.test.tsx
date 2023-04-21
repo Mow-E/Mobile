@@ -1,17 +1,17 @@
 import 'react-native';
 import React from 'react';
 import App from '../src/App';
-import * as useIsInDarkMode from '../src/hooks/useIsInDarkMode';
 
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
+import {setToDarkMode} from '../jest/utils';
 
 it('renders correctly', () => {
   renderer.create(<App />);
 });
 
 it('renders correctly in dark mode', () => {
-  jest.spyOn(useIsInDarkMode, 'default').mockImplementation(() => true);
+  setToDarkMode();
 
   renderer.create(<App />);
 });
