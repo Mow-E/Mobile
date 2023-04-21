@@ -15,28 +15,7 @@ import AvailableMowerConnectionsList from '../../components/mower-connections/Av
 import AutomaticModeIcon from '../../assets/icons/AutomaticModeIcon';
 import useIsInDarkMode from '../../hooks/useIsInDarkMode';
 import ManualModeIcon from '../../assets/icons/ManualModeIcon';
-
-/**
- * Some dummy mower connections to use until the actual connections can be fetched.
- */
-const DUMMY_AVAILABLE_CONNECTIONS: MowerConnection[] = [
-  {
-    id: 0,
-    name: 'Mow-E',
-  },
-  {
-    id: 1,
-    name: 'Shaun the Sheep',
-  },
-  {
-    id: 2,
-    name: 'David Mowie',
-  },
-  {
-    id: 3,
-    name: 'Garden Gangster',
-  },
-];
+import useAvailableMowerConnections from '../../hooks/useAvailableMowerConnections';
 
 /**
  * Section that allows the selection of the mower mode, which is either 'automatic' or 'manual'.
@@ -89,9 +68,7 @@ function MowerConnectionsListPage({
   MowerConnectionsRoutes,
   'MowerConnectionsList'
 >): JSX.Element {
-  const [availableConnections] = useState<MowerConnection[]>(
-    DUMMY_AVAILABLE_CONNECTIONS,
-  );
+  const {availableConnections} = useAvailableMowerConnections();
   const {activeConnection, setActiveConnection} = useActiveMowerConnection();
   const {t} = useTranslation();
   const styles = useStyles();
