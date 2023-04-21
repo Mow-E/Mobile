@@ -25,9 +25,7 @@ function ActiveMowerConnectionListItem({
   const {activeConnection} = useActiveMowerConnection();
 
   const handleOpenInfo = useCallback(() => {
-    if (activeConnection) {
-      onOpenConnectionInfo(activeConnection);
-    }
+    activeConnection && onOpenConnectionInfo(activeConnection);
   }, [activeConnection, onOpenConnectionInfo]);
 
   return (
