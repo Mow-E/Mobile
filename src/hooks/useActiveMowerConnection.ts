@@ -27,7 +27,7 @@ interface ActiveMowerConnectionContextType {
    *
    * @param connection the new connection to set active.
    */
-  setActiveConnection: (connection: MowerConnection | null) => void;
+  setActiveConnection?: (connection: MowerConnection | null) => void;
 }
 
 /**
@@ -36,7 +36,6 @@ interface ActiveMowerConnectionContextType {
 export const ActiveMowerConnectionContext =
   createContext<ActiveMowerConnectionContextType>({
     activeConnection: null,
-    setActiveConnection: () => {},
   });
 
 /**

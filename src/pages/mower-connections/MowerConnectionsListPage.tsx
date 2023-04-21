@@ -97,6 +97,10 @@ function MowerConnectionsListPage({
   const {t} = useTranslation();
   const styles = useStyles();
 
+  const handleSelectConnection = useCallback<
+    (connection: MowerConnection) => void
+  >(connection => setActiveConnection?.(connection), [setActiveConnection]);
+
   const handleOpenConnectionInfo = useCallback<
     (connection: MowerConnection) => void
   >(
@@ -135,7 +139,7 @@ function MowerConnectionsListPage({
         }>
         <AvailableMowerConnectionsList
           availableConnections={availableConnectionsWithoutActiveOne}
-          onSelectConnection={setActiveConnection}
+          onSelectConnection={handleSelectConnection}
           onOpenConnectionInfo={handleOpenConnectionInfo}
         />
       </SectionWithHeading>
