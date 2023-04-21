@@ -34,6 +34,7 @@ function ActiveMowerConnectionListItem({
     <MowerConnectionListItem
       item={activeConnection}
       onOpenInfo={handleOpenInfo}
+      infoTestID="openActiveConnectionInfo"
     />
   );
 }

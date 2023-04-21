@@ -25,6 +25,7 @@ interface MowerConnectionListItemProps {
    * Called when the connection information of the item should be opened.
    */
   onOpenInfo?: () => void;
+  infoTestID?: string;
 }
 
 /**
@@ -34,6 +35,7 @@ function MowerConnectionListItem({
   item,
   onSelectItem,
   onOpenInfo,
+  infoTestID,
 }: MowerConnectionListItemProps): JSX.Element {
   const {t} = useTranslation();
   const styles = useStyles();
@@ -46,7 +48,12 @@ function MowerConnectionListItem({
             'routes.mowerConnections.mowerConnectionsList.activeConnection.noActiveConnection',
           )}
       </Text>
-      {item && <MowerConnectionInfoButton onOpenInfo={onOpenInfo} />}
+      {item && (
+        <MowerConnectionInfoButton
+          onOpenInfo={onOpenInfo}
+          testID={infoTestID}
+        />
+      )}
     </Pressable>
   );
 }

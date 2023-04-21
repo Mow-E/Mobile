@@ -47,6 +47,7 @@ function AvailableMowerConnectionsList({
           item={item}
           onSelectItem={() => onSelectConnection(item)}
           onOpenInfo={() => onOpenConnectionInfo(item)}
+          infoTestID={`openConnectionInfo-${item.id}`}
         />
       )}
     />

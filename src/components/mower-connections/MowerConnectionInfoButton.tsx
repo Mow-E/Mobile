@@ -16,6 +16,7 @@ interface MowerConnectionInfoButtonProps {
    * Called when the button is pressed.
    */
   onOpenInfo?: () => void;
+  testID?: string;
 }
 
 /**
@@ -23,11 +24,12 @@ interface MowerConnectionInfoButtonProps {
  */
 function MowerConnectionInfoButton({
   onOpenInfo,
+  testID,
 }: MowerConnectionInfoButtonProps): JSX.Element {
   const isInDarkMode = useIsInDarkMode();
 
   return (
-    <Pressable onPress={onOpenInfo}>
+    <Pressable onPress={onOpenInfo} testID={testID}>
       <InfoIcon size={INFO_ICON_SIZE} darkModeInverted={isInDarkMode} />
     </Pressable>
   );
