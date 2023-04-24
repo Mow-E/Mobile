@@ -25,6 +25,9 @@ const colors = {
     light: '#9092bd',
     dark: '#2f3163',
   },
+  opacitySuffix: {
+    '70%': 'B3',
+  },
 };
 
 export default colors;
