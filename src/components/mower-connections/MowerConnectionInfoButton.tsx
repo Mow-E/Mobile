@@ -1,7 +1,8 @@
 import React from 'react';
-import {Pressable} from 'react-native';
+import {Pressable, StyleSheet} from 'react-native';
 import useIsInDarkMode from '../../hooks/useIsInDarkMode';
 import InfoIcon from '../../assets/icons/InfoIcon';
+import spacing from '../../styles/spacing';
 
 /**
  * The (for now) fixed size of the info icon.
@@ -29,10 +30,23 @@ function MowerConnectionInfoButton({
   const isInDarkMode = useIsInDarkMode();
 
   return (
-    <Pressable onPress={onOpenInfo} testID={testID}>
+    <Pressable
+      onPress={onOpenInfo}
+      testID={testID}
+      style={componentStyles.button}>
       <InfoIcon size={INFO_ICON_SIZE} darkModeInverted={isInDarkMode} />
     </Pressable>
   );
 }
+
+/**
+ * The individual styles for this component.
+ */
+const componentStyles = StyleSheet.create({
+  button: {
+    justifyContent: 'center',
+    padding: spacing.sm,
+  },
+});
 
 export default MowerConnectionInfoButton;

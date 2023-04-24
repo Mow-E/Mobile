@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.gray['700'],
   },
   modeButton: {
-    paddingVertical: spacing.s,
+    paddingVertical: spacing.sm,
     paddingHorizontal: spacing.m,
   },
   activeModeButtonBackground: {

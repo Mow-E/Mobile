@@ -1,5 +1,5 @@
 import React from 'react';
-import {Pressable, StyleSheet, Text} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {MowerConnection} from '../../hooks/useActiveMowerConnection';
 import {useTranslation} from 'react-i18next';
 import useStyles from '../../hooks/useStyles';
@@ -41,20 +41,22 @@ function MowerConnectionListItem({
   const styles = useStyles();
 
   return (
-    <Pressable onPress={onSelectItem} style={componentStyles.button}>
-      <Text style={styles.textNormal}>
-        {item?.name ??
-          t(
-            'routes.mowerConnections.mowerConnectionsList.activeConnection.noActiveConnection',
-          )}
-      </Text>
+    <View style={componentStyles.container}>
+      <Pressable onPress={onSelectItem} style={componentStyles.label}>
+        <Text style={styles.textNormal}>
+          {item?.name ??
+            t(
+              'routes.mowerConnections.mowerConnectionsList.activeConnection.noActiveConnection',
+            )}
+        </Text>
+      </Pressable>
       {item && (
         <MowerConnectionInfoButton
           onOpenInfo={onOpenInfo}
           testID={infoTestID}
         />
       )}
-    </Pressable>
+    </View>
   );
 }
 
@@ -62,14 +64,17 @@ function MowerConnectionListItem({
  * The individual styles for this component.
  */
 const componentStyles = StyleSheet.create({
-  button: {
-    padding: spacing.s,
+  container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     // This provides an even height for all list items, even if some have no info button
     // height = info + (2 * padding)
-    height: INFO_ICON_SIZE + 2 * spacing.s,
+    height: INFO_ICON_SIZE + 2 * spacing.sm,
+  },
+  label: {
+    padding: spacing.sm,
+    flexGrow: 1,
   },
 });
 
