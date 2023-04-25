@@ -1,0 +1,49 @@
+{
+  "routes": {
+    "map": {
+      "headerTitle": "Mow-E Karta",
+      "tabBarLabel": "Karta",
+      "pagePlaceholder": "Platshållare för karta"
+    },
+    "mowerConnections": {
+      "tabBarLabel": "Slåttermaskin",
+      "mowerConnectionsList": {
+        "headerTitle": "Anslutningar för gräsklippare",
+        "activeConnection": {
+          "heading": "Anslutning",
+          "noActiveConnection": "Ingen anslutning"
+        },
+        "availableConnections": {
+          "heading": "Andra gräsklippare som hittats",
+          "connectingLabel": "Anslutning av..."
+        },
+        "drivingMode": {
+          "heading": "Körläge"
+        }
+      },
+      "mowerConnectionDetails": {
+        "information": {
+          "heading": "Information",
+          "serialNumber": "Serielnummer",
+          "modelName": "Modellnamn",
+          "modelNumber": "Modellnummer"
+        }
+      }
+    },
+    "settings": {
+      "headerTitle": "Inställningar",
+      "tabBarLabel": "Inställningar",
+      "pagePlaceholder": "Platshållare för inställningar"
+    },
+    "imageHistory": {
+      "headerTitle": "Bildhistorik",
+      "tabBarLabel": "Bild",
+      "pagePlaceholder": "Platshållare för Bildhistorik"
+    }
+  },
+  "layout": {
+    "header": {
+      "back": "Tillbaka"
+    }
+  }
+}

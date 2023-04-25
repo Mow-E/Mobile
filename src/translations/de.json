@@ -1,0 +1,49 @@
+{
+  "routes": {
+    "map": {
+      "headerTitle": "Mow-E Karte",
+      "tabBarLabel": "Karte",
+      "pagePlaceholder": "Karten Platzhalter"
+    },
+    "mowerConnections": {
+      "tabBarLabel": "Rasenmäher",
+      "mowerConnectionsList": {
+        "headerTitle": "Rasenmäher Verbindungen",
+        "activeConnection": {
+          "heading": "Verbindungen",
+          "noActiveConnection": "Keine Verbindung"
+        },
+        "availableConnections": {
+          "heading": "Andere gefundene Rasenmäher",
+          "connectingLabel": "Verbindet..."
+        },
+        "drivingMode": {
+          "heading": "Fahrmodus"
+        }
+      },
+      "mowerConnectionDetails": {
+        "information": {
+          "heading": "Information",
+          "serialNumber": "Seriennummer",
+          "modelName": "Modelname",
+          "modelNumber": "Modelnummer"
+        }
+      }
+    },
+    "settings": {
+      "headerTitle": "Einstellungen",
+      "tabBarLabel": "Einstellungen",
+      "pagePlaceholder": "Einstellungen Platzhalter"
+    },
+    "imageHistory": {
+      "headerTitle": "Image History",
+      "tabBarLabel": "Bilder",
+      "pagePlaceholder": "Image history placeholder"
+    }
+  },
+  "layout": {
+    "header": {
+      "back": "Zurück"
+    }
+  }
+}
