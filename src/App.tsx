@@ -17,18 +17,30 @@ const DUMMY_AVAILABLE_CONNECTIONS: MowerConnection[] = [
   {
     id: 0,
     name: 'Mow-E',
+    serialNumber: 463208951,
+    modelName: 'Automower 310 Mark II',
+    modelNumber: 'AM5369841',
   },
   {
     id: 1,
     name: 'Shaun the Sheep',
+    serialNumber: 463208951,
+    modelName: 'Automower 310 Mark II',
+    modelNumber: 'AM5369841',
   },
   {
     id: 2,
     name: 'David Mowie',
+    serialNumber: 463208951,
+    modelName: 'Automower 310 Mark II',
+    modelNumber: 'AM5369841',
   },
   {
     id: 3,
     name: 'Garden Gangster',
+    serialNumber: 463208951,
+    modelName: 'Automower 310 Mark II',
+    modelNumber: 'AM5369841',
   },
 ];
 

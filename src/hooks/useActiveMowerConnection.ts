@@ -12,6 +12,18 @@ export interface MowerConnection {
    * The name of the mower.
    */
   name: string;
+  /**
+   * Serial number of Mower.
+   */
+  serialNumber: number;
+  /**
+   * Model name of Mower
+   */
+  modelName: string;
+  /**
+   * Model number of Mower
+   */
+  modelNumber: string;
 }
 
 /**

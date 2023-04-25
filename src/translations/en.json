@@ -20,6 +20,14 @@
         "drivingMode": {
           "heading": "Driving Mode"
         }
+      },
+      "mowerConnectionDetails": {
+        "information": {
+          "heading": "Information",
+          "serialNumber": "Serial Number",
+          "modelName": "Model Name",
+          "modelNumber": "Model Number"
+        }
       }
     },
     "settings": {
