@@ -16,6 +16,7 @@ import AutomaticModeIcon from '../../assets/icons/AutomaticModeIcon';
 import useIsInDarkMode from '../../hooks/useIsInDarkMode';
 import ManualModeIcon from '../../assets/icons/ManualModeIcon';
 import useAvailableMowerConnections from '../../hooks/useAvailableMowerConnections';
+import ConnectingToMowerOverlay from '../../components/mower-connections/ConnectingToMowerOverlay';
 
 /**
  * Section that allows the selection of the mower mode, which is either 'automatic' or 'manual'.
@@ -70,12 +71,24 @@ function MowerConnectionsListPage({
 >): JSX.Element {
   const {availableConnections} = useAvailableMowerConnections();
   const {activeConnection, setActiveConnection} = useActiveMowerConnection();
+  const [connectingToMower, setConnectingToMower] = useState<boolean>(false);
   const {t} = useTranslation();
   const styles = useStyles();
 
   const handleSelectConnection = useCallback<
     (connection: MowerConnection) => void
-  >(connection => setActiveConnection?.(connection), [setActiveConnection]);
+  >(
+    connection => {
+      setConnectingToMower(true);
+
+      // TODO: extract to bluetooth service
+      setTimeout(() => {
+        setActiveConnection?.(connection);
+        setConnectingToMower(false);
+      }, 3_000);
+    },
+    [setActiveConnection],
+  );
 
   const handleOpenConnectionInfo = useCallback<
     (connection: MowerConnection) => void
@@ -90,37 +103,44 @@ function MowerConnectionsListPage({
   );
 
   return (
-    <View
-      style={[
-        styles.flexColumn,
-        {marginTop: spacing.xxl, marginHorizontal: spacing.l, gap: spacing.xl},
-      ]}>
-      <SectionWithHeading
-        heading={
-          t(
-            'routes.mowerConnections.mowerConnectionsList.activeConnection.heading',
-          )!
-        }>
-        <View style={styles.border}>
-          <ActiveMowerConnectionListItem
+    <>
+      <ConnectingToMowerOverlay visible={connectingToMower} />
+      <View
+        style={[
+          styles.flexColumn,
+          {
+            marginTop: spacing.xxl,
+            marginHorizontal: spacing.l,
+            gap: spacing.xl,
+          },
+        ]}>
+        <SectionWithHeading
+          heading={
+            t(
+              'routes.mowerConnections.mowerConnectionsList.activeConnection.heading',
+            )!
+          }>
+          <View style={styles.border}>
+            <ActiveMowerConnectionListItem
+              onOpenConnectionInfo={handleOpenConnectionInfo}
+            />
+          </View>
+        </SectionWithHeading>
+        <SectionWithHeading
+          heading={
+            t(
+              'routes.mowerConnections.mowerConnectionsList.availableConnections.heading',
+            )!
+          }>
+          <AvailableMowerConnectionsList
+            availableConnections={availableConnectionsWithoutActiveOne}
+            onSelectConnection={handleSelectConnection}
             onOpenConnectionInfo={handleOpenConnectionInfo}
           />
-        </View>
-      </SectionWithHeading>
-      <SectionWithHeading
-        heading={
-          t(
-            'routes.mowerConnections.mowerConnectionsList.availableConnections.heading',
-          )!
-        }>
-        <AvailableMowerConnectionsList
-          availableConnections={availableConnectionsWithoutActiveOne}
-          onSelectConnection={handleSelectConnection}
-          onOpenConnectionInfo={handleOpenConnectionInfo}
-        />
-      </SectionWithHeading>
-      <MowerModeSelection />
-    </View>
+        </SectionWithHeading>
+        <MowerModeSelection />
+      </View>
+    </>
   );
 }
 

@@ -14,7 +14,8 @@
           "noActiveConnection": "No connection"
         },
         "availableConnections": {
-          "heading": "Other Mowers Found"
+          "heading": "Other Mowers Found",
+          "connectingLabel": "Connecting..."
         },
         "drivingMode": {
           "heading": "Driving Mode"

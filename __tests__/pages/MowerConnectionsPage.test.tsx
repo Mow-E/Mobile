@@ -3,7 +3,7 @@ import React from 'react';
 import MowerConnectionsPage from '../../src/pages/MowerConnectionsPage';
 
 // Note: test renderer must be required after react-native.
-import {fireEvent, render} from '@testing-library/react-native';
+import {act, fireEvent, render} from '@testing-library/react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {
   ActiveMowerConnectionContext,
@@ -84,7 +84,19 @@ it('selects available connection as active when pressed', () => {
 
   expect(activeConnection).toBeNull();
 
-  fireEvent(getByText('foo'), 'press');
+  act(() => {
+    fireEvent(getByText('foo'), 'press');
+  });
+
+  // Connection is loading
+  expect(activeConnection).toBeNull();
+  expect(getByText('Connecting...')).toBeTruthy();
+
+  act(() => {
+    // Wait for connection to be established - for now just a dummy timeout
+    // TODO: import time value - or mock bluetooth service?
+    jest.advanceTimersByTime(3_000);
+  });
 
   expect(activeConnection).toBe(availableConnections[0]);
 });
