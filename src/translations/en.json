@@ -31,9 +31,17 @@
       }
     },
     "settings": {
-      "headerTitle": "Settings",
       "tabBarLabel": "Settings",
-      "pagePlaceholder": "Settings placeholder"
+      "settingsMain": {
+        "headerTitle": "Settings",
+        "appMode": "App Mode",
+      },
+      "settingsTimeDuration": {
+        "heading": "Time Duration",
+        },
+      "settingsLanguage": {
+        "heading": "Language",
+      },
     },
     "imageHistory": {
       "headerTitle": "Image History",

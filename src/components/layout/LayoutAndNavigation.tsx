@@ -125,9 +125,9 @@ function LayoutAndNavigation(): JSX.Element {
         name="Settings"
         component={SettingsPage}
         options={{
-          title: t('routes.settings.headerTitle')!,
           tabBarLabel: t('routes.settings.tabBarLabel')!,
           tabBarIcon: createSettingsIcon,
+          headerShown: false,
         }}
       />
       <Tab.Screen

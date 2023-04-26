@@ -35,3 +35,21 @@ export type MowerConnectionsRoutes = {
    */
   MowerConnectionDetails: {connection: MowerConnection | null};
 };
+
+/**
+ * The routes inside the "Settings" root route.
+ */
+export type SettingsRoutes = {
+  /**
+   * The screen showing the available settings.
+   */
+  SettingsMain: undefined;
+  /**
+   * The screen is showing the available time durations.
+   */
+  SettingsTimeDuration: undefined;
+  /**
+   * The screen is showing the available languages.
+   */
+  SettingsLanguage: undefined;
+};
