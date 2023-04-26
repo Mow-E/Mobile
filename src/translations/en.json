@@ -42,6 +42,16 @@
       "settingsLanguage": {
         "heading": "Language",
       },
+      "settingsTimeDurationDetails": {
+        "last24Hours": "last 24 hours",
+        "last12Hours": "last 12 hours",
+        "last3Hours": "last 3 hours"
+      },
+      "settingsLanguageDetails": {
+        "en": "English",
+        "de": "German",
+        "sv": "Swedish"
+      }
     },
     "imageHistory": {
       "headerTitle": "Image History",
