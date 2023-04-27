@@ -26,6 +26,11 @@ export const darkModeStyles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: spacing.s,
   },
+  textInputPlaceholder: {
+    color: LIGHT_FONT_COLOR + colors.opacitySuffix['70%'],
+    fontSize: NORMAL_FONT_SIZE,
+    fontWeight: 'normal',
+  },
   border: {
     borderWidth: BORDER_WIDTH,
     borderRadius: BORDER_RADIUS,
@@ -67,6 +72,11 @@ export const lightModeStyles = StyleSheet.create({
     fontSize: HEADING_FONT_SIZE,
     fontWeight: 'bold',
     marginBottom: spacing.s,
+  },
+  textInputPlaceholder: {
+    color: DARK_FONT_COLOR + colors.opacitySuffix['70%'],
+    fontSize: NORMAL_FONT_SIZE,
+    fontWeight: 'normal',
   },
   border: {
     borderWidth: BORDER_WIDTH,

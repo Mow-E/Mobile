@@ -24,6 +24,10 @@ export interface MowerConnection {
    * Model number of Mower
    */
   modelNumber: string;
+  /**
+   * The password of the mower.
+   */
+  password: string;
 }
 
 /**

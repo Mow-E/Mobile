@@ -24,6 +24,7 @@ const DUMMY_AVAILABLE_CONNECTIONS: MowerConnection[] = [
     serialNumber: 463208951,
     modelName: 'Automower 310 Mark II',
     modelNumber: 'AM5369841',
+    password: 'mow-e-123',
   },
   {
     id: 1,
@@ -31,6 +32,7 @@ const DUMMY_AVAILABLE_CONNECTIONS: MowerConnection[] = [
     serialNumber: 800341763,
     modelName: 'Automower 305',
     modelNumber: 'AM2311702',
+    password: 'mähhh1337',
   },
   {
     id: 2,
@@ -38,6 +40,7 @@ const DUMMY_AVAILABLE_CONNECTIONS: MowerConnection[] = [
     serialNumber: 18604774,
     modelName: 'Automower 315 Mark II',
     modelNumber: 'AM5103492',
+    password: 'mowie42',
   },
   {
     id: 3,
@@ -45,6 +48,7 @@ const DUMMY_AVAILABLE_CONNECTIONS: MowerConnection[] = [
     serialNumber: 563170988,
     modelName: 'Automower 430X NERA',
     modelNumber: 'AM4369403',
+    password: 'theyseemerollin',
   },
 ];
 
