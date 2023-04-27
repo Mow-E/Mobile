@@ -55,9 +55,9 @@
       }
     },
     "imageHistory": {
-      "headerTitle": "Bildhistoria",
+      "headerTitle": "Bild historik",
       "tabBarLabel": "Bild",
-      "pagePlaceholder": "Platshållare för Bildhistoria"
+      "pagePlaceholder": "Platshållare för Bildhistorik"
     }
   },
   "layout": {
