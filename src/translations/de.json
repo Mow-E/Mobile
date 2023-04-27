@@ -41,14 +41,14 @@
       "tabBarLabel": "Einstellungen",
       "settingsMain": {
         "headerTitle": "Einstellungen",
-        "appMode": "App Modus",
+        "appMode": "App Modus"
       },
 
       "settingsTimeDuration": {
-        "heading": "Zeitraum",
+        "heading": "Zeitraum"
       },
       "settingsLanguage": {
-        "heading": "Sprache",
+        "heading": "Sprache"
       },
       "settingsTimeDurationDetails": {
         "last24Hours": "letzten 24 Stunden",
