@@ -10,6 +10,7 @@ import {
   MowerConnection,
 } from '../../src/hooks/useActiveMowerConnection';
 import {AvailableMowerConnectionsContext} from '../../src/hooks/useAvailableMowerConnections';
+import {setToDarkMode} from '../../jest/utils';
 
 it('renders correctly', () => {
   render(
@@ -20,7 +21,14 @@ it('renders correctly', () => {
 });
 
 it('renders details page of active connection with connection name in header', () => {
-  const connection: MowerConnection = {id: 'foo', name: 'The Test Mower'};
+  const connection: MowerConnection = {
+    id: 'foo',
+    name: 'The Test Mower',
+    password: 'foo',
+    modelName: 'foo',
+    modelNumber: 'foo',
+    serialNumber: 42,
+  };
 
   const {getByText, getAllByText, getByTestId} = render(
     <NavigationContainer>
@@ -37,8 +45,8 @@ it('renders details page of active connection with connection name in header', (
   fireEvent(getByTestId('openActiveConnectionInfo'), 'press');
 
   expect(getByText('Back')).toBeTruthy();
-  // Name should be present as page title, and for now as dummy page content
-  expect(getAllByText(connection.name)).toHaveLength(2);
+  // Name should be present as page title
+  expect(getAllByText(connection.name)).toHaveLength(1);
 });
 
 it('renders no info button for the active connection if there is none', () => {
@@ -59,10 +67,18 @@ it('selects available connection as active when pressed', () => {
     {
       name: 'foo',
       id: 'foo',
+      password: 'foo',
+      modelName: 'foo',
+      modelNumber: 'foo',
+      serialNumber: 42,
     },
     {
       name: 'bar',
       id: 'bar',
+      password: 'bar',
+      modelName: 'bar',
+      modelNumber: 'bar',
+      serialNumber: 17,
     },
   ];
 
@@ -101,15 +117,108 @@ it('selects available connection as active when pressed', () => {
   expect(activeConnection).toBe(availableConnections[0]);
 });
 
+it('disconnects active connection when disconnect button is pressed', () => {
+  const connection: MowerConnection = {
+    id: 'foo',
+    name: 'The Foo Mowers',
+    password: 'foo',
+    modelName: 'foo',
+    modelNumber: 'foo',
+    serialNumber: 42,
+  };
+
+  let activeConnection: MowerConnection | null = connection;
+
+  const {getByTestId} = render(
+    <NavigationContainer>
+      <ActiveMowerConnectionContext.Provider
+        value={{
+          activeConnection,
+          setActiveConnection: newConnection => {
+            activeConnection = newConnection;
+          },
+        }}>
+        <MowerConnectionsPage />
+      </ActiveMowerConnectionContext.Provider>
+    </NavigationContainer>,
+  );
+
+  fireEvent(getByTestId('openActiveConnectionInfo'), 'press');
+  fireEvent(getByTestId('disconnectActiveMowerButton'), 'press');
+
+  expect(activeConnection).toBeNull();
+});
+
+it('shows and hides mower password when show/hide button is pressed', () => {
+  const activeConnection: MowerConnection = {
+    id: 'foo',
+    name: 'The Foo Mowers',
+    password: 'foo-pass',
+    modelName: 'foo',
+    modelNumber: 'foo',
+    serialNumber: 42,
+  };
+
+  const {getByTestId, queryByText} = render(
+    <NavigationContainer>
+      <ActiveMowerConnectionContext.Provider
+        value={{
+          activeConnection,
+        }}>
+        <MowerConnectionsPage />
+      </ActiveMowerConnectionContext.Provider>
+    </NavigationContainer>,
+  );
+
+  fireEvent(getByTestId('openActiveConnectionInfo'), 'press');
+  fireEvent(getByTestId('showHidePasswordButton'), 'press');
+
+  expect(queryByText(activeConnection.password)).toBeFalsy();
+});
+
+it('renders details page in dark mode', () => {
+  setToDarkMode();
+
+  const activeConnection: MowerConnection = {
+    id: 'foo',
+    name: 'The Foo Mowers',
+    password: 'foo-pass',
+    modelName: 'foo',
+    modelNumber: 'foo',
+    serialNumber: 42,
+  };
+
+  const {getByTestId} = render(
+    <NavigationContainer>
+      <ActiveMowerConnectionContext.Provider
+        value={{
+          activeConnection,
+        }}>
+        <MowerConnectionsPage />
+      </ActiveMowerConnectionContext.Provider>
+    </NavigationContainer>,
+  );
+
+  fireEvent(getByTestId('openActiveConnectionInfo'), 'press');
+});
+
 it('renders details page of inactive connection with connection name in header', () => {
   const availableConnections: MowerConnection[] = [
     {
-      name: 'foo',
+      name: 'The Foo Mowers',
       id: 'foo',
+      password: 'foo',
+      modelName: 'foo',
+      modelNumber: 'foo',
+      serialNumber: 42,
     },
     {
-      name: 'bar',
+      name: 'Bar and Mow',
       id: 'bar',
+      password: 'bar',
+      modelName: 'bar',
+      modelNumber: 'bar',
+      serialNumber: 17,
     },
   ];
 
@@ -127,11 +236,11 @@ it('renders details page of inactive connection with connection name in header',
   );
 
   // Name should be present as inactive connection
-  expect(getByText('foo')).toBeTruthy();
+  expect(getByText('The Foo Mowers')).toBeTruthy();
 
   fireEvent(getByTestId('openConnectionInfo-foo'), 'press');
 
   expect(getByText('Back')).toBeTruthy();
-  // Name should be present as page title, and for now as dummy page content
-  expect(getAllByText('foo')).toHaveLength(2);
+  // Name should be present as page title
+  expect(getAllByText('The Foo Mowers')).toHaveLength(1);
 });

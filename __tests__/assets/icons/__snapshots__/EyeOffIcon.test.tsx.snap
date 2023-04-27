@@ -1,0 +1,521 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders colored correctly 1`] = `
+<RNSVGSvgView
+  align="xMidYMid"
+  bbHeight="24"
+  bbWidth="24"
+  fill="none"
+  focusable={false}
+  height={24}
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
+  stroke="#000000"
+  style={
+    [
+      {
+        "backgroundColor": "transparent",
+        "borderWidth": 0,
+      },
+      {
+        "flex": 0,
+        "height": 24,
+        "width": 24,
+      },
+    ]
+  }
+  vbHeight={23}
+  vbWidth={39}
+  width={24}
+>
+  <RNSVGGroup
+    fill={null}
+    propList={
+      [
+        "fill",
+        "stroke",
+      ]
+    }
+    stroke={
+      {
+        "payload": 4278190080,
+        "type": 0,
+      }
+    }
+  >
+    <RNSVGCircle
+      cx="19.5"
+      cy="12.5"
+      fill={
+        {
+          "payload": 4294967295,
+          "type": 0,
+        }
+      }
+      propList={
+        [
+          "fill",
+          "stroke",
+        ]
+      }
+      r="8"
+      stroke={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+    />
+    <RNSVGCircle
+      cx="19.5"
+      cy="12.5"
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+      propList={
+        [
+          "fill",
+        ]
+      }
+      r="5.5"
+    />
+    <RNSVGPath
+      d="M6.28571 7.79858C4.02141 9.34465 1 12.3729 1 12.3729C1 12.3729 3.98596 15.5874 6.28571 17.2014C9.00758 19.1117 10.7114 20.1181 13.95 21.0134C18.5128 22.2748 21.5778 22.3819 26.1071 21.0134C29.1484 20.0945 30.7491 19.1109 33.2429 17.2014C35.356 15.5834 38 12.3729 38 12.3729C38 12.3729 35.3188 9.34702 33.2429 7.79858C30.724 5.91977 29.1484 4.90548 26.1071 3.98661C21.5778 2.61814 18.5128 2.7252 13.95 3.98661C10.7114 4.88193 9.03326 5.92255 6.28571 7.79858Z"
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+      propList={
+        [
+          "stroke",
+        ]
+      }
+      stroke={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+    />
+    <RNSVGLine
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+      propList={
+        [
+          "stroke",
+        ]
+      }
+      stroke={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+      x1="4.30219"
+      x2="33.3022"
+      y1="0.601654"
+      y2="22.6017"
+    />
+  </RNSVGGroup>
+</RNSVGSvgView>
+`;
+
+exports[`renders default correctly 1`] = `
+<RNSVGSvgView
+  align="xMidYMid"
+  bbHeight="24"
+  bbWidth="24"
+  fill="none"
+  focusable={false}
+  height={24}
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
+  stroke="#000000"
+  style={
+    [
+      {
+        "backgroundColor": "transparent",
+        "borderWidth": 0,
+      },
+      {
+        "flex": 0,
+        "height": 24,
+        "width": 24,
+      },
+    ]
+  }
+  vbHeight={23}
+  vbWidth={39}
+  width={24}
+>
+  <RNSVGGroup
+    fill={null}
+    propList={
+      [
+        "fill",
+        "stroke",
+      ]
+    }
+    stroke={
+      {
+        "payload": 4278190080,
+        "type": 0,
+      }
+    }
+  >
+    <RNSVGCircle
+      cx="19.5"
+      cy="12.5"
+      fill={
+        {
+          "payload": 4294967295,
+          "type": 0,
+        }
+      }
+      propList={
+        [
+          "fill",
+          "stroke",
+        ]
+      }
+      r="8"
+      stroke={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+    />
+    <RNSVGCircle
+      cx="19.5"
+      cy="12.5"
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+      propList={
+        [
+          "fill",
+        ]
+      }
+      r="5.5"
+    />
+    <RNSVGPath
+      d="M6.28571 7.79858C4.02141 9.34465 1 12.3729 1 12.3729C1 12.3729 3.98596 15.5874 6.28571 17.2014C9.00758 19.1117 10.7114 20.1181 13.95 21.0134C18.5128 22.2748 21.5778 22.3819 26.1071 21.0134C29.1484 20.0945 30.7491 19.1109 33.2429 17.2014C35.356 15.5834 38 12.3729 38 12.3729C38 12.3729 35.3188 9.34702 33.2429 7.79858C30.724 5.91977 29.1484 4.90548 26.1071 3.98661C21.5778 2.61814 18.5128 2.7252 13.95 3.98661C10.7114 4.88193 9.03326 5.92255 6.28571 7.79858Z"
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+      propList={
+        [
+          "stroke",
+        ]
+      }
+      stroke={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+    />
+    <RNSVGLine
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+      propList={
+        [
+          "stroke",
+        ]
+      }
+      stroke={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+      x1="4.30219"
+      x2="33.3022"
+      y1="0.601654"
+      y2="22.6017"
+    />
+  </RNSVGGroup>
+</RNSVGSvgView>
+`;
+
+exports[`renders in dark mode correctly 1`] = `
+<RNSVGSvgView
+  align="xMidYMid"
+  bbHeight="24"
+  bbWidth="24"
+  fill="none"
+  focusable={false}
+  height={24}
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
+  stroke="#ffffff"
+  style={
+    [
+      {
+        "backgroundColor": "transparent",
+        "borderWidth": 0,
+      },
+      {
+        "flex": 0,
+        "height": 24,
+        "width": 24,
+      },
+    ]
+  }
+  vbHeight={23}
+  vbWidth={39}
+  width={24}
+>
+  <RNSVGGroup
+    fill={null}
+    propList={
+      [
+        "fill",
+        "stroke",
+      ]
+    }
+    stroke={
+      {
+        "payload": 4294967295,
+        "type": 0,
+      }
+    }
+  >
+    <RNSVGCircle
+      cx="19.5"
+      cy="12.5"
+      fill={
+        {
+          "payload": 4294967295,
+          "type": 0,
+        }
+      }
+      propList={
+        [
+          "fill",
+          "stroke",
+        ]
+      }
+      r="8"
+      stroke={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+    />
+    <RNSVGCircle
+      cx="19.5"
+      cy="12.5"
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+      propList={
+        [
+          "fill",
+        ]
+      }
+      r="5.5"
+    />
+    <RNSVGPath
+      d="M6.28571 7.79858C4.02141 9.34465 1 12.3729 1 12.3729C1 12.3729 3.98596 15.5874 6.28571 17.2014C9.00758 19.1117 10.7114 20.1181 13.95 21.0134C18.5128 22.2748 21.5778 22.3819 26.1071 21.0134C29.1484 20.0945 30.7491 19.1109 33.2429 17.2014C35.356 15.5834 38 12.3729 38 12.3729C38 12.3729 35.3188 9.34702 33.2429 7.79858C30.724 5.91977 29.1484 4.90548 26.1071 3.98661C21.5778 2.61814 18.5128 2.7252 13.95 3.98661C10.7114 4.88193 9.03326 5.92255 6.28571 7.79858Z"
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+      propList={
+        [
+          "stroke",
+        ]
+      }
+      stroke={
+        {
+          "payload": 4294967295,
+          "type": 0,
+        }
+      }
+    />
+    <RNSVGLine
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+      propList={
+        [
+          "stroke",
+        ]
+      }
+      stroke={
+        {
+          "payload": 4294967295,
+          "type": 0,
+        }
+      }
+      x1="4.30219"
+      x2="33.3022"
+      y1="0.601654"
+      y2="22.6017"
+    />
+  </RNSVGGroup>
+</RNSVGSvgView>
+`;
+
+exports[`renders uncolored correctly 1`] = `
+<RNSVGSvgView
+  align="xMidYMid"
+  bbHeight="24"
+  bbWidth="24"
+  fill="none"
+  focusable={false}
+  height={24}
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
+  stroke="#000000"
+  style={
+    [
+      {
+        "backgroundColor": "transparent",
+        "borderWidth": 0,
+      },
+      {
+        "flex": 0,
+        "height": 24,
+        "width": 24,
+      },
+    ]
+  }
+  vbHeight={23}
+  vbWidth={39}
+  width={24}
+>
+  <RNSVGGroup
+    fill={null}
+    propList={
+      [
+        "fill",
+        "stroke",
+      ]
+    }
+    stroke={
+      {
+        "payload": 4278190080,
+        "type": 0,
+      }
+    }
+  >
+    <RNSVGCircle
+      cx="19.5"
+      cy="12.5"
+      fill={
+        {
+          "payload": 4294967295,
+          "type": 0,
+        }
+      }
+      propList={
+        [
+          "fill",
+          "stroke",
+        ]
+      }
+      r="8"
+      stroke={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+    />
+    <RNSVGCircle
+      cx="19.5"
+      cy="12.5"
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+      propList={
+        [
+          "fill",
+        ]
+      }
+      r="5.5"
+    />
+    <RNSVGPath
+      d="M6.28571 7.79858C4.02141 9.34465 1 12.3729 1 12.3729C1 12.3729 3.98596 15.5874 6.28571 17.2014C9.00758 19.1117 10.7114 20.1181 13.95 21.0134C18.5128 22.2748 21.5778 22.3819 26.1071 21.0134C29.1484 20.0945 30.7491 19.1109 33.2429 17.2014C35.356 15.5834 38 12.3729 38 12.3729C38 12.3729 35.3188 9.34702 33.2429 7.79858C30.724 5.91977 29.1484 4.90548 26.1071 3.98661C21.5778 2.61814 18.5128 2.7252 13.95 3.98661C10.7114 4.88193 9.03326 5.92255 6.28571 7.79858Z"
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+      propList={
+        [
+          "stroke",
+        ]
+      }
+      stroke={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+    />
+    <RNSVGLine
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+      propList={
+        [
+          "stroke",
+        ]
+      }
+      stroke={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+      x1="4.30219"
+      x2="33.3022"
+      y1="0.601654"
+      y2="22.6017"
+    />
+  </RNSVGGroup>
+</RNSVGSvgView>
+`;

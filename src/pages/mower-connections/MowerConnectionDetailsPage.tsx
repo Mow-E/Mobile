@@ -72,6 +72,7 @@ function MowerConnectionDetailsPage({
       {activeConnection?.id === connection?.id && (
         <Pressable
           onPress={() => setActiveConnection?.(null)}
+          testID="disconnectActiveMowerButton"
           style={[
             styles.border,
             componentStyles.container,
@@ -111,6 +112,7 @@ function MowerConnectionDetailsPage({
           />
           <Pressable
             onPress={() => setPasswordVisible(prevState => !prevState)}
+            testID="showHidePasswordButton"
             style={componentStyles.button}>
             {passwordVisible ? (
               <EyeOffIcon
