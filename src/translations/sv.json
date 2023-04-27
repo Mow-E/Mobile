@@ -31,14 +31,33 @@
       }
     },
     "settings": {
-      "headerTitle": "Inställningar",
       "tabBarLabel": "Inställningar",
-      "pagePlaceholder": "Platshållare för inställningar"
+      "settingsMain": {
+        "headerTitle": "Inställningar",
+        "appMode": "App-läge"
+      },
+
+      "settingsTimeDuration": {
+        "heading": "Tid Varaktighet"
+      },
+      "settingsLanguage": {
+        "heading": "Språk"
+      },
+      "settingsTimeDurationDetails": {
+        "last24Hours": "Senaste 24 timmarna",
+        "last12Hours": "Senaste 12 timmarna",
+        "last3Hours": "Senaste 3 timmarna"
+      },
+      "settingsLanguageDetails": {
+        "en": "Engelska",
+        "de": "Tyska",
+        "sv": "Svenska"
+      }
     },
     "imageHistory": {
-      "headerTitle": "Bildhistorik",
+      "headerTitle": "Bildhistoria",
       "tabBarLabel": "Bild",
-      "pagePlaceholder": "Platshållare för Bildhistorik"
+      "pagePlaceholder": "Platshållare för Bildhistoria"
     }
   },
   "layout": {

@@ -2,6 +2,8 @@ import React from 'react';
 import {Pressable, StyleSheet, View} from 'react-native';
 import spacing from '../../styles/spacing';
 import {INFO_ICON_SIZE} from '../mower-connections/MowerConnectionInfoButton';
+import ArrowForwardIcon from '../../assets/icons/ArrowForwardIcon';
+import useIsInDarkMode from '../../hooks/useIsInDarkMode';
 
 /**
  * The properties for <SubpageNavigationButton />.
@@ -24,11 +26,18 @@ function SubpageNavigationButton({
   item,
   onSelectItem,
 }: SubpageNavigationButtonProps): JSX.Element {
+  const isInDarkMode = useIsInDarkMode();
   return (
     <View style={componentStyles.container}>
       <Pressable onPress={onSelectItem} style={componentStyles.label}>
         {item}
       </Pressable>
+      <View style={componentStyles.button}>
+        <ArrowForwardIcon
+          size={INFO_ICON_SIZE}
+          darkModeInverted={isInDarkMode}
+        />
+      </View>
     </View>
   );
 }
@@ -48,6 +57,10 @@ const componentStyles = StyleSheet.create({
   label: {
     padding: spacing.sm,
     flexGrow: 1,
+  },
+  button: {
+    justifyContent: 'center',
+    padding: spacing.sm,
   },
 });
 

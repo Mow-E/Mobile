@@ -31,9 +31,28 @@
       }
     },
     "settings": {
-      "headerTitle": "Einstellungen",
       "tabBarLabel": "Einstellungen",
-      "pagePlaceholder": "Einstellungen Platzhalter"
+      "settingsMain": {
+        "headerTitle": "Einstellungen",
+        "appMode": "App Modus",
+      },
+
+      "settingsTimeDuration": {
+        "heading": "Zeitraum",
+      },
+      "settingsLanguage": {
+        "heading": "Sprache",
+      },
+      "settingsTimeDurationDetails": {
+        "last24Hours": "letzten 24 Stunden",
+        "last12Hours": "letzten 12 Stunden",
+        "last3Hours": "letzten 3 Stunden"
+      },
+      "settingsLanguageDetails": {
+        "en": "Englisch",
+        "de": "Deutsch",
+        "sv": "Schwedisch"
+      }
     },
     "imageHistory": {
       "headerTitle": "Image History",

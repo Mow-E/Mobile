@@ -9,6 +9,10 @@ import {
   MowerConnection,
 } from './hooks/useActiveMowerConnection';
 import {AvailableMowerConnectionsContext} from './hooks/useAvailableMowerConnections';
+import {
+  ShowablePathTimeDuration,
+  ShowablePathTimeDurationContext,
+} from './hooks/useShowablePathTimeDuration';
 
 /**
  * Some dummy mower connections to use until the actual connections can be fetched.
@@ -54,6 +58,8 @@ function App(): JSX.Element {
     MowerConnection[]
   >(DUMMY_AVAILABLE_CONNECTIONS);
   const isDarkMode = useIsInDarkMode();
+  const [showablePathTimeDuration, setShowablePathTimeDuration] =
+    useState<ShowablePathTimeDuration>(ShowablePathTimeDuration.h24);
 
   return (
     <NavigationContainer>
@@ -67,8 +73,16 @@ function App(): JSX.Element {
             activeConnection: activeMowerConnection,
             setActiveConnection: setActiveMowerConnection,
           }}>
-          <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-          <LayoutAndNavigation />
+          <ShowablePathTimeDurationContext.Provider
+            value={{
+              timeDuration: showablePathTimeDuration,
+              setTimeDuration: setShowablePathTimeDuration,
+            }}>
+            <StatusBar
+              barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+            />
+            <LayoutAndNavigation />
+          </ShowablePathTimeDurationContext.Provider>
         </ActiveMowerConnectionContext.Provider>
       </AvailableMowerConnectionsContext.Provider>
     </NavigationContainer>

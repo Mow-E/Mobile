@@ -11,12 +11,46 @@ import ModeSelect from '../../components/common/ModeSelect';
 import LightModeIcon from '../../assets/icons/LightModeIcon';
 import AutomaticLightDarkModeIcon from '../../assets/icons/AutomaticLightDarkModeIcon';
 import DarkModeIcon from '../../assets/icons/DarkModeIcon';
+import useShowablePathTimeDuration, {
+  ShowablePathTimeDuration,
+} from '../../hooks/useShowablePathTimeDuration';
 
 function SettingsMainPage({
   navigation,
 }: StackScreenProps<SettingsRoutes, 'SettingsMain'>): JSX.Element {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
   const styles = useStyles();
+  const {timeDuration} = useShowablePathTimeDuration();
+  let currentTimeDuration = '';
+  switch (timeDuration) {
+    case ShowablePathTimeDuration.h24:
+      currentTimeDuration = t(
+        'routes.settings.settingsTimeDurationDetails.last24Hours',
+      )!;
+      break;
+    case ShowablePathTimeDuration.h12:
+      currentTimeDuration = t(
+        'routes.settings.settingsTimeDurationDetails.last12Hours',
+      )!;
+      break;
+    case ShowablePathTimeDuration.h3:
+      currentTimeDuration = t(
+        'routes.settings.settingsTimeDurationDetails.last3Hours',
+      )!;
+      break;
+  }
+  let currentLanguage = '';
+  switch (i18n.language) {
+    case 'en':
+      currentLanguage = t('routes.settings.settingsLanguageDetails.en')!;
+      break;
+    case 'de':
+      currentLanguage = t('routes.settings.settingsLanguageDetails.de')!;
+      break;
+    case 'sv':
+      currentLanguage = t('routes.settings.settingsLanguageDetails.sv')!;
+      break;
+  }
 
   return (
     <View
@@ -32,7 +66,7 @@ function SettingsMainPage({
         heading={t('routes.settings.settingsTimeDuration.heading')!}>
         <View style={styles.border}>
           <SubpageNavigationButton
-            item={<Text style={styles.textNormal}>last 24 hours</Text>}
+            item={<Text style={styles.textNormal}>{currentTimeDuration}</Text>}
             onSelectItem={() => navigation.navigate('SettingsTimeDuration')}
           />
         </View>
@@ -41,7 +75,7 @@ function SettingsMainPage({
         heading={t('routes.settings.settingsLanguage.heading')!}>
         <View style={styles.border}>
           <SubpageNavigationButton
-            item={<Text style={styles.textNormal}>English</Text>}
+            item={<Text style={styles.textNormal}>{currentLanguage}</Text>}
             onSelectItem={() => navigation.navigate('SettingsLanguage')}
           />
         </View>
