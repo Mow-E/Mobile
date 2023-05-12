@@ -72,6 +72,11 @@
       "headerTitle": "Bild historik",
       "tabBarLabel": "Bild",
       "pagePlaceholder": "Platshållare för Bildhistorik"
+    },
+    "login": {
+      "loginMain": {
+        "headerTitle": "Mow-E Inloggning"
+      }
     }
   },
   "layout": {

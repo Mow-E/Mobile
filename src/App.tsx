@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import LayoutAndNavigation from './components/layout/LayoutAndNavigation';
 import './i18n.config';
@@ -30,12 +30,14 @@ import useStorageService, {
 } from './hooks/useStorageService';
 import {useTranslation} from 'react-i18next';
 import {CurrentUser, CurrentUserContext} from './hooks/useCurrentUser';
+import LoginPage from './pages/LoginPage';
 
 /**
  * The Mow-E Mobile app. Renders the complete application.
  */
 function App(): JSX.Element {
-  const [currentUser] = useState<CurrentUser | null>(null);
+  // TODO: it would make sense to store the user on the device and load it again on app startup
+  const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
   const [activeMowerConnection, setActiveMowerConnection] =
     useState<MowerConnection | null>(null);
   const [availableMowerConnections, setAvailableMowerConnections] = useState<
@@ -139,10 +141,26 @@ function App(): JSX.Element {
     [storageService],
   );
 
+  const currentUserContextValue = useMemo(
+    () => ({currentUser, setCurrentUser}),
+    [currentUser],
+  );
+
+  if (currentUser === null) {
+    return (
+      <NavigationContainer>
+        <CurrentUserContext.Provider value={currentUserContextValue}>
+          <StatusBar />
+          <LoginPage />
+        </CurrentUserContext.Provider>
+      </NavigationContainer>
+    );
+  }
+
   try {
     return (
       <NavigationContainer>
-        <CurrentUserContext.Provider value={currentUser}>
+        <CurrentUserContext.Provider value={currentUserContextValue}>
           <ErrorStateContext.Provider value={{errorState, setErrorState}}>
             <AppColorModeContext.Provider
               value={{

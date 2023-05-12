@@ -53,3 +53,21 @@ export type SettingsRoutes = {
    */
   SettingsLanguage: undefined;
 };
+
+/**
+ * The routes for the login behaviour.
+ */
+export type LoginRoutes = {
+  /**
+   * The screen showing the login form if no user is logged-in.
+   */
+  LoginMain: {
+    onNewCurrentUser: undefined;
+  };
+  /**
+   * The screen showing the user registration form.
+   */
+  LoginRegister: {
+    onNewCurrentUser: undefined;
+  };
+};

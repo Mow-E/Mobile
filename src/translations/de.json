@@ -72,6 +72,11 @@
       "headerTitle": "Image History",
       "tabBarLabel": "Bilder",
       "pagePlaceholder": "Image history placeholder"
+    },
+    "login": {
+      "loginMain": {
+        "headerTitle": "Mow-E Anmeldung"
+      }
     }
   },
   "layout": {

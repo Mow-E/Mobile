@@ -1,35 +1,39 @@
-import React, {useState} from 'react';
-import {View, TextInput, Button} from 'react-native';
+import React from 'react';
+import {createStackNavigator} from '@react-navigation/stack';
 import useStyles from '../hooks/useStyles';
-import useLoginFunction from '../ApiCalls';
+import {LoginRoutes} from './navigation';
+import LoginMainPage from './login/LoginMainPage';
+import {useTranslation} from 'react-i18next';
+import colors from '../styles/colors';
+
+const Stack = createStackNavigator<LoginRoutes>();
 
 /**
- * The page for user login.
+ * The pages for user login and registration.
  */
 function LoginPage(): JSX.Element {
   const styles = useStyles();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
-  const HandleLogin = () => {
-    useLoginFunction(username, password);
-  };
+  const {t} = useTranslation();
 
   return (
-    <View style={styles.centeredContent}>
-      <TextInput
-        placeholder="Username"
-        value={username}
-        onChangeText={text => setUsername(text)}
+    <Stack.Navigator
+      initialRouteName="LoginMain"
+      screenOptions={{
+        headerStyle: styles.layoutHeaderStyle,
+        headerTitleStyle: styles.layoutHeaderTitleStyle,
+        headerTintColor: colors.secondary.light,
+        cardStyle: styles.layoutSceneContainerStyle,
+        headerBackTitle: t('layout.header.back')!,
+        animationTypeForReplace: 'pop',
+      }}>
+      <Stack.Screen
+        name="LoginMain"
+        component={LoginMainPage}
+        options={{
+          title: t('routes.login.loginMain.headerTitle')!,
+        }}
       />
-      <TextInput
-        placeholder="Password"
-        secureTextEntry={true}
-        value={password}
-        onChangeText={text => setPassword(text)}
-      />
-      <Button title="Login" onPress={HandleLogin} />
-    </View>
+    </Stack.Navigator>
   );
 }
 
