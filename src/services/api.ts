@@ -1,5 +1,5 @@
 /** The base url of the API */
-const BASE_URL = 'http://49.12.44.36:8080';
+const BASE_URL = 'http://mow-e.me:8080';
 /** The url to the login endpoint */
 export const LOGIN_URL = `${BASE_URL}/auth/login`;
 
