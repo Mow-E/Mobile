@@ -1,6 +1,3 @@
-import {Text, View} from 'react-native';
-import React, {useEffect} from 'react';
-
 const baseApi = 'http://49.12.44.36:8080';
 const loginApi = `${baseApi}/auth/login`;
 
@@ -22,21 +19,8 @@ const fetchLoginData = async (username: string, password: string) => {
   }
 };
 
-interface LoginFunctionProps {
-  username: string;
-  password: string;
-}
-
-function useLoginFunction({username, password}: LoginFunctionProps) {
-  useEffect(() => {
-    fetchLoginData(username, password);
-  }, [username, password]);
-
-  return (
-    <View>
-      <Text>MapPage</Text>
-    </View>
-  );
+function useLoginFunction(username: string, password: string) {
+  fetchLoginData(username, password);
 }
 
 export default useLoginFunction;
