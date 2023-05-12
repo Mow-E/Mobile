@@ -29,11 +29,13 @@ import useStorageService, {
   SHOWABLE_TIME_DURATION_STORAGE_KEY,
 } from './hooks/useStorageService';
 import {useTranslation} from 'react-i18next';
+import {CurrentUser, CurrentUserContext} from './hooks/useCurrentUser';
 
 /**
  * The Mow-E Mobile app. Renders the complete application.
  */
 function App(): JSX.Element {
+  const [currentUser] = useState<CurrentUser | null>(null);
   const [activeMowerConnection, setActiveMowerConnection] =
     useState<MowerConnection | null>(null);
   const [availableMowerConnections, setAvailableMowerConnections] = useState<
@@ -140,42 +142,44 @@ function App(): JSX.Element {
   try {
     return (
       <NavigationContainer>
-        <ErrorStateContext.Provider value={{errorState, setErrorState}}>
-          <AppColorModeContext.Provider
-            value={{
-              appColorMode,
-              setAppColorMode: handleAppColorModeChange,
-            }}>
-            <AvailableMowerConnectionsContext.Provider
+        <CurrentUserContext.Provider value={currentUser}>
+          <ErrorStateContext.Provider value={{errorState, setErrorState}}>
+            <AppColorModeContext.Provider
               value={{
-                availableConnections: availableMowerConnections,
-                setAvailableConnections: setAvailableMowerConnections,
+                appColorMode,
+                setAppColorMode: handleAppColorModeChange,
               }}>
-              <ActiveMowerConnectionContext.Provider
+              <AvailableMowerConnectionsContext.Provider
                 value={{
-                  activeConnection: activeMowerConnection,
-                  setActiveConnection: setActiveMowerConnection,
+                  availableConnections: availableMowerConnections,
+                  setAvailableConnections: setAvailableMowerConnections,
                 }}>
-                <MowerModeContext.Provider
-                  value={{mowerMode, setMowerMode: handleMowerModeChange}}>
-                  <ShowablePathTimeDurationContext.Provider
-                    value={{
-                      timeDuration: showablePathTimeDuration,
-                      setTimeDuration: handleShowableTimeDurationChange,
-                    }}>
-                    <StatusBar />
-                    <LayoutAndNavigation />
-                    <ErrorOverlay
-                      text={errorState ?? ''}
-                      visible={errorState !== null}
-                      onClose={() => setErrorState(null)}
-                    />
-                  </ShowablePathTimeDurationContext.Provider>
-                </MowerModeContext.Provider>
-              </ActiveMowerConnectionContext.Provider>
-            </AvailableMowerConnectionsContext.Provider>
-          </AppColorModeContext.Provider>
-        </ErrorStateContext.Provider>
+                <ActiveMowerConnectionContext.Provider
+                  value={{
+                    activeConnection: activeMowerConnection,
+                    setActiveConnection: setActiveMowerConnection,
+                  }}>
+                  <MowerModeContext.Provider
+                    value={{mowerMode, setMowerMode: handleMowerModeChange}}>
+                    <ShowablePathTimeDurationContext.Provider
+                      value={{
+                        timeDuration: showablePathTimeDuration,
+                        setTimeDuration: handleShowableTimeDurationChange,
+                      }}>
+                      <StatusBar />
+                      <LayoutAndNavigation />
+                      <ErrorOverlay
+                        text={errorState ?? ''}
+                        visible={errorState !== null}
+                        onClose={() => setErrorState(null)}
+                      />
+                    </ShowablePathTimeDurationContext.Provider>
+                  </MowerModeContext.Provider>
+                </ActiveMowerConnectionContext.Provider>
+              </AvailableMowerConnectionsContext.Provider>
+            </AppColorModeContext.Provider>
+          </ErrorStateContext.Provider>
+        </CurrentUserContext.Provider>
       </NavigationContainer>
     );
   } catch (e: unknown) {
