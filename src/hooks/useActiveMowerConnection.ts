@@ -7,7 +7,7 @@ export interface MowerConnection {
   /**
    * A unique id representing the mower.
    */
-  id: string | number;
+  id: string;
   /**
    * The name of the mower.
    */
@@ -15,19 +15,19 @@ export interface MowerConnection {
   /**
    * Serial number of Mower.
    */
-  serialNumber: number;
+  serialNumber?: number;
   /**
    * Model name of Mower
    */
-  modelName: string;
+  modelName?: string;
   /**
    * Model number of Mower
    */
-  modelNumber: string;
+  modelNumber?: string;
   /**
    * The password of the mower.
    */
-  password: string;
+  password?: string;
 }
 
 /**
@@ -43,7 +43,7 @@ interface ActiveMowerConnectionContextType {
    *
    * @param connection the new connection to set active.
    */
-  setActiveConnection?: (connection: MowerConnection | null) => void;
+  setActiveConnection: (connection: MowerConnection | null) => void;
 }
 
 /**
@@ -52,6 +52,7 @@ interface ActiveMowerConnectionContextType {
 export const ActiveMowerConnectionContext =
   createContext<ActiveMowerConnectionContextType>({
     activeConnection: null,
+    setActiveConnection: () => {},
   });
 
 /**
