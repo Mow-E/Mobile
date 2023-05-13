@@ -9,8 +9,16 @@ export async function startBluetoothService(): Promise<void> {
 export async function disconnect(
   mowerConnection: MowerConnection,
 ): Promise<MowerConnection> {
-  await BleManager.disconnect(mowerConnection.id);
-  console.debug(`[ble] disconnected from ${mowerConnection.id}`);
+  if (mowerConnection.bluetoothInfos === undefined) {
+    throw new Error(
+      `Cannot disconnect from mower ${mowerConnection.id} because there are no bluetooth infos about it`,
+    );
+  }
+
+  await BleManager.disconnect(mowerConnection.bluetoothInfos.id);
+  console.debug(
+    `[ble] disconnected from ${mowerConnection.id} with bluetooth id ${mowerConnection.bluetoothInfos.id}`,
+  );
 
   return mowerConnection;
 }

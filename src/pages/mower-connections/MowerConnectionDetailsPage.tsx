@@ -47,19 +47,19 @@ function MowerConnectionDetailsPage({
         label: t(
           'routes.mowerConnections.mowerConnectionDetails.information.serialNumber',
         )!,
-        value: connection?.serialNumber,
+        value: connection?.mowerInfos?.serialNumber,
       },
       {
         label: t(
           'routes.mowerConnections.mowerConnectionDetails.information.modelName',
         )!,
-        value: connection?.modelName,
+        value: connection?.mowerInfos?.modelName,
       },
       {
         label: t(
           'routes.mowerConnections.mowerConnectionDetails.information.modelNumber',
         )!,
-        value: connection?.modelNumber,
+        value: connection?.mowerInfos?.modelNumber,
       },
     ],
     [t, connection],

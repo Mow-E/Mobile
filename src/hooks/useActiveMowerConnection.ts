@@ -13,21 +13,43 @@ export interface MowerConnection {
    */
   name: string;
   /**
-   * Serial number of Mower.
-   */
-  serialNumber?: number;
-  /**
-   * Model name of Mower
-   */
-  modelName?: string;
-  /**
-   * Model number of Mower
-   */
-  modelNumber?: string;
-  /**
    * The password of the mower.
    */
   password?: string;
+  /**
+   * General domain infos about the mower.
+   */
+  mowerInfos: {
+    /**
+     * Serial number of Mower.
+     */
+    serialNumber: number;
+    /**
+     * Model name of Mower
+     */
+    modelName: string;
+    /**
+     * Model number of Mower
+     */
+    modelNumber: string;
+  };
+  /**
+   * Bluetooth infos about the mower device.
+   */
+  bluetoothInfos?: {
+    /**
+     * The id of the bluetooth connection (not the mower-id).
+     */
+    id: string;
+    /**
+     * The available services advertised by the bluetooth device.
+     */
+    serviceIds: string[];
+    /**
+     * The available characteristics advertised by the bluetooth device.
+     */
+    characteristicIds: string[];
+  };
 }
 
 /**

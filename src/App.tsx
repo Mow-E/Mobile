@@ -22,34 +22,42 @@ const DUMMY_AVAILABLE_CONNECTIONS: MowerConnection[] = [
   {
     id: 'b177106d-b443-464b-8ce2-b381f3d9201e',
     name: 'Mow-E',
-    serialNumber: 463208951,
-    modelName: 'Automower 310 Mark II',
-    modelNumber: 'AM5369841',
     password: 'mow-e-123',
+    mowerInfos: {
+      serialNumber: 463208951,
+      modelName: 'Automower 310 Mark II',
+      modelNumber: 'AM5369841',
+    },
   },
   {
     id: 'deba181e-3262-4594-a26c-b544ca281589',
     name: 'Shaun the Sheep',
-    serialNumber: 800341763,
-    modelName: 'Automower 305',
-    modelNumber: 'AM2311702',
     password: 'mähhh1337',
+    mowerInfos: {
+      serialNumber: 800341763,
+      modelName: 'Automower 305',
+      modelNumber: 'AM2311702',
+    },
   },
   {
     id: 'b8e458fb-8a2f-475f-85ea-c1913e76dde8',
     name: 'David Mowie',
-    serialNumber: 18604774,
-    modelName: 'Automower 315 Mark II',
-    modelNumber: 'AM5103492',
     password: 'mowie42',
+    mowerInfos: {
+      serialNumber: 18604774,
+      modelName: 'Automower 315 Mark II',
+      modelNumber: 'AM5103492',
+    },
   },
   {
     id: '32cc7f51-17ee-4ced-97ca-c3f42ddc590c',
     name: 'Garden Gangster',
-    serialNumber: 563170988,
-    modelName: 'Automower 430X NERA',
-    modelNumber: 'AM4369403',
     password: 'theyseemerollin',
+    mowerInfos: {
+      serialNumber: 563170988,
+      modelName: 'Automower 430X NERA',
+      modelNumber: 'AM4369403',
+    },
   },
 ];
 
