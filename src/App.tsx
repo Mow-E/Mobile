@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import LayoutAndNavigation from './components/layout/LayoutAndNavigation';
 import useIsInDarkMode from './hooks/useIsInDarkMode';
 import './i18n.config';
+import {startBluetoothService} from './services/bluetooth';
 import {
   ActiveMowerConnectionContext,
   MowerConnection,
@@ -64,6 +65,10 @@ function App(): JSX.Element {
   const isDarkMode = useIsInDarkMode();
   const [showablePathTimeDuration, setShowablePathTimeDuration] =
     useState<ShowablePathTimeDuration>(ShowablePathTimeDuration.h24);
+
+  useEffect(() => {
+    startBluetoothService();
+  }, []);
 
   return (
     <NavigationContainer>
