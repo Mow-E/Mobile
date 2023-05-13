@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import {
   FlatList,
   Pressable,
@@ -20,6 +20,7 @@ import colors from '../../styles/colors';
 import useActiveMowerConnection from '../../hooks/useActiveMowerConnection';
 import EyeOffIcon from '../../assets/icons/EyeOffIcon';
 import EyeIcon from '../../assets/icons/EyeIcon';
+import useBluetoothService from '../../hooks/useBluetoothService';
 
 /**
  * Shows the details of a mower connection.
@@ -34,10 +35,11 @@ function MowerConnectionDetailsPage({
   'MowerConnectionDetails'
 >): JSX.Element {
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
-  const {activeConnection, setActiveConnection} = useActiveMowerConnection();
+  const {activeConnection} = useActiveMowerConnection();
   const styles = useStyles();
   const {t} = useTranslation();
   const isInDarkMode = useIsInDarkMode();
+  const bluetoothService = useBluetoothService();
 
   const informationItems = useMemo(
     () => [
@@ -63,6 +65,11 @@ function MowerConnectionDetailsPage({
     [t, connection],
   );
 
+  const handleDisconnectPress = useCallback(
+    () => bluetoothService.disconnect(),
+    [bluetoothService],
+  );
+
   return (
     <View
       style={[
@@ -71,7 +78,7 @@ function MowerConnectionDetailsPage({
       ]}>
       {activeConnection?.id === connection?.id && (
         <Pressable
-          onPress={() => setActiveConnection?.(null)}
+          onPress={handleDisconnectPress}
           testID="disconnectActiveMowerButton"
           style={[
             styles.border,
