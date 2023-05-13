@@ -10,6 +10,29 @@ export async function startBluetoothService(): Promise<void> {
   console.debug('[ble] started ble manager');
 }
 
+/**
+ * Connects to a given mower.
+ *
+ * @param mowerConnection MowerConnection the mower to connect to.
+ */
+export async function connect(
+  mowerConnection: MowerConnection,
+): Promise<MowerConnection> {
+  requireBluetoothInfosInConnection(
+    mowerConnection,
+    `Cannot connect to mower ${mowerConnection.id} because there are no bluetooth infos about it`,
+  );
+
+  await BleManager.connect(mowerConnection.bluetoothInfos!.id);
+  console.debug(
+    `[ble] connected to ${mowerConnection.id} with bluetooth id ${
+      mowerConnection.bluetoothInfos!.id
+    }`,
+  );
+
+  return mowerConnection;
+}
+
 export async function disconnect(
   mowerConnection: MowerConnection,
 ): Promise<MowerConnection> {
