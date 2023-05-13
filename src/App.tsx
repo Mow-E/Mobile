@@ -14,6 +14,7 @@ import {
   ShowablePathTimeDuration,
   ShowablePathTimeDurationContext,
 } from './hooks/useShowablePathTimeDuration';
+import {MowerMode, MowerModeContext} from './hooks/useMowerMode';
 
 /**
  * Some dummy mower connections to use until the actual connections can be fetched.
@@ -73,6 +74,7 @@ function App(): JSX.Element {
   const isDarkMode = useIsInDarkMode();
   const [showablePathTimeDuration, setShowablePathTimeDuration] =
     useState<ShowablePathTimeDuration>(ShowablePathTimeDuration.h24);
+  const [mowerMode, setMowerMode] = useState<MowerMode>('automatic');
 
   useEffect(() => {
     startBluetoothService();
@@ -90,16 +92,18 @@ function App(): JSX.Element {
             activeConnection: activeMowerConnection,
             setActiveConnection: setActiveMowerConnection,
           }}>
-          <ShowablePathTimeDurationContext.Provider
-            value={{
-              timeDuration: showablePathTimeDuration,
-              setTimeDuration: setShowablePathTimeDuration,
-            }}>
-            <StatusBar
-              barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-            />
-            <LayoutAndNavigation />
-          </ShowablePathTimeDurationContext.Provider>
+          <MowerModeContext.Provider value={{mowerMode, setMowerMode}}>
+            <ShowablePathTimeDurationContext.Provider
+              value={{
+                timeDuration: showablePathTimeDuration,
+                setTimeDuration: setShowablePathTimeDuration,
+              }}>
+              <StatusBar
+                barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+              />
+              <LayoutAndNavigation />
+            </ShowablePathTimeDurationContext.Provider>
+          </MowerModeContext.Provider>
         </ActiveMowerConnectionContext.Provider>
       </AvailableMowerConnectionsContext.Provider>
     </NavigationContainer>

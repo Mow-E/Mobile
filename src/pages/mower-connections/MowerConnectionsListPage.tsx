@@ -17,16 +17,35 @@ import useIsInDarkMode from '../../hooks/useIsInDarkMode';
 import ManualModeIcon from '../../assets/icons/ManualModeIcon';
 import useAvailableMowerConnections from '../../hooks/useAvailableMowerConnections';
 import ConnectingToMowerOverlay from '../../components/mower-connections/ConnectingToMowerOverlay';
+import useMowerMode, {MowerMode} from '../../hooks/useMowerMode';
+import useBluetoothService, {
+  MowerCommand,
+} from '../../hooks/useBluetoothService';
 
 /**
  * Section that allows the selection of the mower mode, which is either 'automatic' or 'manual'.
  */
 function MowerModeSelection(): JSX.Element {
-  const [activeMode, setActiveMode] = useState<'automatic' | 'manual'>(
-    'automatic',
-  );
+  const {activeConnection} = useActiveMowerConnection();
+  const {mowerMode, setMowerMode} = useMowerMode();
+  const bluetoothService = useBluetoothService();
   const {t} = useTranslation();
   const isInDarkMode = useIsInDarkMode();
+
+  const handleModeChange = useCallback<(newMode: MowerMode) => void>(
+    newMode => {
+      setMowerMode(newMode);
+
+      if (activeConnection !== null) {
+        bluetoothService.sendCommand(
+          newMode === 'manual'
+            ? MowerCommand.ChangeModeToManual
+            : MowerCommand.ChangeModeToAutomatic,
+        );
+      }
+    },
+    [setMowerMode, bluetoothService, activeConnection],
+  );
 
   return (
     <SectionWithHeading
@@ -34,8 +53,8 @@ function MowerModeSelection(): JSX.Element {
         t('routes.mowerConnections.mowerConnectionsList.drivingMode.heading')!
       }>
       <ModeSelect
-        activeMode={activeMode}
-        setActiveMode={setActiveMode}
+        activeMode={mowerMode}
+        setActiveMode={handleModeChange}
         modes={[
           {
             name: 'automatic',
