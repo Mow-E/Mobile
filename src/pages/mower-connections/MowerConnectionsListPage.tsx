@@ -132,11 +132,13 @@ function MowerConnectionsListPage({
               'routes.mowerConnections.mowerConnectionsList.availableConnections.heading',
             )!
           }>
-          <AvailableMowerConnectionsList
-            availableConnections={availableConnectionsWithoutActiveOne}
-            onSelectConnection={handleSelectConnection}
-            onOpenConnectionInfo={handleOpenConnectionInfo}
-          />
+          <View style={componentStyles.listContainer}>
+            <AvailableMowerConnectionsList
+              availableConnections={availableConnectionsWithoutActiveOne}
+              onSelectConnection={handleSelectConnection}
+              onOpenConnectionInfo={handleOpenConnectionInfo}
+            />
+          </View>
         </SectionWithHeading>
         <MowerModeSelection />
       </View>
@@ -150,6 +152,9 @@ function MowerConnectionsListPage({
 const componentStyles = StyleSheet.create({
   modeIcon: {
     margin: spacing.xs,
+  },
+  listContainer: {
+    maxHeight: 300,
   },
 });
 
