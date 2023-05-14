@@ -16,11 +16,11 @@ import {useTranslation} from 'react-i18next';
 import LineListItemSeparator from '../../components/common/LineListItemSeparator';
 import {INFO_ICON_SIZE} from '../../components/mower-connections/MowerConnectionInfoButton';
 import useIsInDarkMode from '../../hooks/useIsInDarkMode';
-import colors from '../../styles/colors';
 import useActiveMowerConnection from '../../hooks/useActiveMowerConnection';
 import EyeOffIcon from '../../assets/icons/EyeOffIcon';
 import EyeIcon from '../../assets/icons/EyeIcon';
 import useBluetoothService from '../../hooks/useBluetoothService';
+import Button from '../../components/common/Button';
 
 /**
  * Shows the details of a mower connection.
@@ -77,27 +77,16 @@ function MowerConnectionDetailsPage({
         {marginTop: spacing.xxl, marginHorizontal: spacing.l, gap: spacing.xl},
       ]}>
       {activeConnection?.id === connection?.id && (
-        <Pressable
-          onPress={handleDisconnectPress}
-          testID="disconnectActiveMowerButton"
-          style={[
-            styles.border,
-            componentStyles.container,
-            {
-              backgroundColor: isInDarkMode
-                ? colors.gray['400']
-                : colors.gray['300'],
-              borderColor: isInDarkMode
-                ? colors.gray['400']
-                : colors.gray['300'],
-            },
-          ]}>
-          <Text style={[styles.textNormal, componentStyles.label]}>
-            {t(
+        <Button
+          label={
+            t(
               'routes.mowerConnections.mowerConnectionDetails.deleteMower.buttonLabel',
-            )}
-          </Text>
-        </Pressable>
+            )!
+          }
+          onPress={handleDisconnectPress}
+          fullWidth
+          testID="disconnectActiveMowerButton"
+        />
       )}
       <SectionWithHeading
         heading={
