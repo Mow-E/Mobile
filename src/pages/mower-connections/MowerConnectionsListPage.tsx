@@ -206,7 +206,7 @@ const componentStyles = StyleSheet.create({
     margin: spacing.xs,
   },
   listContainer: {
-    maxHeight: 300,
+    maxHeight: 200,
   },
 });
 

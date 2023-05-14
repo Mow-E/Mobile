@@ -75,6 +75,7 @@ const componentStyles = StyleSheet.create({
   label: {
     padding: spacing.sm,
     flexGrow: 1,
+    maxWidth: '87%',
   },
 });
 
