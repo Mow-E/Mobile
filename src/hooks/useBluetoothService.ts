@@ -104,11 +104,11 @@ function useBluetoothService() {
         await disconnect();
       }
 
-      await connectMower(mowerConnection);
-      setActiveConnection(mowerConnection);
+      const connectedMower = await connectMower(mowerConnection);
+      setActiveConnection(connectedMower);
       // Mower id has to be sent as verification/"password" directly after connecting,
       // otherwise the mower would disconnect again
-      await sendMessage(mowerConnection.id, mowerConnection);
+      await sendMessage(connectedMower.id, connectedMower);
       // Make sure the mower starts in the currently selected mode
       await sendCommand(
         mowerMode === 'manual'
@@ -116,7 +116,7 @@ function useBluetoothService() {
           : MowerCommand.ChangeModeToAutomatic,
       );
 
-      return mowerConnection;
+      return connectedMower;
     },
     [activeConnection, setActiveConnection, disconnect, mowerMode, sendCommand],
   );

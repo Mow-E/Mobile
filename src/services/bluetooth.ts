@@ -29,7 +29,7 @@ export async function startBluetoothService(): Promise<void> {
 async function convertDiscoveredPeripheralToMowerConnection(
   peripheral: Peripheral,
 ): Promise<MowerConnection> {
-  const mowerConnection: MowerConnection = {
+  return {
     // TODO: where do we get the mower-id from?
     id: peripheral.id,
     name: peripheral.name ?? peripheral.id,
@@ -37,17 +37,6 @@ async function convertDiscoveredPeripheralToMowerConnection(
       id: peripheral.id,
       serviceIds: peripheral.advertising.serviceUUIDs ?? [],
       characteristicIds: [],
-    },
-  };
-
-  const infos = await getDeviceConnectionInfos(mowerConnection);
-
-  return {
-    ...mowerConnection,
-    bluetoothInfos: {
-      ...mowerConnection.bluetoothInfos!,
-      serviceIds: infos.serviceIds,
-      characteristicIds: infos.characteristicIds,
     },
   };
 }
@@ -114,7 +103,16 @@ export async function connect(
     }`,
   );
 
-  return mowerConnection;
+  const infos = await getDeviceConnectionInfos(mowerConnection);
+
+  return {
+    ...mowerConnection,
+    bluetoothInfos: {
+      ...mowerConnection.bluetoothInfos!,
+      serviceIds: infos.serviceIds,
+      characteristicIds: infos.characteristicIds,
+    },
+  };
 }
 
 export async function disconnect(
