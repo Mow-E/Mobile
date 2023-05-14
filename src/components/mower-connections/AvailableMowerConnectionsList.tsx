@@ -42,6 +42,7 @@ function AvailableMowerConnectionsList({
       data={availableConnections}
       contentContainerStyle={styles.border}
       ItemSeparatorComponent={LineListItemSeparator}
+      ListEmptyComponent={<MowerConnectionListItem item={null} />}
       renderItem={({item}) => (
         <MowerConnectionListItem
           item={item}
