@@ -19,7 +19,7 @@ export interface MowerConnection {
   /**
    * General domain infos about the mower.
    */
-  mowerInfos: {
+  mowerInfos?: {
     /**
      * Serial number of Mower.
      */
