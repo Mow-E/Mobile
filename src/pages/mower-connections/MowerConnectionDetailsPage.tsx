@@ -1,12 +1,5 @@
-import React, {useCallback, useMemo, useState} from 'react';
-import {
-  FlatList,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import React, {useCallback, useMemo} from 'react';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {MowerConnectionsRoutes} from '../navigation';
 import useStyles from '../../hooks/useStyles';
@@ -15,12 +8,10 @@ import SectionWithHeading from '../../components/common/SectionWithHeading';
 import {useTranslation} from 'react-i18next';
 import LineListItemSeparator from '../../components/common/LineListItemSeparator';
 import {INFO_ICON_SIZE} from '../../components/mower-connections/MowerConnectionInfoButton';
-import useIsInDarkMode from '../../hooks/useIsInDarkMode';
 import useActiveMowerConnection from '../../hooks/useActiveMowerConnection';
-import EyeOffIcon from '../../assets/icons/EyeOffIcon';
-import EyeIcon from '../../assets/icons/EyeIcon';
 import useBluetoothService from '../../hooks/useBluetoothService';
 import Button from '../../components/common/Button';
+import TextInput from '../../components/common/TextInput';
 
 /**
  * Shows the details of a mower connection.
@@ -34,11 +25,9 @@ function MowerConnectionDetailsPage({
   MowerConnectionsRoutes,
   'MowerConnectionDetails'
 >): JSX.Element {
-  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const {activeConnection} = useActiveMowerConnection();
   const styles = useStyles();
   const {t} = useTranslation();
-  const isInDarkMode = useIsInDarkMode();
   const bluetoothService = useBluetoothService();
 
   const informationItems = useMemo(
@@ -92,34 +81,17 @@ function MowerConnectionDetailsPage({
         heading={
           t('routes.mowerConnections.mowerConnectionDetails.password.heading')!
         }>
-        <View style={[styles.border, componentStyles.container]}>
-          <TextInput
-            secureTextEntry={!passwordVisible}
-            style={[componentStyles.label, styles.textNormal]}
-            placeholder={
-              t(
-                'routes.mowerConnections.mowerConnectionDetails.password.inputPlaceholder',
-              )!
-            }
-            placeholderTextColor={styles.textInputPlaceholder.color}
-            value={connection?.password}
-            editable={false}
-            focusable={false}
-          />
-          <Pressable
-            onPress={() => setPasswordVisible(prevState => !prevState)}
-            testID="showHidePasswordButton"
-            style={componentStyles.button}>
-            {passwordVisible ? (
-              <EyeOffIcon
-                darkModeInverted={isInDarkMode}
-                size={INFO_ICON_SIZE}
-              />
-            ) : (
-              <EyeIcon darkModeInverted={isInDarkMode} size={INFO_ICON_SIZE} />
-            )}
-          </Pressable>
-        </View>
+        <TextInput
+          value={connection?.password ?? ''}
+          onChange={() => {}}
+          placeholder={
+            t(
+              'routes.mowerConnections.mowerConnectionDetails.password.inputPlaceholder',
+            )!
+          }
+          passwordField
+          readonly
+        />
       </SectionWithHeading>
       <SectionWithHeading
         heading={
