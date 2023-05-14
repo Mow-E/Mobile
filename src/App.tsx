@@ -41,8 +41,11 @@ function App(): JSX.Element {
   useEffect(() => {
     const listeners = addBluetoothServiceListeners(
       connection => {
-        setAvailableMowerConnections(prevState =>
-          prevState.set(connection.bluetoothInfos!.id, connection),
+        setAvailableMowerConnections(
+          prevState =>
+            new Map<string, MowerConnection>(
+              prevState.set(connection.bluetoothInfos!.id, connection),
+            ),
         );
       },
       () => {},
