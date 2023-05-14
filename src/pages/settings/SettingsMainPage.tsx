@@ -14,13 +14,16 @@ import DarkModeIcon from '../../assets/icons/DarkModeIcon';
 import useShowablePathTimeDuration, {
   ShowablePathTimeDuration,
 } from '../../hooks/useShowablePathTimeDuration';
+import useAppColorMode from '../../hooks/useAppColorMode';
 
 function SettingsMainPage({
   navigation,
 }: StackScreenProps<SettingsRoutes, 'SettingsMain'>): JSX.Element {
+  const {appColorMode, setAppColorMode} = useAppColorMode();
   const {t, i18n} = useTranslation();
   const styles = useStyles();
   const {timeDuration} = useShowablePathTimeDuration();
+
   let currentTimeDuration = '';
   switch (timeDuration) {
     case ShowablePathTimeDuration.h24:
@@ -39,6 +42,7 @@ function SettingsMainPage({
       )!;
       break;
   }
+
   let currentLanguage = '';
   switch (i18n.language) {
     case 'en':
@@ -82,8 +86,8 @@ function SettingsMainPage({
       </SectionWithHeading>
       <SectionWithHeading heading={t('routes.settings.settingsMain.appMode')!}>
         <ModeSelect
-          activeMode={'auto'}
-          setActiveMode={() => {}}
+          activeMode={appColorMode}
+          setActiveMode={setAppColorMode}
           modes={[
             {name: 'light', display: <LightModeIcon />},
             {

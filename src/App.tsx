@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import LayoutAndNavigation from './components/layout/LayoutAndNavigation';
-import useIsInDarkMode from './hooks/useIsInDarkMode';
 import './i18n.config';
 import {
   addBluetoothServiceListeners,
@@ -19,6 +17,8 @@ import {
   ShowablePathTimeDurationContext,
 } from './hooks/useShowablePathTimeDuration';
 import {MowerMode, MowerModeContext} from './hooks/useMowerMode';
+import {AppColorMode, AppColorModeContext} from './hooks/useAppColorMode';
+import StatusBar from './components/layout/StatusBar';
 
 /**
  * The Mow-E Mobile app. Renders the complete application.
@@ -29,10 +29,10 @@ function App(): JSX.Element {
   const [availableMowerConnections, setAvailableMowerConnections] = useState<
     Map<string, MowerConnection>
   >(new Map<string, MowerConnection>());
-  const isDarkMode = useIsInDarkMode();
   const [showablePathTimeDuration, setShowablePathTimeDuration] =
     useState<ShowablePathTimeDuration>(ShowablePathTimeDuration.h24);
   const [mowerMode, setMowerMode] = useState<MowerMode>('automatic');
+  const [appColorMode, setAppColorMode] = useState<AppColorMode>('auto');
 
   useEffect(() => {
     startBluetoothService();
@@ -55,30 +55,34 @@ function App(): JSX.Element {
 
   return (
     <NavigationContainer>
-      <AvailableMowerConnectionsContext.Provider
+      <AppColorModeContext.Provider
         value={{
-          availableConnections: availableMowerConnections,
-          setAvailableConnections: setAvailableMowerConnections,
+          appColorMode,
+          setAppColorMode,
         }}>
-        <ActiveMowerConnectionContext.Provider
+        <AvailableMowerConnectionsContext.Provider
           value={{
-            activeConnection: activeMowerConnection,
-            setActiveConnection: setActiveMowerConnection,
+            availableConnections: availableMowerConnections,
+            setAvailableConnections: setAvailableMowerConnections,
           }}>
-          <MowerModeContext.Provider value={{mowerMode, setMowerMode}}>
-            <ShowablePathTimeDurationContext.Provider
-              value={{
-                timeDuration: showablePathTimeDuration,
-                setTimeDuration: setShowablePathTimeDuration,
-              }}>
-              <StatusBar
-                barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-              />
-              <LayoutAndNavigation />
-            </ShowablePathTimeDurationContext.Provider>
-          </MowerModeContext.Provider>
-        </ActiveMowerConnectionContext.Provider>
-      </AvailableMowerConnectionsContext.Provider>
+          <ActiveMowerConnectionContext.Provider
+            value={{
+              activeConnection: activeMowerConnection,
+              setActiveConnection: setActiveMowerConnection,
+            }}>
+            <MowerModeContext.Provider value={{mowerMode, setMowerMode}}>
+              <ShowablePathTimeDurationContext.Provider
+                value={{
+                  timeDuration: showablePathTimeDuration,
+                  setTimeDuration: setShowablePathTimeDuration,
+                }}>
+                <StatusBar />
+                <LayoutAndNavigation />
+              </ShowablePathTimeDurationContext.Provider>
+            </MowerModeContext.Provider>
+          </ActiveMowerConnectionContext.Provider>
+        </AvailableMowerConnectionsContext.Provider>
+      </AppColorModeContext.Provider>
     </NavigationContainer>
   );
 }
