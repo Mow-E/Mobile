@@ -5,9 +5,12 @@ import useActiveMowerConnection, {
 import {
   connect as connectMower,
   disconnect as disconnectMower,
+  scanForBluetoothDevices,
+  SECONDS_TO_SCAN_FOR_DEVICES,
   sendMessage,
 } from '../services/bluetooth';
 import useMowerMode from './useMowerMode';
+import useAvailableMowerConnections from './useAvailableMowerConnections';
 
 /**
  * A command that can be sent to the current connected mower.
@@ -53,6 +56,7 @@ export enum MowerCommand {
  */
 function useBluetoothService() {
   const {activeConnection, setActiveConnection} = useActiveMowerConnection();
+  const {setAvailableConnections} = useAvailableMowerConnections();
   const {mowerMode} = useMowerMode();
 
   /**
@@ -117,7 +121,22 @@ function useBluetoothService() {
     [activeConnection, setActiveConnection, disconnect, mowerMode, sendCommand],
   );
 
-  return {connect, disconnect, sendCommand};
+  /**
+   * Starts a scan for available mower devices.
+   * All devices found are put into the `availableConnections` context, which is emptied before the scan.
+   * The promise resolves once the scan has finished/stopped.
+   */
+  const scanForDevices = useCallback<() => Promise<void>>(async () => {
+    setAvailableConnections(new Map<string, MowerConnection>());
+    await scanForBluetoothDevices();
+    // I don't know how to gracefully check that the scan has stopped, so just wait for the scan duration here
+    await new Promise(resolve =>
+      // Timeouts time value is in milliseconds, so multiply seconds with 1000 for ms
+      setTimeout(() => resolve(null), SECONDS_TO_SCAN_FOR_DEVICES * 1000),
+    );
+  }, [setAvailableConnections]);
+
+  return {connect, disconnect, sendCommand, scanForDevices};
 }
 
 export default useBluetoothService;

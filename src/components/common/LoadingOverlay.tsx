@@ -3,7 +3,6 @@ import {StyleSheet, Text} from 'react-native';
 import CircularAroundCenterAnimation from '../animations/CircularAroundCenterAnimation';
 import MowEIcon from '../../assets/icons/MowEIcon';
 import Backdrop from '../common/Backdrop';
-import {useTranslation} from 'react-i18next';
 import useStyles from '../../hooks/useStyles';
 import useIsInDarkMode from '../../hooks/useIsInDarkMode';
 
@@ -13,9 +12,13 @@ import useIsInDarkMode from '../../hooks/useIsInDarkMode';
 const ICON_SIZE = 48;
 
 /**
- * The properties of <ConnectingToMowerOverlay />.
+ * The properties of <LoadingOverlay />.
  */
-interface ConnectingToMowerOverlayProps {
+interface LoadingOverlayProps {
+  /**
+   * The text/label shown in the overlay.
+   */
+  text: string;
   /**
    * Whether the overlay is visible.
    */
@@ -23,13 +26,12 @@ interface ConnectingToMowerOverlayProps {
 }
 
 /**
- * Shows an overlay with an animated mow-e icon and a label signalling that a mower-connection is in the
- * process of connecting.
+ * Shows an overlay with an animated mow-e icon and a label.
  */
-function ConnectingToMowerOverlay({
+function LoadingOverlay({
+  text,
   visible = false,
-}: ConnectingToMowerOverlayProps): JSX.Element {
-  const {t} = useTranslation();
+}: LoadingOverlayProps): JSX.Element {
   const styles = useStyles();
   const isInDarkMode = useIsInDarkMode();
 
@@ -47,9 +49,7 @@ function ConnectingToMowerOverlay({
             />
           </CircularAroundCenterAnimation>
           <Text style={[styles.textNormal, componentStyles.absolutePosition]}>
-            {t(
-              'routes.mowerConnections.mowerConnectionsList.availableConnections.connectingLabel',
-            )}
+            {text}
           </Text>
         </Backdrop>
       )}
@@ -64,4 +64,4 @@ const componentStyles = StyleSheet.create({
   absolutePosition: {position: 'absolute'},
 });
 
-export default ConnectingToMowerOverlay;
+export default LoadingOverlay;

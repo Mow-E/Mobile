@@ -13,9 +13,13 @@
           "heading": "Connection",
           "noActiveConnection": "No connection"
         },
+        "searchForConnections": {
+          "buttonLabel": "Search for Mower Connections"
+        },
         "availableConnections": {
           "heading": "Other Mowers Found",
-          "connectingLabel": "Connecting..."
+          "connectingLabel": "Connecting...",
+          "searchingLabel": "Searching..."
         },
         "drivingMode": {
           "heading": "Driving Mode"

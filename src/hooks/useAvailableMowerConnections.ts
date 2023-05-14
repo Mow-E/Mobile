@@ -8,13 +8,13 @@ interface AvailableMowerConnectionsContextType {
   /**
    * The available connections to mowers.
    */
-  availableConnections: MowerConnection[];
+  availableConnections: Map<string, MowerConnection>;
   /**
    * Setter for the available connections.
    *
    * @param connection the new connections.
    */
-  setAvailableConnections?: (connections: MowerConnection[]) => void;
+  setAvailableConnections: (connections: Map<string, MowerConnection>) => void;
 }
 
 /**
@@ -22,7 +22,8 @@ interface AvailableMowerConnectionsContextType {
  */
 export const AvailableMowerConnectionsContext =
   createContext<AvailableMowerConnectionsContextType>({
-    availableConnections: [],
+    availableConnections: new Map<string, MowerConnection>(),
+    setAvailableConnections: () => {},
   });
 
 /**

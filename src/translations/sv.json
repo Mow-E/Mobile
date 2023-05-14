@@ -13,9 +13,13 @@
           "heading": "Anslutning",
           "noActiveConnection": "Ingen anslutning"
         },
+        "searchForConnections": {
+          "buttonLabel": "Sök efter anslutningar"
+        },
         "availableConnections": {
           "heading": "Andra gräsklippare som hittats",
-          "connectingLabel": "Anslutning av..."
+          "connectingLabel": "Anslutning...",
+          "searchingLabel": "Sökning..."
         },
         "drivingMode": {
           "heading": "Körläge"
@@ -43,7 +47,6 @@
         "headerTitle": "Inställningar",
         "appMode": "App-läge"
       },
-
       "settingsTimeDuration": {
         "heading": "Tid Varaktighet"
       },

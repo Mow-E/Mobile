@@ -1,13 +1,97 @@
+import {
+  EmitterSubscription,
+  EventSubscription,
+  NativeEventEmitter,
+  NativeModules,
+} from 'react-native';
 import {MowerConnection} from '../hooks/useActiveMowerConnection';
-import BleManager from 'react-native-ble-manager';
+import BleManager, {
+  BleScanCallbackType,
+  BleScanMatchMode,
+  BleScanMode,
+  Peripheral,
+} from 'react-native-ble-manager';
 import {Buffer} from 'buffer';
+
+const BleManagerModule = NativeModules.BleManager;
+const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
 
 /** The default ending sequence for messages to mowers. */
 export const DEFAULT_ENDING_SEQUENCE = '*';
 
+export const SECONDS_TO_SCAN_FOR_DEVICES = 7;
+
 export async function startBluetoothService(): Promise<void> {
   await BleManager.start();
   console.debug('[ble] started ble manager');
+}
+
+async function convertDiscoveredPeripheralToMowerConnection(
+  peripheral: Peripheral,
+): Promise<MowerConnection> {
+  const mowerConnection: MowerConnection = {
+    // TODO: where do we get the mower-id from?
+    id: peripheral.id,
+    name: peripheral.name ?? peripheral.id,
+    bluetoothInfos: {
+      id: peripheral.id,
+      serviceIds: peripheral.advertising.serviceUUIDs ?? [],
+      characteristicIds: [],
+    },
+  };
+
+  const infos = await getDeviceConnectionInfos(mowerConnection);
+
+  return {
+    ...mowerConnection,
+    bluetoothInfos: {
+      ...mowerConnection.bluetoothInfos!,
+      serviceIds: infos.serviceIds,
+      characteristicIds: infos.characteristicIds,
+    },
+  };
+}
+
+export function addBluetoothServiceListeners(
+  onDeviceDiscovered: (connection: MowerConnection) => void,
+  onScanStop: () => void,
+): EmitterSubscription[] {
+  console.debug('[ble] adding listeners to bluetooth service');
+
+  return [
+    bleManagerEmitter.addListener(
+      'BleManagerDiscoverPeripheral',
+      async (peripheral: Peripheral) => {
+        // TODO: we might want to filter for mowers somehow
+        console.debug('[ble] new device discovered', peripheral);
+        const mowerConnection =
+          await convertDiscoveredPeripheralToMowerConnection(peripheral);
+        onDeviceDiscovered(mowerConnection);
+      },
+    ),
+    bleManagerEmitter.addListener('BleManagerStopScan', event => {
+      console.log('[ble] stopped scanning for bluetooth devices', event);
+      onScanStop();
+    }),
+  ];
+}
+
+export function removeBluetoothServiceListeners(
+  listeners: EventSubscription[],
+): void {
+  console.log('removing listeners');
+  for (const listener of listeners) {
+    listener.remove();
+  }
+}
+
+export async function scanForBluetoothDevices(): Promise<void> {
+  console.log('[ble] started scanning for bluetooth devices');
+  await BleManager.scan([], SECONDS_TO_SCAN_FOR_DEVICES, false, {
+    matchMode: BleScanMatchMode.Sticky,
+    scanMode: BleScanMode.LowLatency,
+    callbackType: BleScanCallbackType.AllMatches,
+  });
 }
 
 /**

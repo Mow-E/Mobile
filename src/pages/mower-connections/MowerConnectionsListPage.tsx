@@ -16,11 +16,12 @@ import AutomaticModeIcon from '../../assets/icons/AutomaticModeIcon';
 import useIsInDarkMode from '../../hooks/useIsInDarkMode';
 import ManualModeIcon from '../../assets/icons/ManualModeIcon';
 import useAvailableMowerConnections from '../../hooks/useAvailableMowerConnections';
-import ConnectingToMowerOverlay from '../../components/mower-connections/ConnectingToMowerOverlay';
 import useMowerMode, {MowerMode} from '../../hooks/useMowerMode';
 import useBluetoothService, {
   MowerCommand,
 } from '../../hooks/useBluetoothService';
+import LoadingOverlay from '../../components/common/LoadingOverlay';
+import Button from '../../components/common/Button';
 
 /**
  * Section that allows the selection of the mower mode, which is either 'automatic' or 'manual'.
@@ -89,25 +90,29 @@ function MowerConnectionsListPage({
   'MowerConnectionsList'
 >): JSX.Element {
   const {availableConnections} = useAvailableMowerConnections();
-  const {activeConnection, setActiveConnection} = useActiveMowerConnection();
+  const {activeConnection} = useActiveMowerConnection();
   const [connectingToMower, setConnectingToMower] = useState<boolean>(false);
+  const [searchingForMowers, setSearchingForMowers] = useState<boolean>(false);
   const {t} = useTranslation();
   const styles = useStyles();
+  const bluetoothService = useBluetoothService();
 
   const handleSelectConnection = useCallback<
     (connection: MowerConnection) => void
   >(
-    connection => {
+    async connection => {
       setConnectingToMower(true);
-
-      // TODO: extract to bluetooth service
-      setTimeout(() => {
-        setActiveConnection?.(connection);
-        setConnectingToMower(false);
-      }, 3_000);
+      await bluetoothService.connect(connection);
+      setConnectingToMower(false);
     },
-    [setActiveConnection],
+    [bluetoothService],
   );
+
+  const handleScanForDevices = useCallback(async () => {
+    setSearchingForMowers(true);
+    await bluetoothService.scanForDevices();
+    setSearchingForMowers(false);
+  }, [bluetoothService]);
 
   const handleOpenConnectionInfo = useCallback<
     (connection: MowerConnection) => void
@@ -116,14 +121,30 @@ function MowerConnectionsListPage({
     [navigation],
   );
 
-  const availableConnectionsWithoutActiveOne = useMemo(
-    () => availableConnections.filter(({id}) => id !== activeConnection?.id),
-    [activeConnection, availableConnections],
-  );
+  const availableConnectionsWithoutActiveOne = useMemo(() => {
+    return Array.from(availableConnections.values()).filter(
+      ({id}) => id !== activeConnection?.id,
+    );
+  }, [activeConnection?.id, availableConnections]);
 
   return (
     <>
-      <ConnectingToMowerOverlay visible={connectingToMower} />
+      <LoadingOverlay
+        text={
+          t(
+            'routes.mowerConnections.mowerConnectionsList.availableConnections.connectingLabel',
+          )!
+        }
+        visible={connectingToMower}
+      />
+      <LoadingOverlay
+        text={
+          t(
+            'routes.mowerConnections.mowerConnectionsList.availableConnections.searchingLabel',
+          )!
+        }
+        visible={searchingForMowers}
+      />
       <View
         style={[
           styles.flexColumn,
@@ -144,6 +165,18 @@ function MowerConnectionsListPage({
               onOpenConnectionInfo={handleOpenConnectionInfo}
             />
           </View>
+        </SectionWithHeading>
+        <SectionWithHeading>
+          <Button
+            label={
+              t(
+                'routes.mowerConnections.mowerConnectionsList.searchForConnections.buttonLabel',
+              )!
+            }
+            onPress={handleScanForDevices}
+            fullWidth
+            testID="searchForDevicesButton"
+          />
         </SectionWithHeading>
         <SectionWithHeading
           heading={

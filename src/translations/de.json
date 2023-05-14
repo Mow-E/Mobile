@@ -13,9 +13,13 @@
           "heading": "Verbindungen",
           "noActiveConnection": "Keine Verbindung"
         },
+        "searchForConnections": {
+          "buttonLabel": "Nach Verbindungen suchen"
+        },
         "availableConnections": {
           "heading": "Andere gefundene Rasenmäher",
-          "connectingLabel": "Verbindet..."
+          "connectingLabel": "Verbindet...",
+          "searchingLabel": "Sucht..."
         },
         "drivingMode": {
           "heading": "Fahrmodus"
@@ -43,7 +47,6 @@
         "headerTitle": "Einstellungen",
         "appMode": "App Modus"
       },
-
       "settingsTimeDuration": {
         "heading": "Zeitraum"
       },
