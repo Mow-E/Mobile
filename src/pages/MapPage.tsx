@@ -1,4 +1,4 @@
-import {Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import React, {useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
 import useStyles from '../hooks/useStyles';
@@ -9,6 +9,9 @@ import MowerOnOffButton from '../components/map/MowerOnOffButton';
 import ManualMowerControls, {
   ControlDirection,
 } from '../components/map/ManualMowerControls';
+import MowESleepingIcon from '../assets/icons/MowESleepingIcon';
+import useIsInDarkMode from '../hooks/useIsInDarkMode';
+import spacing from '../styles/spacing';
 
 /**
  * The page that visualizes the mowers position and path.
@@ -20,6 +23,7 @@ function MapPage(): JSX.Element {
   const {t} = useTranslation();
   const styles = useStyles();
   const bluetoothService = useBluetoothService();
+  const isInDarkMode = useIsInDarkMode();
 
   const handleMowerStartPress = useCallback(async () => {
     if (activeConnection === null) {
@@ -83,7 +87,16 @@ function MapPage(): JSX.Element {
 
   return (
     <View style={styles.centeredContent}>
-      <Text style={styles.textNormal}>{t('routes.map.pagePlaceholder')}</Text>
+      {activeConnection === null && (
+        <>
+          <Text style={[styles.textNormal, componentStyles.emptyStateText]}>
+            {t('routes.map.noMowerConnectedText')}
+          </Text>
+          <View style={componentStyles.emptyStateIcon}>
+            <MowESleepingIcon size={225} darkModeInverted={isInDarkMode} />
+          </View>
+        </>
+      )}
       {activeConnection !== null && mowerMode === 'manual' && (
         <ManualMowerControls
           onControlPressStart={handleManualControlPress}
@@ -99,5 +112,13 @@ function MapPage(): JSX.Element {
     </View>
   );
 }
+
+/**
+ * The individual styles for this component.
+ */
+const componentStyles = StyleSheet.create({
+  emptyStateText: {paddingBottom: spacing.xxl},
+  emptyStateIcon: {position: 'absolute', bottom: spacing.xxl},
+});
 
 export default MapPage;

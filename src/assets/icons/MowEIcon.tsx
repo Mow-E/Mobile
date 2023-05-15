@@ -168,9 +168,7 @@ function MowEIcon({
     ? colors.gray['700']
     : colors.gray['950'];
   const coloredFillColor = colors.primary.dark;
-  const grayscaleFillColor = darkModeInverted
-    ? colors.gray['400']
-    : colors.gray['300'];
+  const grayscaleFillColor = colors.gray['400'];
   const fillColor = colored ? coloredFillColor : grayscaleFillColor;
 
   return (

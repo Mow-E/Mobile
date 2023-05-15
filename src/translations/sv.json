@@ -3,7 +3,7 @@
     "map": {
       "headerTitle": "Mow-E Karta",
       "tabBarLabel": "Karta",
-      "pagePlaceholder": "Platshållare för karta",
+      "noMowerConnectedText": "Ingen gräsklippare är ansluten!",
       "mowerOnOffButton": {
         "onLabel": "På",
         "offLabel": "Av"

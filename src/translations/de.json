@@ -3,7 +3,7 @@
     "map": {
       "headerTitle": "Mow-E Karte",
       "tabBarLabel": "Karte",
-      "pagePlaceholder": "Karten Platzhalter",
+      "noMowerConnectedText": "Kein Rasenmäher verbunden!",
       "mowerOnOffButton": {
         "onLabel": "An",
         "offLabel": "Aus"
