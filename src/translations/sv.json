@@ -3,7 +3,11 @@
     "map": {
       "headerTitle": "Mow-E Karta",
       "tabBarLabel": "Karta",
-      "pagePlaceholder": "Platshållare för karta"
+      "pagePlaceholder": "Platshållare för karta",
+      "mowerOnOffButton": {
+        "onLabel": "På",
+        "offLabel": "Av"
+      }
     },
     "mowerConnections": {
       "tabBarLabel": "Slåttermaskin",

@@ -3,7 +3,11 @@
     "map": {
       "headerTitle": "Mow-E Karte",
       "tabBarLabel": "Karte",
-      "pagePlaceholder": "Karten Platzhalter"
+      "pagePlaceholder": "Karten Platzhalter",
+      "mowerOnOffButton": {
+        "onLabel": "An",
+        "offLabel": "Aus"
+      }
     },
     "mowerConnections": {
       "tabBarLabel": "Rasenmäher",

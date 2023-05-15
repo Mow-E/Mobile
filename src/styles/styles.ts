@@ -8,8 +8,8 @@ const HEADING_FONT_SIZE = 16;
 const BORDER_WIDTH = 1;
 const BORDER_RADIUS = 0;
 
-const LIGHT_FONT_COLOR = colors.gray['50'];
-const DARK_FONT_COLOR = colors.gray['950'];
+export const LIGHT_FONT_COLOR = colors.gray['50'];
+export const DARK_FONT_COLOR = colors.gray['950'];
 
 /**
  * Dark mode specific styles to be used throughout the application.

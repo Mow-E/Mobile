@@ -17,6 +17,11 @@ export interface MowerConnection {
    */
   password?: string;
   /**
+   * The state of the mower, if it is connected.
+   * Newly connected mowers always start in the 'off' state.
+   */
+  state?: 'on' | 'off';
+  /**
    * General domain infos about the mower.
    */
   mowerInfos?: {

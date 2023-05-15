@@ -107,6 +107,7 @@ export async function connect(
 
   return {
     ...mowerConnection,
+    state: 'off',
     bluetoothInfos: {
       ...mowerConnection.bluetoothInfos!,
       serviceIds: infos.serviceIds,
@@ -130,7 +131,10 @@ export async function disconnect(
     }`,
   );
 
-  return mowerConnection;
+  return {
+    ...mowerConnection,
+    state: undefined,
+  };
 }
 
 /**

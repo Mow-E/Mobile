@@ -3,7 +3,11 @@
     "map": {
       "headerTitle": "Mow-E Map",
       "tabBarLabel": "Map",
-      "pagePlaceholder": "Map placeholder"
+      "pagePlaceholder": "Map placeholder",
+      "mowerOnOffButton": {
+        "onLabel": "On",
+        "offLabel": "Off"
+      }
     },
     "mowerConnections": {
       "tabBarLabel": "Mower",
