@@ -13,6 +13,9 @@ import useIsInDarkMode from '../../hooks/useIsInDarkMode';
 import useStyles from '../../hooks/useStyles';
 import {RootRoutes} from '../../pages/navigation';
 
+/** Value to multiply the default icon size in the tab bar by. */
+const ICON_SIZE_MODIFICATOR = 1.2;
+
 const Tab = createBottomTabNavigator<RootRoutes>();
 
 /**
@@ -45,7 +48,7 @@ function LayoutAndNavigation(): JSX.Element {
   >(
     ({size, focused}) => (
       <MapIcon
-        size={size * 1.2}
+        size={size * ICON_SIZE_MODIFICATOR}
         colored={focused}
         darkModeInverted={isInDarkMode}
       />
@@ -58,7 +61,7 @@ function LayoutAndNavigation(): JSX.Element {
   >(
     ({size, focused}) => (
       <MowEIcon
-        size={size * 1.2}
+        size={size * ICON_SIZE_MODIFICATOR}
         colored={focused}
         darkModeInverted={isInDarkMode}
       />
@@ -71,7 +74,7 @@ function LayoutAndNavigation(): JSX.Element {
   >(
     ({size, focused}) => (
       <CogsIcon
-        size={size * 1.2}
+        size={size * ICON_SIZE_MODIFICATOR}
         colored={focused}
         darkModeInverted={isInDarkMode}
       />
@@ -84,7 +87,7 @@ function LayoutAndNavigation(): JSX.Element {
   >(
     ({size, focused}) => (
       <CameraIcon
-        size={size * 1.2}
+        size={size * ICON_SIZE_MODIFICATOR}
         colored={focused}
         darkModeInverted={isInDarkMode}
       />
