@@ -25,11 +25,13 @@ function LoginMainPage(): JSX.Element {
   return (
     <View style={styles.centeredContent}>
       <TextInput
+        style={styles.textInput}
         placeholder="Username"
         value={username}
         onChangeText={text => setUsername(text)}
       />
       <TextInput
+        style={styles.textInput}
         placeholder="Password"
         secureTextEntry={true}
         value={password}

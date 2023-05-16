@@ -164,4 +164,7 @@ export const generalStyles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
+  textInput: {
+    marginBottom: 10,
+  },
 });
