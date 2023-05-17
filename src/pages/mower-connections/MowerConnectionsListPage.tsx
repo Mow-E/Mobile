@@ -123,9 +123,19 @@ function MowerConnectionsListPage({
 
   const availableConnectionsWithoutActiveOne = useMemo(() => {
     return Array.from(availableConnections.values()).filter(
-      ({id}) => id !== activeConnection?.id,
+      ({id, bluetoothInfos}) => {
+        if (activeConnection === null) {
+          return true;
+        }
+
+        if (bluetoothInfos && activeConnection.bluetoothInfos) {
+          return bluetoothInfos.id === activeConnection.bluetoothInfos.id;
+        }
+
+        return id !== activeConnection.id;
+      },
     );
-  }, [activeConnection?.id, availableConnections]);
+  }, [activeConnection, availableConnections]);
 
   return (
     <>
