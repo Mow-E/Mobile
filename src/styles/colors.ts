@@ -27,7 +27,7 @@ const colors = {
   },
   opacitySuffix: {
     '50%': '80',
-    '70%': 'B3',
+    '80%': 'CC',
   },
 };
 

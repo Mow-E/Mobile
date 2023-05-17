@@ -27,7 +27,7 @@ export const darkModeStyles = StyleSheet.create({
     marginBottom: spacing.s,
   },
   textInputPlaceholder: {
-    color: LIGHT_FONT_COLOR + colors.opacitySuffix['70%'],
+    color: LIGHT_FONT_COLOR + colors.opacitySuffix['80%'],
     fontSize: NORMAL_FONT_SIZE,
     fontWeight: 'normal',
   },
@@ -74,7 +74,7 @@ export const lightModeStyles = StyleSheet.create({
     marginBottom: spacing.s,
   },
   textInputPlaceholder: {
-    color: DARK_FONT_COLOR + colors.opacitySuffix['70%'],
+    color: DARK_FONT_COLOR + colors.opacitySuffix['80%'],
     fontSize: NORMAL_FONT_SIZE,
     fontWeight: 'normal',
   },

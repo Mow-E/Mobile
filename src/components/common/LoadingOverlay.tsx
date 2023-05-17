@@ -48,7 +48,7 @@ function LoadingOverlay({
               darkModeInverted={isInDarkMode}
             />
           </CircularAroundCenterAnimation>
-          <Text style={[styles.textNormal, componentStyles.absolutePosition]}>
+          <Text style={[styles.textHeading, componentStyles.absolutePosition]}>
             {text}
           </Text>
         </Backdrop>

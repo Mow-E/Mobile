@@ -40,10 +40,10 @@ const componentStyles = StyleSheet.create({
     zIndex: 10,
   },
   backgroundLight: {
-    backgroundColor: colors.gray['50'] + colors.opacitySuffix['70%'],
+    backgroundColor: colors.gray['50'] + colors.opacitySuffix['80%'],
   },
   backgroundDark: {
-    backgroundColor: colors.gray['700'] + colors.opacitySuffix['70%'],
+    backgroundColor: colors.gray['700'] + colors.opacitySuffix['80%'],
   },
 });
 
