@@ -76,15 +76,17 @@ function useBluetoothService() {
    *
    * @param command MowerCommand the command to send.
    */
-  const sendCommand = useCallback<(command: MowerCommand) => Promise<void>>(
-    async command => {
-      if (activeConnection === null) {
+  const sendCommand = useCallback<
+    (command: MowerCommand, connection?: MowerConnection) => Promise<void>
+  >(
+    async (command, connection) => {
+      if (activeConnection === null && !connection) {
         throw new Error(
           `Cannot send command ${command} because there is no active connection`,
         );
       }
 
-      await sendMessage(command, activeConnection);
+      await sendMessage(command, activeConnection ?? connection!);
     },
     [activeConnection],
   );
@@ -114,6 +116,7 @@ function useBluetoothService() {
         mowerMode === 'manual'
           ? MowerCommand.ChangeModeToManual
           : MowerCommand.ChangeModeToAutomatic,
+        connectedMower,
       );
 
       return connectedMower;
