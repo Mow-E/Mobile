@@ -39,16 +39,15 @@ function App(): JSX.Element {
   }, []);
 
   useEffect(() => {
+    const foundMowers = new Map<string, MowerConnection>();
+
     const listeners = addBluetoothServiceListeners(
       connection => {
-        setAvailableMowerConnections(
-          prevState =>
-            new Map<string, MowerConnection>(
-              prevState.set(connection.bluetoothInfos!.id, connection),
-            ),
-        );
+        foundMowers.set(connection.bluetoothInfos!.id, connection);
       },
-      () => {},
+      () => {
+        setAvailableMowerConnections(foundMowers);
+      },
     );
 
     return () => {
