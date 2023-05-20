@@ -30,7 +30,6 @@ async function convertDiscoveredPeripheralToMowerConnection(
   peripheral: Peripheral,
 ): Promise<MowerConnection> {
   return {
-    // TODO: where do we get the mower-id from?
     id: peripheral.id,
     name: peripheral.advertising.localName ?? peripheral.name ?? peripheral.id,
     bluetoothInfos: {
@@ -104,15 +103,28 @@ export async function connect(
     }`,
   );
 
-  const infos = await getDeviceConnectionInfos(mowerConnection);
+  const {
+    mowerId: id,
+    serviceIds,
+    characteristicIds,
+    serialNumber,
+    modelName,
+    modelNumber,
+  } = await getDeviceConnectionInfos(mowerConnection);
 
   return {
     ...mowerConnection,
+    id,
     state: 'off',
+    mowerInfos: {
+      serialNumber,
+      modelName,
+      modelNumber,
+    },
     bluetoothInfos: {
       ...mowerConnection.bluetoothInfos!,
-      serviceIds: infos.serviceIds,
-      characteristicIds: infos.characteristicIds,
+      serviceIds,
+      characteristicIds,
     },
   };
 }
@@ -216,9 +228,18 @@ export async function sendMessage(
   return mowerConnection;
 }
 
+interface DeviceConnectionInfos {
+  mowerId: string;
+  serviceIds: string[];
+  characteristicIds: string[];
+  serialNumber: number;
+  modelName: string;
+  modelNumber: string;
+}
+
 export async function getDeviceConnectionInfos(
   mowerConnection: MowerConnection,
-): Promise<{serviceIds: string[]; characteristicIds: string[]}> {
+): Promise<DeviceConnectionInfos> {
   requireBluetoothInfosInConnection(
     mowerConnection,
     `Cannot get device infos of mower ${mowerConnection.id} because there are no bluetooth infos about it`,
@@ -241,7 +262,25 @@ export async function getDeviceConnectionInfos(
       characteristic => characteristic.characteristic,
     ) ?? [];
 
-  return {serviceIds, characteristicIds};
+  const customReadResultData = await BleManager.read(
+    mowerConnection.bluetoothInfos!.id,
+    serviceIds[0],
+    characteristicIds[0],
+  );
+  // Format (using '+' as separator): MOWER_ID+SERIAL_NUMBER+MODEL_NAME+MODEL_NUMBER
+  const customReadResult = Buffer.from(customReadResultData).toString();
+
+  const [mowerId, serialNumber, modelName, modelNumber] =
+    customReadResult.split('+');
+
+  return {
+    mowerId,
+    serviceIds,
+    characteristicIds,
+    serialNumber: Number.parseInt(serialNumber, 10),
+    modelName,
+    modelNumber,
+  };
 }
 
 /**
