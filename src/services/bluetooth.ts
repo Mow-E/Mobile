@@ -51,11 +51,12 @@ export function addBluetoothServiceListeners(
     bleManagerEmitter.addListener(
       'BleManagerDiscoverPeripheral',
       async (peripheral: Peripheral) => {
-        // TODO: we might want to filter for mowers somehow
-        console.debug('[ble] new device discovered', peripheral);
-        const mowerConnection =
-          await convertDiscoveredPeripheralToMowerConnection(peripheral);
-        onDeviceDiscovered(mowerConnection);
+        if (peripheral.name !== undefined) {
+          console.debug('[ble] new device discovered', peripheral);
+          const mowerConnection =
+            await convertDiscoveredPeripheralToMowerConnection(peripheral);
+          onDeviceDiscovered(mowerConnection);
+        }
       },
     ),
     bleManagerEmitter.addListener('BleManagerStopScan', event => {
