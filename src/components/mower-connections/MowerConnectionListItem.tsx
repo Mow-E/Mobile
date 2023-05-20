@@ -26,6 +26,7 @@ interface MowerConnectionListItemProps {
    */
   onOpenInfo?: () => void;
   infoTestID?: string;
+  showInfoButton?: boolean;
 }
 
 /**
@@ -36,6 +37,7 @@ function MowerConnectionListItem({
   onSelectItem,
   onOpenInfo,
   infoTestID,
+  showInfoButton = false,
 }: MowerConnectionListItemProps): JSX.Element {
   const {t} = useTranslation();
   const styles = useStyles();
@@ -50,7 +52,7 @@ function MowerConnectionListItem({
             )}
         </Text>
       </Pressable>
-      {item && (
+      {item && showInfoButton && (
         <MowerConnectionInfoButton
           onOpenInfo={onOpenInfo}
           testID={infoTestID}

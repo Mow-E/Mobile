@@ -59,30 +59,32 @@ function MowerConnectionDetailsPage({
     [bluetoothService],
   );
 
+  if (activeConnection?.id !== connection?.id) {
+    return <></>;
+  }
+
   return (
     <View
       style={[
         styles.flexColumn,
         {marginTop: spacing.xxl, marginHorizontal: spacing.l, gap: spacing.xl},
       ]}>
-      {activeConnection?.id === connection?.id && (
-        <Button
-          label={
-            t(
-              'routes.mowerConnections.mowerConnectionDetails.deleteMower.buttonLabel',
-            )!
-          }
-          onPress={handleDisconnectPress}
-          fullWidth
-          testID="disconnectActiveMowerButton"
-        />
-      )}
+      <Button
+        label={
+          t(
+            'routes.mowerConnections.mowerConnectionDetails.deleteMower.buttonLabel',
+          )!
+        }
+        onPress={handleDisconnectPress}
+        fullWidth
+        testID="disconnectActiveMowerButton"
+      />
       <SectionWithHeading
         heading={
           t('routes.mowerConnections.mowerConnectionDetails.password.heading')!
         }>
         <TextInput
-          value={connection?.password ?? ''}
+          value={connection?.id ?? connection?.password ?? ''}
           onChange={() => {}}
           placeholder={
             t(
