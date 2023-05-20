@@ -19,7 +19,7 @@ export enum MowerCommand {
   /**
    * Starts the mower (when in automatic mode).
    */
-  Start = '?',
+  Start = 'G',
   /**
    * Stops the mower.
    */
