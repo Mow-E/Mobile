@@ -32,7 +32,7 @@ async function convertDiscoveredPeripheralToMowerConnection(
   return {
     // TODO: where do we get the mower-id from?
     id: peripheral.id,
-    name: peripheral.name ?? peripheral.id,
+    name: peripheral.advertising.localName ?? peripheral.name ?? peripheral.id,
     bluetoothInfos: {
       id: peripheral.id,
       serviceIds: peripheral.advertising.serviceUUIDs ?? [],
