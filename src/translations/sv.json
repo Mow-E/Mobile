@@ -75,7 +75,25 @@
     },
     "login": {
       "loginMain": {
-        "headerTitle": "Mow-E Inloggning"
+        "headerTitle": "Mow-E Inloggning",
+        "welcomeText": "Hej!",
+        "usernameHeading": "Användarnamn:",
+        "usernamePlaceholder": "Ange användarnamn här...",
+        "passwordHeading": "Lösenord:",
+        "passwordPlaceholder": "Ange lösenord här...",
+        "registrationLinkText": "Har du inte registrerat dig ännu? Klicka här",
+        "loginButtonLabel": "Kom igen!"
+      },
+      "loginRegister": {
+        "headerTitle": "Mow-E Registrering",
+        "welcomeText": "Välkommen!",
+        "usernameHeading": "Användarnamn:",
+        "usernamePlaceholder": "Ange användarnamn här...",
+        "passwordHeading": "Lösenord:",
+        "passwordPlaceholder": "Ange lösenord här...",
+        "confirmPasswordHeading": "Bekräfta Lösenordet:",
+        "confirmPasswordPlaceholder": "Ange lösenordet här igen...",
+        "registerButtonLabel": "Börja nu!"
       }
     }
   },

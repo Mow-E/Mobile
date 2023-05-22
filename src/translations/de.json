@@ -75,7 +75,25 @@
     },
     "login": {
       "loginMain": {
-        "headerTitle": "Mow-E Anmeldung"
+        "headerTitle": "Mow-E Anmeldung",
+        "welcomeText": "Hallo!",
+        "usernameHeading": "Nutzername:",
+        "usernamePlaceholder": "Nutzername hier eingeben...",
+        "passwordHeading": "Passwort:",
+        "passwordPlaceholder": "Passwort hier eingeben...",
+        "registrationLinkText": "Noch nicht registriert? Hier klicken",
+        "loginButtonLabel": "Auf geht's!"
+      },
+      "loginRegister": {
+        "headerTitle": "Mow-E Registrierung",
+        "welcomeText": "Willkommen!",
+        "usernameHeading": "Nutzername:",
+        "usernamePlaceholder": "Nutzername hier eingeben...",
+        "passwordHeading": "Passwort:",
+        "passwordPlaceholder": "Passwort hier eingeben...",
+        "confirmPasswordHeading": "Passwort Wiederholen:",
+        "confirmPasswordPlaceholder": "Passwort hier wiederholen...",
+        "registerButtonLabel": "Jetzt starten!"
       }
     }
   },

@@ -5,6 +5,7 @@ import {LoginRoutes} from './navigation';
 import LoginMainPage from './login/LoginMainPage';
 import {useTranslation} from 'react-i18next';
 import colors from '../styles/colors';
+import RegistrationPage from './login/RegistrationPage';
 
 const Stack = createStackNavigator<LoginRoutes>();
 
@@ -31,6 +32,13 @@ function LoginPage(): JSX.Element {
         component={LoginMainPage}
         options={{
           title: t('routes.login.loginMain.headerTitle')!,
+        }}
+      />
+      <Stack.Screen
+        name="LoginRegister"
+        component={RegistrationPage}
+        options={{
+          title: t('routes.login.loginRegister.headerTitle')!,
         }}
       />
     </Stack.Navigator>

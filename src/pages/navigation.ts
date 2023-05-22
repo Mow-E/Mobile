@@ -61,13 +61,9 @@ export type LoginRoutes = {
   /**
    * The screen showing the login form if no user is logged-in.
    */
-  LoginMain: {
-    onNewCurrentUser: undefined;
-  };
+  LoginMain: undefined;
   /**
    * The screen showing the user registration form.
    */
-  LoginRegister: {
-    onNewCurrentUser: undefined;
-  };
+  LoginRegister: undefined;
 };

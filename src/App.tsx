@@ -150,8 +150,18 @@ function App(): JSX.Element {
     return (
       <NavigationContainer>
         <CurrentUserContext.Provider value={currentUserContextValue}>
-          <StatusBar />
-          <LoginPage />
+          <ErrorStateContext.Provider value={{errorState, setErrorState}}>
+            <AppColorModeContext.Provider
+              value={{appColorMode, setAppColorMode: handleAppColorModeChange}}>
+              <StatusBar />
+              <LoginPage />
+              <ErrorOverlay
+                text={errorState ?? ''}
+                visible={errorState !== null}
+                onClose={() => setErrorState(null)}
+              />
+            </AppColorModeContext.Provider>
+          </ErrorStateContext.Provider>
         </CurrentUserContext.Provider>
       </NavigationContainer>
     );
