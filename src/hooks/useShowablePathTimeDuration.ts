@@ -1,9 +1,9 @@
 import {createContext, useContext} from 'react';
 
 export enum ShowablePathTimeDuration {
-  h24,
-  h12,
-  h3,
+  h24 = '24hours',
+  h12 = '12hours',
+  h3 = '3hours',
 }
 
 interface ShowablePathTimeDurationContextType {

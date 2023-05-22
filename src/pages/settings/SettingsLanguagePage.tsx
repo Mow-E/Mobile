@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import useStyles from '../../hooks/useStyles';
@@ -9,6 +9,9 @@ import {useTranslation} from 'react-i18next';
 import {INFO_ICON_SIZE} from '../../components/mower-connections/MowerConnectionInfoButton';
 import useIsInDarkMode from '../../hooks/useIsInDarkMode';
 import CheckMarkIcon from '../../assets/icons/CheckMarkIcon';
+import useStorageService, {
+  LANGUAGE_STORAGE_KEY,
+} from '../../hooks/useStorageService';
 
 function SettingsLanguagePage({}: StackScreenProps<
   SettingsRoutes,
@@ -17,6 +20,7 @@ function SettingsLanguagePage({}: StackScreenProps<
   const styles = useStyles();
   const {t, i18n} = useTranslation();
   const isInDarkMode = useIsInDarkMode();
+  const storageService = useStorageService();
 
   const informationItems = useMemo(
     () => [
@@ -36,6 +40,15 @@ function SettingsLanguagePage({}: StackScreenProps<
     [t],
   );
 
+  const handleLanguageChange = useCallback<(languageCode: string) => void>(
+    languageCode => {
+      i18n
+        .changeLanguage(languageCode)
+        .then(() => storageService.store(LANGUAGE_STORAGE_KEY, languageCode));
+    },
+    [i18n, storageService],
+  );
+
   return (
     <View
       style={[
@@ -48,7 +61,7 @@ function SettingsLanguagePage({}: StackScreenProps<
         ItemSeparatorComponent={LineListItemSeparator}
         renderItem={({item}) => (
           <Pressable
-            onPress={() => i18n.changeLanguage(item.languageCode)}
+            onPress={() => handleLanguageChange(item.languageCode)}
             style={componentStyles.container}>
             <Text style={[styles.textNormal, componentStyles.label]}>
               {item.label}
