@@ -24,6 +24,12 @@ export const DEFAULT_ENDING_SEQUENCE = '*';
 
 export const SECONDS_TO_SCAN_FOR_DEVICES = 7;
 
+/**
+ * The fixed service uuids that our mowers use.
+ * Set here as a constant to enable filtering discovered devices for (supposedly) compatible devices.
+ */
+const COMPATIBLE_MOWER_SERVICE_IDS = ['ec00'];
+
 export async function startBluetoothService(): Promise<void> {
   await BleManager.start();
   console.debug('[ble] started ble manager');
@@ -91,11 +97,16 @@ export function removeBluetoothServiceListeners(
 
 export async function scanForBluetoothDevices(): Promise<void> {
   console.log('[ble] started scanning for bluetooth devices');
-  await BleManager.scan([], SECONDS_TO_SCAN_FOR_DEVICES, false, {
-    matchMode: BleScanMatchMode.Sticky,
-    scanMode: BleScanMode.LowLatency,
-    callbackType: BleScanCallbackType.AllMatches,
-  });
+  await BleManager.scan(
+    COMPATIBLE_MOWER_SERVICE_IDS,
+    SECONDS_TO_SCAN_FOR_DEVICES,
+    false,
+    {
+      matchMode: BleScanMatchMode.Sticky,
+      scanMode: BleScanMode.LowLatency,
+      callbackType: BleScanCallbackType.AllMatches,
+    },
+  );
 }
 
 /**
