@@ -23,6 +23,12 @@ it('renders uncolored correctly', () => {
   expect(tree).toMatchSnapshot();
 });
 
+it('renders in dark mode correctly', () => {
+  const tree = renderer.create(<MowEIcon darkModeInverted />).toJSON();
+
+  expect(tree).toMatchSnapshot();
+});
+
 it('renders in different sizes', () => {
   const treeSmall = renderer.create(<MowEIcon size={24} />).toJSON();
   const treeLarge = renderer.create(<MowEIcon size={48} />).toJSON();

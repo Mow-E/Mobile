@@ -3,22 +3,86 @@
     "map": {
       "headerTitle": "Mow-E Map",
       "tabBarLabel": "Map",
-      "pagePlaceholder": "Map placeholder"
+      "noMowerConnectedText": "No Mower Connected!",
+      "mowerOnOffButton": {
+        "onLabel": "On",
+        "offLabel": "Off"
+      }
     },
     "mowerConnections": {
-      "headerTitle": "Mower Connections",
       "tabBarLabel": "Mower",
-      "pagePlaceholder": "Mower connections placeholder"
+      "mowerConnectionsList": {
+        "headerTitle": "Mower Connections",
+        "activeConnection": {
+          "heading": "Connection",
+          "noActiveConnection": "No connection"
+        },
+        "searchForConnections": {
+          "buttonLabel": "Search for Mower Connections"
+        },
+        "availableConnections": {
+          "heading": "Other Mowers Found",
+          "connectingLabel": "Connecting...",
+          "searchingLabel": "Searching..."
+        },
+        "drivingMode": {
+          "heading": "Driving Mode"
+        }
+      },
+      "mowerConnectionDetails": {
+        "deleteMower": {
+          "buttonLabel": "Disconnect mower"
+        },
+        "password": {
+          "heading": "Password",
+          "inputPlaceholder": "Enter password here..."
+        },
+        "information": {
+          "heading": "Information",
+          "serialNumber": "Serial Number",
+          "modelName": "Model Name",
+          "modelNumber": "Model Number"
+        }
+      }
     },
     "settings": {
-      "headerTitle": "Settings",
       "tabBarLabel": "Settings",
-      "pagePlaceholder": "Settings placeholder"
+      "settingsMain": {
+        "headerTitle": "Settings",
+        "appMode": "App Mode"
+      },
+      "settingsTimeDuration": {
+        "heading": "Time Duration"
+      },
+      "settingsLanguage": {
+        "heading": "Language"
+      },
+      "settingsTimeDurationDetails": {
+        "last24Hours": "last 24 hours",
+        "last12Hours": "last 12 hours",
+        "last3Hours": "last 3 hours"
+      },
+      "settingsLanguageDetails": {
+        "en": "English",
+        "de": "German",
+        "sv": "Swedish"
+      }
     },
     "imageHistory": {
       "headerTitle": "Image History",
       "tabBarLabel": "Images",
       "pagePlaceholder": "Image history placeholder"
     }
+  },
+  "layout": {
+    "header": {
+      "back": "Back"
+    }
+  },
+  "errors": {
+    "bluetoothNotOnOrAuthorized": "Bluetooth is not on or authorized!"
+  },
+  "button": {
+    "cancel": "Cancel"
   }
 }

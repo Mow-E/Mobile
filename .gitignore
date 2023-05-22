@@ -21,6 +21,9 @@ DerivedData
 *.ipa
 *.xcuserstate
 ios/.xcode.env.local
+ios/MowEMobile.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+ios/MowEMobile.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+ios/MowEMobile.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
 
 # Android/IntelliJ
 #
@@ -32,6 +35,7 @@ local.properties
 .cxx/
 *.keystore
 !debug.keystore
+.fleet
 
 # node.js
 #

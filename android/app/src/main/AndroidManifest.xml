@@ -1,12 +1,33 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <!--
+      This permission should not be needed on android 12+ devices anymore,
+      but in fact some manufacturers still need it for BLE to properly work :
+      https://stackoverflow.com/a/72370969
+    -->
+    <uses-permission android:name="android.permission.BLUETOOTH" tools:remove="android:maxSdkVersion" />
+
+    <!--
+      Should normally only be needed on android < 12 if you want to:
+      - activate bluetooth programmatically
+      - discover local BLE devices
+      see: https://developer.android.com/guide/topics/connectivity/bluetooth/permissions#discover-local-devices.
+      Same as above, may still be wrongly needed by some manufacturers on android 12+.
+     -->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" tools:remove="android:maxSdkVersion" />
+
+    <!-- Needed to search for Bluetooth devices. -->
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
+                     android:usesPermissionFlags="neverForLocation" />
+    <!-- Needed to interact with a BLE device. -->
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
 
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
       android:icon="@mipmap/ic_launcher"
-      android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
       <activity

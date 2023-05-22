@@ -1,0 +1,88 @@
+{
+  "routes": {
+    "map": {
+      "headerTitle": "Mow-E Karta",
+      "tabBarLabel": "Karta",
+      "noMowerConnectedText": "Ingen gräsklippare är ansluten!",
+      "mowerOnOffButton": {
+        "onLabel": "På",
+        "offLabel": "Av"
+      }
+    },
+    "mowerConnections": {
+      "tabBarLabel": "Slåttermaskin",
+      "mowerConnectionsList": {
+        "headerTitle": "Anslutningar för gräsklippare",
+        "activeConnection": {
+          "heading": "Anslutning",
+          "noActiveConnection": "Ingen anslutning"
+        },
+        "searchForConnections": {
+          "buttonLabel": "Sök efter anslutningar"
+        },
+        "availableConnections": {
+          "heading": "Andra gräsklippare som hittats",
+          "connectingLabel": "Anslutning...",
+          "searchingLabel": "Sökning..."
+        },
+        "drivingMode": {
+          "heading": "Körläge"
+        }
+      },
+      "mowerConnectionDetails": {
+        "deleteMower": {
+          "buttonLabel": "Koppla bort gräsklipparen"
+        },
+        "password": {
+          "heading": "Lösenord",
+          "inputPlaceholder": "Ange lösenordet här..."
+        },
+        "information": {
+          "heading": "Information",
+          "serialNumber": "Serielnummer",
+          "modelName": "Modellnamn",
+          "modelNumber": "Modellnummer"
+        }
+      }
+    },
+    "settings": {
+      "tabBarLabel": "Inställningar",
+      "settingsMain": {
+        "headerTitle": "Inställningar",
+        "appMode": "App-läge"
+      },
+      "settingsTimeDuration": {
+        "heading": "Tid Varaktighet"
+      },
+      "settingsLanguage": {
+        "heading": "Språk"
+      },
+      "settingsTimeDurationDetails": {
+        "last24Hours": "Senaste 24 timmarna",
+        "last12Hours": "Senaste 12 timmarna",
+        "last3Hours": "Senaste 3 timmarna"
+      },
+      "settingsLanguageDetails": {
+        "en": "Engelska",
+        "de": "Tyska",
+        "sv": "Svenska"
+      }
+    },
+    "imageHistory": {
+      "headerTitle": "Bild historik",
+      "tabBarLabel": "Bild",
+      "pagePlaceholder": "Platshållare för Bildhistorik"
+    }
+  },
+  "layout": {
+    "header": {
+      "back": "Tillbaka"
+    }
+  },
+  "errors": {
+    "bluetoothNotOnOrAuthorized": "Bluetooth är inte aktiverat eller auktoriserat!"
+  },
+  "button": {
+    "cancel": "Avbryt"
+  }
+}

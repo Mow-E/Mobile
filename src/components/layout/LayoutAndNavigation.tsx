@@ -10,9 +10,13 @@ import CameraIcon from '../../assets/icons/CameraIcon';
 import React, {useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
 import useIsInDarkMode from '../../hooks/useIsInDarkMode';
-import getStyles from './LayoutAndNavigation.style';
+import useStyles from '../../hooks/useStyles';
+import {RootRoutes} from '../../pages/navigation';
 
-const Tab = createBottomTabNavigator();
+/** Value to multiply the default icon size in the tab bar by. */
+const ICON_SIZE_MODIFICATOR = 1.2;
+
+const Tab = createBottomTabNavigator<RootRoutes>();
 
 /**
  * Properties an icon in the bottom navigation bar can accept.
@@ -37,14 +41,14 @@ interface TabBarIconFactoryProps {
 function LayoutAndNavigation(): JSX.Element {
   const {t} = useTranslation();
   const isInDarkMode = useIsInDarkMode();
-  const styles = getStyles(isInDarkMode);
+  const styles = useStyles();
 
   const createMapIcon = useCallback<
     (props: TabBarIconFactoryProps) => JSX.Element
   >(
     ({size, focused}) => (
       <MapIcon
-        size={size * 1.2}
+        size={size * ICON_SIZE_MODIFICATOR}
         colored={focused}
         darkModeInverted={isInDarkMode}
       />
@@ -57,7 +61,7 @@ function LayoutAndNavigation(): JSX.Element {
   >(
     ({size, focused}) => (
       <MowEIcon
-        size={size * 1.2}
+        size={size * ICON_SIZE_MODIFICATOR}
         colored={focused}
         darkModeInverted={isInDarkMode}
       />
@@ -70,7 +74,7 @@ function LayoutAndNavigation(): JSX.Element {
   >(
     ({size, focused}) => (
       <CogsIcon
-        size={size * 1.2}
+        size={size * ICON_SIZE_MODIFICATOR}
         colored={focused}
         darkModeInverted={isInDarkMode}
       />
@@ -83,7 +87,7 @@ function LayoutAndNavigation(): JSX.Element {
   >(
     ({size, focused}) => (
       <CameraIcon
-        size={size * 1.2}
+        size={size * ICON_SIZE_MODIFICATOR}
         colored={focused}
         darkModeInverted={isInDarkMode}
       />
@@ -93,47 +97,47 @@ function LayoutAndNavigation(): JSX.Element {
 
   return (
     <Tab.Navigator
-      initialRouteName="map"
+      initialRouteName="Map"
       screenOptions={{
         tabBarShowLabel: true,
-        tabBarActiveTintColor: styles.tabBarActiveTintColor.color,
-        headerStyle: styles.headerStyle,
-        headerTitleStyle: styles.headerTitleStyle,
-        tabBarStyle: styles.tabBarStyle,
+        tabBarActiveTintColor: styles.layoutTabBarActiveTintColor.color,
+        headerStyle: styles.layoutHeaderStyle,
+        headerTitleStyle: styles.layoutHeaderTitleStyle,
+        tabBarStyle: styles.layoutTabBarStyle,
       }}
-      sceneContainerStyle={styles.sceneContainerStyle}>
+      sceneContainerStyle={styles.layoutSceneContainerStyle}>
       <Tab.Screen
-        name="map"
+        name="Map"
         component={MapPage}
         options={{
-          headerTitle: t('routes.map.headerTitle')!,
+          title: t('routes.map.headerTitle')!,
           tabBarLabel: t('routes.map.tabBarLabel')!,
           tabBarIcon: createMapIcon,
         }}
       />
       <Tab.Screen
-        name="mower-connections"
+        name="MowerConnections"
         component={MowerConnectionsPage}
         options={{
-          headerTitle: t('routes.mowerConnections.headerTitle')!,
           tabBarLabel: t('routes.mowerConnections.tabBarLabel')!,
           tabBarIcon: createMowerConnectionsIcon,
+          headerShown: false,
         }}
       />
       <Tab.Screen
-        name="settings"
+        name="Settings"
         component={SettingsPage}
         options={{
-          headerTitle: t('routes.settings.headerTitle')!,
           tabBarLabel: t('routes.settings.tabBarLabel')!,
           tabBarIcon: createSettingsIcon,
+          headerShown: false,
         }}
       />
       <Tab.Screen
-        name="image-history"
+        name="ImageHistory"
         component={ImageHistoryPage}
         options={{
-          headerTitle: t('routes.imageHistory.headerTitle')!,
+          title: t('routes.imageHistory.headerTitle')!,
           tabBarLabel: t('routes.imageHistory.tabBarLabel')!,
           tabBarIcon: createImageHistoryIcon,
         }}

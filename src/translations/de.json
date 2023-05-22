@@ -1,0 +1,88 @@
+{
+  "routes": {
+    "map": {
+      "headerTitle": "Mow-E Karte",
+      "tabBarLabel": "Karte",
+      "noMowerConnectedText": "Kein Rasenmäher verbunden!",
+      "mowerOnOffButton": {
+        "onLabel": "An",
+        "offLabel": "Aus"
+      }
+    },
+    "mowerConnections": {
+      "tabBarLabel": "Rasenmäher",
+      "mowerConnectionsList": {
+        "headerTitle": "Rasenmäher Verbindungen",
+        "activeConnection": {
+          "heading": "Verbindungen",
+          "noActiveConnection": "Keine Verbindung"
+        },
+        "searchForConnections": {
+          "buttonLabel": "Nach Verbindungen suchen"
+        },
+        "availableConnections": {
+          "heading": "Andere gefundene Rasenmäher",
+          "connectingLabel": "Verbindet...",
+          "searchingLabel": "Sucht..."
+        },
+        "drivingMode": {
+          "heading": "Fahrmodus"
+        }
+      },
+      "mowerConnectionDetails": {
+        "deleteMower": {
+          "buttonLabel": "Rasenmäher entkoppeln"
+        },
+        "password": {
+          "heading": "Passwort",
+          "inputPlaceholder": "Passwort hier eingeben..."
+        },
+        "information": {
+          "heading": "Information",
+          "serialNumber": "Seriennummer",
+          "modelName": "Modelname",
+          "modelNumber": "Modelnummer"
+        }
+      }
+    },
+    "settings": {
+      "tabBarLabel": "Einstellungen",
+      "settingsMain": {
+        "headerTitle": "Einstellungen",
+        "appMode": "App Modus"
+      },
+      "settingsTimeDuration": {
+        "heading": "Zeitraum"
+      },
+      "settingsLanguage": {
+        "heading": "Sprache"
+      },
+      "settingsTimeDurationDetails": {
+        "last24Hours": "letzten 24 Stunden",
+        "last12Hours": "letzten 12 Stunden",
+        "last3Hours": "letzten 3 Stunden"
+      },
+      "settingsLanguageDetails": {
+        "en": "Englisch",
+        "de": "Deutsch",
+        "sv": "Schwedisch"
+      }
+    },
+    "imageHistory": {
+      "headerTitle": "Image History",
+      "tabBarLabel": "Bilder",
+      "pagePlaceholder": "Image history placeholder"
+    }
+  },
+  "layout": {
+    "header": {
+      "back": "Zurück"
+    }
+  },
+  "errors": {
+    "bluetoothNotOnOrAuthorized": "Bluetooth ist nicht aktiviert oder Berechtigungen fehlen!"
+  },
+  "button": {
+    "cancel": "Abbrechen"
+  }
+}

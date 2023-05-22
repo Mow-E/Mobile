@@ -1,3 +1,5 @@
+import {ColorValue} from 'react-native';
+
 /**
  * The general properties all our icons have to accept.
  */
@@ -9,7 +11,7 @@ interface IconProps {
   /**
    * Whether the icon should be shown colored or in grayscale.
    */
-  colored?: boolean;
+  colored?: boolean | ColorValue;
   /**
    * Whether the icon should be shown as a dark-mode inverted version.
    */
