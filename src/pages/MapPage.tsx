@@ -39,6 +39,8 @@ function MapPage(): JSX.Element {
 
       if (e instanceof Error) {
         setErrorState(e.message);
+      } else if (typeof e === 'string') {
+        setErrorState(e);
       }
     }
     console.debug('[automatic control] started moving in automatic mode');
@@ -56,6 +58,8 @@ function MapPage(): JSX.Element {
 
       if (e instanceof Error) {
         setErrorState(e.message);
+      } else if (typeof e === 'string') {
+        setErrorState(e);
       }
     }
     console.debug('[automatic control] stopped moving in automatic mode');
@@ -89,6 +93,8 @@ function MapPage(): JSX.Element {
 
         if (e instanceof Error) {
           setErrorState(e.message);
+        } else if (typeof e === 'string') {
+          setErrorState(e);
         }
       }
 
@@ -112,6 +118,8 @@ function MapPage(): JSX.Element {
 
         if (e instanceof Error) {
           setErrorState(e.message);
+        } else if (typeof e === 'string') {
+          setErrorState(e);
         }
       }
       console.debug(`[manual control] stopped moving ${direction}`);

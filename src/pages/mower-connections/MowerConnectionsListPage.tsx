@@ -118,6 +118,8 @@ function MowerConnectionsListPage({
 
         if (e instanceof Error) {
           setErrorState(e.message);
+        } else if (typeof e === 'string') {
+          setErrorState(e);
         }
       }
       setConnectingToMower(false);
@@ -135,6 +137,8 @@ function MowerConnectionsListPage({
 
       if (e instanceof Error) {
         setErrorState(e.message);
+      } else if (typeof e === 'string') {
+        setErrorState(e);
       }
     }
     setSearchingForMowers(false);
@@ -155,6 +159,8 @@ function MowerConnectionsListPage({
 
       if (e instanceof Error) {
         setErrorState(e.message);
+      } else if (typeof e === 'string') {
+        setErrorState(e);
       }
     } finally {
       setSearchingForMowers(false);
