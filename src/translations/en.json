@@ -1,5 +1,8 @@
 {
   "routes": {
+    "app": {
+      "loading": "Loading..."
+    },
     "map": {
       "headerTitle": "Mow-E Map",
       "tabBarLabel": "Map",
@@ -49,7 +52,8 @@
       "tabBarLabel": "Settings",
       "settingsMain": {
         "headerTitle": "Settings",
-        "appMode": "App Mode"
+        "appMode": "App Mode",
+        "logout": "Log Out"
       },
       "settingsTimeDuration": {
         "heading": "Time Duration"
@@ -72,6 +76,31 @@
       "headerTitle": "Image History",
       "tabBarLabel": "Images",
       "pagePlaceholder": "Image history placeholder"
+    },
+    "login": {
+      "loginMain": {
+        "headerTitle": "Mow-E Login",
+        "welcomeText": "Hello!",
+        "usernameHeading": "Username:",
+        "usernamePlaceholder": "Enter username here...",
+        "passwordHeading": "Password:",
+        "passwordPlaceholder": "Enter password here...",
+        "registrationLinkText": "Not registered yet? Click here",
+        "loginButtonLabel": "Let's go!",
+        "loggingInLabel": "Logging in..."
+      },
+      "loginRegister": {
+        "headerTitle": "Mow-E Registration",
+        "welcomeText": "Welcome!",
+        "usernameHeading": "Username:",
+        "usernamePlaceholder": "Enter username here...",
+        "passwordHeading": "Password:",
+        "passwordPlaceholder": "Enter password here...",
+        "confirmPasswordHeading": "Confirm Password:",
+        "confirmPasswordPlaceholder": "Enter password here again...",
+        "registerButtonLabel": "Start now!",
+        "registeringInLabel": "Registering..."
+      }
     }
   },
   "layout": {

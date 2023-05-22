@@ -1,5 +1,8 @@
 {
   "routes": {
+    "app": {
+      "loading": "Laden..."
+    },
     "map": {
       "headerTitle": "Mow-E Karte",
       "tabBarLabel": "Karte",
@@ -49,7 +52,8 @@
       "tabBarLabel": "Einstellungen",
       "settingsMain": {
         "headerTitle": "Einstellungen",
-        "appMode": "App Modus"
+        "appMode": "App Modus",
+        "logout": "Abmelden"
       },
       "settingsTimeDuration": {
         "heading": "Zeitraum"
@@ -72,6 +76,31 @@
       "headerTitle": "Image History",
       "tabBarLabel": "Bilder",
       "pagePlaceholder": "Image history placeholder"
+    },
+    "login": {
+      "loginMain": {
+        "headerTitle": "Mow-E Anmeldung",
+        "welcomeText": "Hallo!",
+        "usernameHeading": "Nutzername:",
+        "usernamePlaceholder": "Nutzername hier eingeben...",
+        "passwordHeading": "Passwort:",
+        "passwordPlaceholder": "Passwort hier eingeben...",
+        "registrationLinkText": "Noch nicht registriert? Hier klicken",
+        "loginButtonLabel": "Auf geht's!",
+        "loggingInLabel": "Anmelden..."
+      },
+      "loginRegister": {
+        "headerTitle": "Mow-E Registrierung",
+        "welcomeText": "Willkommen!",
+        "usernameHeading": "Nutzername:",
+        "usernamePlaceholder": "Nutzername hier eingeben...",
+        "passwordHeading": "Passwort:",
+        "passwordPlaceholder": "Passwort hier eingeben...",
+        "confirmPasswordHeading": "Passwort Wiederholen:",
+        "confirmPasswordPlaceholder": "Passwort hier wiederholen...",
+        "registerButtonLabel": "Jetzt starten!",
+        "registeringInLabel": "Registrieren..."
+      }
     }
   },
   "layout": {
