@@ -94,9 +94,7 @@ function Button({
 const componentStyles = StyleSheet.create({
   label: {
     padding: spacing.sm,
-    paddingHorizontal: spacing.xl,
-    flexGrow: 1,
-    marginVertical: 'auto',
+    paddingHorizontal: spacing.l,
   },
   labelFullWidth: {
     paddingHorizontal: spacing.sm,
@@ -107,6 +105,7 @@ const componentStyles = StyleSheet.create({
     // height = info + (2 * padding)
     height: INFO_ICON_SIZE + 2 * spacing.sm,
     width: 'auto',
+    justifyContent: 'center',
   },
   containerFullWidth: {
     flexDirection: 'row',
