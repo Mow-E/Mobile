@@ -21,7 +21,7 @@ export async function fetchWithAuthorization(
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(body),
+      body: method === 'POST' ? JSON.stringify(body) : undefined,
     });
   }
 
@@ -31,6 +31,6 @@ export async function fetchWithAuthorization(
       'Content-Type': 'application/json',
       Authorization: `Bearer ${authorizationToken}`,
     },
-    body: JSON.stringify(body),
+    body: method === 'POST' ? JSON.stringify(body) : undefined,
   });
 }
