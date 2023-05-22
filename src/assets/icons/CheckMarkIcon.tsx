@@ -29,9 +29,15 @@ function SvgComponent(props: SvgProps): JSX.Element {
 /**
  * An icon for a check mark.
  */
-function CheckMarkIcon({size = 24, colored = false}: IconProps): JSX.Element {
-  const strokeColor =
-    typeof colored === 'boolean' ? colors.gray['950'] : colored;
+function CheckMarkIcon({
+  size = 24,
+  colored = false,
+  darkModeInverted = false,
+}: IconProps): JSX.Element {
+  const grayscaleColor = darkModeInverted
+    ? colors.gray['50']
+    : colors.gray['950'];
+  const strokeColor = typeof colored === 'boolean' ? grayscaleColor : colored;
 
   return <SvgComponent height={size} width={size} stroke={strokeColor} />;
 }
