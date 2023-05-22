@@ -54,6 +54,10 @@ export interface MowerConnection {
      * The available characteristics advertised by the bluetooth device.
      */
     characteristicIds: string[];
+    /**
+     * The bluetooth rssi when the device was discovered.
+     */
+    rssiWhenDiscovered: number;
   };
 }
 

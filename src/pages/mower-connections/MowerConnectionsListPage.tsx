@@ -147,8 +147,8 @@ function MowerConnectionsListPage({
   );
 
   const availableConnectionsWithoutActiveOne = useMemo(() => {
-    return Array.from(availableConnections.values()).filter(
-      ({id, bluetoothInfos}) => {
+    return Array.from(availableConnections.values())
+      .filter(({id, bluetoothInfos}) => {
         if (activeConnection === null) {
           return true;
         }
@@ -158,8 +158,25 @@ function MowerConnectionsListPage({
         }
 
         return id !== activeConnection.id;
-      },
-    );
+      })
+      .sort((a, b) => {
+        if (a.bluetoothInfos === undefined && b.bluetoothInfos === undefined) {
+          return 0;
+        }
+
+        if (a.bluetoothInfos === undefined) {
+          return 1;
+        }
+
+        if (b.bluetoothInfos === undefined) {
+          return -1;
+        }
+
+        return (
+          b.bluetoothInfos.rssiWhenDiscovered -
+          a.bluetoothInfos.rssiWhenDiscovered
+        );
+      });
   }, [activeConnection, availableConnections]);
 
   return (

@@ -50,6 +50,7 @@ async function convertDiscoveredPeripheralToMowerConnection(
       id: peripheral.id,
       serviceIds: peripheral.advertising.serviceUUIDs ?? [],
       characteristicIds: [],
+      rssiWhenDiscovered: peripheral.rssi,
     },
   };
 }
