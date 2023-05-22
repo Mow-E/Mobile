@@ -96,7 +96,6 @@ export function removeBluetoothServiceListeners(
 }
 
 export async function scanForBluetoothDevices(): Promise<void> {
-  console.log('[ble] started scanning for bluetooth devices');
   await BleManager.scan(
     COMPATIBLE_MOWER_SERVICE_IDS,
     SECONDS_TO_SCAN_FOR_DEVICES,
@@ -107,6 +106,12 @@ export async function scanForBluetoothDevices(): Promise<void> {
       callbackType: BleScanCallbackType.AllMatches,
     },
   );
+  console.log('[ble] started scanning for bluetooth devices');
+}
+
+export async function stopScanningForBluetoothDevices(): Promise<void> {
+  await BleManager.stopScan();
+  console.log('[ble] manually stopped scanning for bluetooth devices');
 }
 
 /**

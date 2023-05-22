@@ -81,5 +81,8 @@
   },
   "errors": {
     "bluetoothNotOnOrAuthorized": "Bluetooth ist nicht aktiviert oder Berechtigungen fehlen!"
+  },
+  "button": {
+    "cancel": "Abbrechen"
   }
 }

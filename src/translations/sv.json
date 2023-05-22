@@ -81,5 +81,8 @@
   },
   "errors": {
     "bluetoothNotOnOrAuthorized": "Bluetooth är inte aktiverat eller auktoriserat!"
+  },
+  "button": {
+    "cancel": "Avbryt"
   }
 }

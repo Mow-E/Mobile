@@ -9,6 +9,7 @@ import {
   scanForBluetoothDevices,
   SECONDS_TO_SCAN_FOR_DEVICES,
   sendMessage,
+  stopScanningForBluetoothDevices,
 } from '../services/bluetooth';
 import useMowerMode from './useMowerMode';
 import useAvailableMowerConnections from './useAvailableMowerConnections';
@@ -179,7 +180,16 @@ function useBluetoothService() {
     );
   }, [setAvailableConnections, requireBluetoothActive]);
 
-  return {connect, disconnect, sendCommand, scanForDevices};
+  /**
+   * Stops any running scan for bluetooth devices.
+   */
+  const stopScanForDevices = useCallback<() => Promise<void>>(async () => {
+    await requireBluetoothActive();
+
+    await stopScanningForBluetoothDevices();
+  }, [requireBluetoothActive]);
+
+  return {connect, disconnect, sendCommand, scanForDevices, stopScanForDevices};
 }
 
 export default useBluetoothService;

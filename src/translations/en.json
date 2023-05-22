@@ -81,5 +81,8 @@
   },
   "errors": {
     "bluetoothNotOnOrAuthorized": "Bluetooth is not on or authorized!"
+  },
+  "button": {
+    "cancel": "Cancel"
   }
 }

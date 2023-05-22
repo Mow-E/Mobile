@@ -1,10 +1,13 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import CircularAroundCenterAnimation from '../animations/CircularAroundCenterAnimation';
 import MowEIcon from '../../assets/icons/MowEIcon';
 import Backdrop from '../common/Backdrop';
 import useStyles from '../../hooks/useStyles';
 import useIsInDarkMode from '../../hooks/useIsInDarkMode';
+import Button from './Button';
+import {useTranslation} from 'react-i18next';
+import spacing from '../../styles/spacing';
 
 /**
  * The size of the mow-e icon.
@@ -23,6 +26,10 @@ interface LoadingOverlayProps {
    * Whether the overlay is visible.
    */
   visible?: boolean;
+  /**
+   * Called when the overlay should be closed.
+   */
+  onClose?: () => void;
 }
 
 /**
@@ -31,9 +38,11 @@ interface LoadingOverlayProps {
 function LoadingOverlay({
   text,
   visible = false,
+  onClose,
 }: LoadingOverlayProps): JSX.Element {
   const styles = useStyles();
   const isInDarkMode = useIsInDarkMode();
+  const {t} = useTranslation();
 
   return (
     <>
@@ -48,9 +57,18 @@ function LoadingOverlay({
               darkModeInverted={isInDarkMode}
             />
           </CircularAroundCenterAnimation>
-          <Text style={[styles.textHeading, componentStyles.absolutePosition]}>
+          <Text style={[styles.textHeading, componentStyles.label]}>
             {text}
           </Text>
+          {onClose && (
+            <View style={componentStyles.cancelButton}>
+              <Button
+                label={t('button.cancel')}
+                onPress={onClose}
+                color="secondary"
+              />
+            </View>
+          )}
         </Backdrop>
       )}
     </>
@@ -61,7 +79,12 @@ function LoadingOverlay({
  * The individual styles for this component.
  */
 const componentStyles = StyleSheet.create({
-  absolutePosition: {position: 'absolute'},
+  label: {position: 'absolute'},
+  cancelButton: {
+    position: 'absolute',
+    left: spacing.l,
+    bottom: spacing.l,
+  },
 });
 
 export default LoadingOverlay;

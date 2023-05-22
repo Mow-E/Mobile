@@ -128,6 +128,7 @@ function MowerConnectionsListPage({
   const handleScanForDevices = useCallback(async () => {
     setSearchingForMowers(true);
     try {
+      await bluetoothService.stopScanForDevices();
       await bluetoothService.scanForDevices();
     } catch (e) {
       console.error(e);
@@ -145,6 +146,20 @@ function MowerConnectionsListPage({
     connection => navigation.navigate('MowerConnectionDetails', {connection}),
     [navigation],
   );
+
+  const handleCancelScanForDevices = useCallback(async () => {
+    try {
+      await bluetoothService.stopScanForDevices();
+    } catch (e) {
+      console.error(e);
+
+      if (e instanceof Error) {
+        setErrorState(e.message);
+      }
+    } finally {
+      setSearchingForMowers(false);
+    }
+  }, [bluetoothService, setErrorState]);
 
   const availableConnectionsWithoutActiveOne = useMemo(() => {
     return Array.from(availableConnections.values())
@@ -196,6 +211,7 @@ function MowerConnectionsListPage({
           )!
         }
         visible={searchingForMowers}
+        onClose={handleCancelScanForDevices}
       />
       <View
         style={[
