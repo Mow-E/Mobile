@@ -16,7 +16,7 @@ interface FloatingActionButtonProps {
   /**
    * The label to display inside the button.
    */
-  label: string;
+  label: string | React.ReactElement;
   /**
    * Called when the button is pressed.
    */
@@ -40,7 +40,6 @@ interface FloatingActionButtonProps {
 /**
  * A button that sends a start/stop signal to the mower.
  * This component does not send the commands itself.
- * TODO: make this a general FAB.
  */
 function FloatingActionButton({
   label,
@@ -89,16 +88,20 @@ function FloatingActionButton({
             borderColor: colors.gray['300'],
           },
         ]}>
-        <Text
-          style={[
-            styles.textNormal,
-            componentStyles.label,
-            isInvertedColor && {
-              color: LIGHT_FONT_COLOR,
-            },
-          ]}>
-          {label}
-        </Text>
+        {typeof label === 'string' ? (
+          <Text
+            style={[
+              styles.textNormal,
+              componentStyles.label,
+              isInvertedColor && {
+                color: LIGHT_FONT_COLOR,
+              },
+            ]}>
+            {label}
+          </Text>
+        ) : (
+          label
+        )}
       </Pressable>
     </View>
   );

@@ -20,6 +20,21 @@ export const darkModeStyles = StyleSheet.create({
     fontSize: NORMAL_FONT_SIZE,
     fontWeight: 'normal',
   },
+  textNormalInverted: {
+    color: DARK_FONT_COLOR,
+    fontSize: NORMAL_FONT_SIZE,
+    fontWeight: 'normal',
+  },
+  textNormalBold: {
+    color: LIGHT_FONT_COLOR,
+    fontSize: NORMAL_FONT_SIZE,
+    fontWeight: 'bold',
+  },
+  textNormalBoldInverted: {
+    color: DARK_FONT_COLOR,
+    fontSize: NORMAL_FONT_SIZE,
+    fontWeight: 'bold',
+  },
   textHeading: {
     color: LIGHT_FONT_COLOR,
     fontSize: HEADING_FONT_SIZE,
@@ -40,6 +55,11 @@ export const darkModeStyles = StyleSheet.create({
     borderTopWidth: BORDER_WIDTH,
     borderRadius: BORDER_RADIUS,
     borderColor: LIGHT_FONT_COLOR,
+  },
+  borderTopInverted: {
+    borderTopWidth: BORDER_WIDTH,
+    borderRadius: BORDER_RADIUS,
+    borderColor: DARK_FONT_COLOR,
   },
   layoutTabBarActiveTintColor: {
     color: colors.secondary.light,
@@ -67,6 +87,21 @@ export const lightModeStyles = StyleSheet.create({
     fontSize: NORMAL_FONT_SIZE,
     fontWeight: 'normal',
   },
+  textNormalInverted: {
+    color: LIGHT_FONT_COLOR,
+    fontSize: NORMAL_FONT_SIZE,
+    fontWeight: 'normal',
+  },
+  textNormalBold: {
+    color: DARK_FONT_COLOR,
+    fontSize: NORMAL_FONT_SIZE,
+    fontWeight: 'bold',
+  },
+  textNormalBoldInverted: {
+    color: LIGHT_FONT_COLOR,
+    fontSize: NORMAL_FONT_SIZE,
+    fontWeight: 'bold',
+  },
   textHeading: {
     color: DARK_FONT_COLOR,
     fontSize: HEADING_FONT_SIZE,
@@ -87,6 +122,11 @@ export const lightModeStyles = StyleSheet.create({
     borderTopWidth: BORDER_WIDTH,
     borderRadius: BORDER_RADIUS,
     borderColor: DARK_FONT_COLOR,
+  },
+  borderTopInverted: {
+    borderTopWidth: BORDER_WIDTH,
+    borderRadius: BORDER_RADIUS,
+    borderColor: LIGHT_FONT_COLOR,
   },
   layoutTabBarActiveTintColor: {
     color: colors.secondary.dark,
