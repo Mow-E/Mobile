@@ -1,5 +1,8 @@
 {
   "routes": {
+    "app": {
+      "loading": "Laddar..."
+    },
     "map": {
       "headerTitle": "Mow-E Karta",
       "tabBarLabel": "Karta",
