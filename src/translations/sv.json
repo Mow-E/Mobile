@@ -82,7 +82,8 @@
         "passwordHeading": "Lösenord:",
         "passwordPlaceholder": "Ange lösenord här...",
         "registrationLinkText": "Har du inte registrerat dig ännu? Klicka här",
-        "loginButtonLabel": "Kom igen!"
+        "loginButtonLabel": "Kom igen!",
+        "loggingInLabel": "Logga in..."
       },
       "loginRegister": {
         "headerTitle": "Mow-E Registrering",
@@ -93,7 +94,8 @@
         "passwordPlaceholder": "Ange lösenord här...",
         "confirmPasswordHeading": "Bekräfta Lösenordet:",
         "confirmPasswordPlaceholder": "Ange lösenordet här igen...",
-        "registerButtonLabel": "Börja nu!"
+        "registerButtonLabel": "Börja nu!",
+        "registeringInLabel": "Registrering..."
       }
     }
   },

@@ -82,7 +82,8 @@
         "passwordHeading": "Passwort:",
         "passwordPlaceholder": "Passwort hier eingeben...",
         "registrationLinkText": "Noch nicht registriert? Hier klicken",
-        "loginButtonLabel": "Auf geht's!"
+        "loginButtonLabel": "Auf geht's!",
+        "loggingInLabel": "Anmelden..."
       },
       "loginRegister": {
         "headerTitle": "Mow-E Registrierung",
@@ -93,7 +94,8 @@
         "passwordPlaceholder": "Passwort hier eingeben...",
         "confirmPasswordHeading": "Passwort Wiederholen:",
         "confirmPasswordPlaceholder": "Passwort hier wiederholen...",
-        "registerButtonLabel": "Jetzt starten!"
+        "registerButtonLabel": "Jetzt starten!",
+        "registeringInLabel": "Registrieren..."
       }
     }
   },
