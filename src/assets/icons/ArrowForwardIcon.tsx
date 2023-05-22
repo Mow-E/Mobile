@@ -27,10 +27,13 @@ function SvgComponent(props: SvgProps): JSX.Element {
 /**
  * An icon for a forward arrow.
  */
-function ArrowForwardIcon({size = 24}: IconProps): JSX.Element {
-  return (
-    <SvgComponent height={size} width={size} stroke={colors.gray['950']} />
-  );
+function ArrowForwardIcon({
+  size = 24,
+  darkModeInverted = false,
+}: IconProps): JSX.Element {
+  const strokeColor = darkModeInverted ? colors.gray['50'] : colors.gray['950'];
+
+  return <SvgComponent height={size} width={size} stroke={strokeColor} />;
 }
 
 export default ArrowForwardIcon;
