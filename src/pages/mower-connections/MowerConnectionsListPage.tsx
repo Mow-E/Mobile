@@ -129,7 +129,7 @@ function MowerConnectionsListPage({
         }
 
         if (bluetoothInfos && activeConnection.bluetoothInfos) {
-          return bluetoothInfos.id === activeConnection.bluetoothInfos.id;
+          return bluetoothInfos.id !== activeConnection.bluetoothInfos.id;
         }
 
         return id !== activeConnection.id;
