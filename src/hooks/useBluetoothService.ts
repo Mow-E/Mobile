@@ -110,13 +110,15 @@ function useBluetoothService() {
     async (command, connection) => {
       await requireBluetoothActive();
 
-      if (activeConnection === null && !connection) {
+      let connectionToUse = connection ?? activeConnection;
+
+      if (connectionToUse === null) {
         throw new Error(
           `Cannot send command ${command} because there is no active connection`,
         );
       }
 
-      await sendMessage(command, activeConnection ?? connection!);
+      await sendMessage(command, connectionToUse);
     },
     [activeConnection, requireBluetoothActive],
   );
@@ -139,17 +141,25 @@ function useBluetoothService() {
       }
 
       const connectedMower = await connectMower(mowerConnection);
+      try {
+        // Mower id has to be sent as verification/"password" directly after connecting,
+        // otherwise the mower would disconnect again
+        await sendMessage(connectedMower.id, connectedMower);
+        // Make sure the mower starts in the currently selected mode
+        await sendCommand(
+          mowerMode === 'manual'
+            ? MowerCommand.ChangeModeToManual
+            : MowerCommand.ChangeModeToAutomatic,
+          connectedMower,
+        );
+      } catch (e) {
+        // Make sure the device does not stay connected after failing the verification
+        await disconnectMower(mowerConnection);
+        throw e;
+      }
+
+      // Set active connection only after successfully running the verification process
       setActiveConnection(connectedMower);
-      // Mower id has to be sent as verification/"password" directly after connecting,
-      // otherwise the mower would disconnect again
-      await sendMessage(connectedMower.id, connectedMower);
-      // Make sure the mower starts in the currently selected mode
-      await sendCommand(
-        mowerMode === 'manual'
-          ? MowerCommand.ChangeModeToManual
-          : MowerCommand.ChangeModeToAutomatic,
-        connectedMower,
-      );
 
       return connectedMower;
     },
