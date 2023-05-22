@@ -12,6 +12,7 @@ import useActiveMowerConnection from '../../hooks/useActiveMowerConnection';
 import useBluetoothService from '../../hooks/useBluetoothService';
 import Button from '../../components/common/Button';
 import TextInput from '../../components/common/TextInput';
+import useErrorState from '../../hooks/useErrorState';
 
 /**
  * Shows the details of a mower connection.
@@ -21,11 +22,13 @@ function MowerConnectionDetailsPage({
   route: {
     params: {connection},
   },
+  navigation,
 }: StackScreenProps<
   MowerConnectionsRoutes,
   'MowerConnectionDetails'
 >): JSX.Element {
   const {activeConnection} = useActiveMowerConnection();
+  const {setErrorState} = useErrorState();
   const styles = useStyles();
   const {t} = useTranslation();
   const bluetoothService = useBluetoothService();
@@ -54,10 +57,21 @@ function MowerConnectionDetailsPage({
     [t, connection],
   );
 
-  const handleDisconnectPress = useCallback(
-    () => bluetoothService.disconnect(),
-    [bluetoothService],
-  );
+  const handleDisconnectPress = useCallback(async () => {
+    try {
+      await bluetoothService.disconnect();
+    } catch (e) {
+      console.error(e);
+
+      if (e instanceof Error) {
+        setErrorState(e.message);
+      } else if (typeof e === 'string') {
+        setErrorState(e);
+      }
+    } finally {
+      navigation.goBack();
+    }
+  }, [bluetoothService, setErrorState, navigation]);
 
   if (activeConnection?.id !== connection?.id) {
     return <></>;
