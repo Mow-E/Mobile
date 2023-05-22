@@ -52,7 +52,8 @@
       "tabBarLabel": "Inställningar",
       "settingsMain": {
         "headerTitle": "Inställningar",
-        "appMode": "App-läge"
+        "appMode": "App-läge",
+        "logout": "Logga Ut"
       },
       "settingsTimeDuration": {
         "heading": "Tid Varaktighet"

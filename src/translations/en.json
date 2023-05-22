@@ -52,7 +52,8 @@
       "tabBarLabel": "Settings",
       "settingsMain": {
         "headerTitle": "Settings",
-        "appMode": "App Mode"
+        "appMode": "App Mode",
+        "logout": "Log Out"
       },
       "settingsTimeDuration": {
         "heading": "Time Duration"

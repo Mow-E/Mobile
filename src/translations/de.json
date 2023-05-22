@@ -52,7 +52,8 @@
       "tabBarLabel": "Einstellungen",
       "settingsMain": {
         "headerTitle": "Einstellungen",
-        "appMode": "App Modus"
+        "appMode": "App Modus",
+        "logout": "Abmelden"
       },
       "settingsTimeDuration": {
         "heading": "Zeitraum"

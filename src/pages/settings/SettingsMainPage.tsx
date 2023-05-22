@@ -1,5 +1,5 @@
-import React from 'react';
-import {Text, View} from 'react-native';
+import React, {useCallback} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {useTranslation} from 'react-i18next';
 import useStyles from '../../hooks/useStyles';
@@ -15,10 +15,13 @@ import useShowablePathTimeDuration, {
   ShowablePathTimeDuration,
 } from '../../hooks/useShowablePathTimeDuration';
 import useAppColorMode from '../../hooks/useAppColorMode';
+import Button from '../../components/common/Button';
+import useCurrentUser from '../../hooks/useCurrentUser';
 
 function SettingsMainPage({
   navigation,
 }: StackScreenProps<SettingsRoutes, 'SettingsMain'>): JSX.Element {
+  const {currentUser, setCurrentUser} = useCurrentUser();
   const {appColorMode, setAppColorMode} = useAppColorMode();
   const {t, i18n} = useTranslation();
   const styles = useStyles();
@@ -56,50 +59,74 @@ function SettingsMainPage({
       break;
   }
 
+  const handleLogout = useCallback(() => {
+    setCurrentUser(null);
+  }, [setCurrentUser]);
+
   return (
-    <View
-      style={[
-        styles.flexColumn,
-        {
-          marginTop: spacing.xxl,
-          marginHorizontal: spacing.l,
-          gap: spacing.xl,
-        },
-      ]}>
-      <SectionWithHeading
-        heading={t('routes.settings.settingsTimeDuration.heading')!}>
-        <View style={styles.border}>
-          <SubpageNavigationButton
-            item={<Text style={styles.textNormal}>{currentTimeDuration}</Text>}
-            onSelectItem={() => navigation.navigate('SettingsTimeDuration')}
+    <>
+      {currentUser && (
+        <View style={componentStyles.logoutButton}>
+          <Button
+            label={t('routes.settings.settingsMain.logout')}
+            onPress={handleLogout}
           />
         </View>
-      </SectionWithHeading>
-      <SectionWithHeading
-        heading={t('routes.settings.settingsLanguage.heading')!}>
-        <View style={styles.border}>
-          <SubpageNavigationButton
-            item={<Text style={styles.textNormal}>{currentLanguage}</Text>}
-            onSelectItem={() => navigation.navigate('SettingsLanguage')}
+      )}
+      <View
+        style={[
+          styles.flexColumn,
+          {
+            marginTop: spacing.xxl,
+            marginHorizontal: spacing.l,
+            gap: spacing.xl,
+          },
+        ]}>
+        <SectionWithHeading
+          heading={t('routes.settings.settingsTimeDuration.heading')!}>
+          <View style={styles.border}>
+            <SubpageNavigationButton
+              item={
+                <Text style={styles.textNormal}>{currentTimeDuration}</Text>
+              }
+              onSelectItem={() => navigation.navigate('SettingsTimeDuration')}
+            />
+          </View>
+        </SectionWithHeading>
+        <SectionWithHeading
+          heading={t('routes.settings.settingsLanguage.heading')!}>
+          <View style={styles.border}>
+            <SubpageNavigationButton
+              item={<Text style={styles.textNormal}>{currentLanguage}</Text>}
+              onSelectItem={() => navigation.navigate('SettingsLanguage')}
+            />
+          </View>
+        </SectionWithHeading>
+        <SectionWithHeading
+          heading={t('routes.settings.settingsMain.appMode')!}>
+          <ModeSelect
+            activeMode={appColorMode}
+            setActiveMode={setAppColorMode}
+            modes={[
+              {name: 'light', display: <LightModeIcon />},
+              {
+                name: 'auto',
+                display: <AutomaticLightDarkModeIcon />,
+              },
+              {name: 'dark', display: <DarkModeIcon />},
+            ]}
           />
-        </View>
-      </SectionWithHeading>
-      <SectionWithHeading heading={t('routes.settings.settingsMain.appMode')!}>
-        <ModeSelect
-          activeMode={appColorMode}
-          setActiveMode={setAppColorMode}
-          modes={[
-            {name: 'light', display: <LightModeIcon />},
-            {
-              name: 'auto',
-              display: <AutomaticLightDarkModeIcon />,
-            },
-            {name: 'dark', display: <DarkModeIcon />},
-          ]}
-        />
-      </SectionWithHeading>
-    </View>
+        </SectionWithHeading>
+      </View>
+    </>
   );
 }
+
+/**
+ * The individual styles for this component.
+ */
+const componentStyles = StyleSheet.create({
+  logoutButton: {position: 'absolute', top: spacing.m, right: spacing.m},
+});
 
 export default SettingsMainPage;
