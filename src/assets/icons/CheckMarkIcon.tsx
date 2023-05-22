@@ -29,10 +29,11 @@ function SvgComponent(props: SvgProps): JSX.Element {
 /**
  * An icon for a check mark.
  */
-function CheckMarkIcon({size = 24}: IconProps): JSX.Element {
-  return (
-    <SvgComponent height={size} width={size} stroke={colors.gray['950']} />
-  );
+function CheckMarkIcon({size = 24, colored = false}: IconProps): JSX.Element {
+  const strokeColor =
+    typeof colored === 'boolean' ? colors.gray['950'] : colored;
+
+  return <SvgComponent height={size} width={size} stroke={strokeColor} />;
 }
 
 export default CheckMarkIcon;
