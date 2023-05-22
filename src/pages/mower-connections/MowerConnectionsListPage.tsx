@@ -27,7 +27,7 @@ import Button from '../../components/common/Button';
  * Section that allows the selection of the mower mode, which is either 'automatic' or 'manual'.
  */
 function MowerModeSelection(): JSX.Element {
-  const {activeConnection} = useActiveMowerConnection();
+  const {activeConnection, setActiveConnection} = useActiveMowerConnection();
   const {mowerMode, setMowerMode} = useMowerMode();
   const bluetoothService = useBluetoothService();
   const {t} = useTranslation();
@@ -38,14 +38,21 @@ function MowerModeSelection(): JSX.Element {
       setMowerMode(newMode);
 
       if (activeConnection !== null) {
-        bluetoothService.sendCommand(
-          newMode === 'manual'
-            ? MowerCommand.ChangeModeToManual
-            : MowerCommand.ChangeModeToAutomatic,
-        );
+        bluetoothService
+          .sendCommand(
+            newMode === 'manual'
+              ? MowerCommand.ChangeModeToManual
+              : MowerCommand.ChangeModeToAutomatic,
+          )
+          .then(() => {
+            setActiveConnection({
+              ...activeConnection,
+              state: 'off',
+            });
+          });
       }
     },
-    [setMowerMode, bluetoothService, activeConnection],
+    [setMowerMode, bluetoothService, activeConnection, setActiveConnection],
   );
 
   return (
