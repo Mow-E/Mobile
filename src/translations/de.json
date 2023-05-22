@@ -78,5 +78,8 @@
     "header": {
       "back": "Zurück"
     }
+  },
+  "errors": {
+    "bluetoothNotOnOrAuthorized": "Bluetooth ist nicht aktiviert oder Berechtigungen fehlen!"
   }
 }

@@ -12,6 +12,7 @@ import ManualMowerControls, {
 import MowESleepingIcon from '../assets/icons/MowESleepingIcon';
 import useIsInDarkMode from '../hooks/useIsInDarkMode';
 import spacing from '../styles/spacing';
+import useErrorState from '../hooks/useErrorState';
 
 /**
  * The page that visualizes the mowers position and path.
@@ -20,6 +21,7 @@ import spacing from '../styles/spacing';
 function MapPage(): JSX.Element {
   const {activeConnection} = useActiveMowerConnection();
   const {mowerMode} = useMowerMode();
+  const {setErrorState} = useErrorState();
   const {t} = useTranslation();
   const styles = useStyles();
   const bluetoothService = useBluetoothService();
@@ -30,18 +32,34 @@ function MapPage(): JSX.Element {
       return;
     }
 
-    await bluetoothService.sendCommand(MowerCommand.Start);
+    try {
+      await bluetoothService.sendCommand(MowerCommand.Start);
+    } catch (e) {
+      console.error(e);
+
+      if (e instanceof Error) {
+        setErrorState(e.message);
+      }
+    }
     console.debug('[automatic control] started moving in automatic mode');
-  }, [activeConnection, bluetoothService]);
+  }, [activeConnection, bluetoothService, setErrorState]);
 
   const handleMowerStopInAutomaticPress = useCallback(async () => {
     if (activeConnection === null) {
       return;
     }
 
-    await bluetoothService.sendCommand(MowerCommand.StopInAutomatic);
+    try {
+      await bluetoothService.sendCommand(MowerCommand.StopInAutomatic);
+    } catch (e) {
+      console.error(e);
+
+      if (e instanceof Error) {
+        setErrorState(e.message);
+      }
+    }
     console.debug('[automatic control] stopped moving in automatic mode');
-  }, [activeConnection, bluetoothService]);
+  }, [activeConnection, bluetoothService, setErrorState]);
 
   const handleManualControlPress = useCallback<
     (direction: ControlDirection) => Promise<void>
@@ -51,24 +69,32 @@ function MapPage(): JSX.Element {
         return;
       }
 
-      switch (direction) {
-        case 'forward':
-          await bluetoothService.sendCommand(MowerCommand.MoveForward);
-          break;
-        case 'backward':
-          await bluetoothService.sendCommand(MowerCommand.MoveBackward);
-          break;
-        case 'left':
-          await bluetoothService.sendCommand(MowerCommand.MoveLeft);
-          break;
-        case 'right':
-          await bluetoothService.sendCommand(MowerCommand.MoveRight);
-          break;
+      try {
+        switch (direction) {
+          case 'forward':
+            await bluetoothService.sendCommand(MowerCommand.MoveForward);
+            break;
+          case 'backward':
+            await bluetoothService.sendCommand(MowerCommand.MoveBackward);
+            break;
+          case 'left':
+            await bluetoothService.sendCommand(MowerCommand.MoveLeft);
+            break;
+          case 'right':
+            await bluetoothService.sendCommand(MowerCommand.MoveRight);
+            break;
+        }
+      } catch (e) {
+        console.error(e);
+
+        if (e instanceof Error) {
+          setErrorState(e.message);
+        }
       }
 
       console.debug(`[manual control] started moving ${direction}`);
     },
-    [activeConnection, bluetoothService],
+    [activeConnection, bluetoothService, setErrorState],
   );
 
   const handleManualControlRelease = useCallback<
@@ -79,10 +105,18 @@ function MapPage(): JSX.Element {
         return;
       }
 
-      await bluetoothService.sendCommand(MowerCommand.StopInManual);
+      try {
+        await bluetoothService.sendCommand(MowerCommand.StopInManual);
+      } catch (e) {
+        console.error(e);
+
+        if (e instanceof Error) {
+          setErrorState(e.message);
+        }
+      }
       console.debug(`[manual control] stopped moving ${direction}`);
     },
-    [activeConnection, bluetoothService],
+    [activeConnection, bluetoothService, setErrorState],
   );
 
   return (

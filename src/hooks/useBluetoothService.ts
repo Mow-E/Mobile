@@ -3,6 +3,7 @@ import useActiveMowerConnection, {
   MowerConnection,
 } from './useActiveMowerConnection';
 import {
+  checkBluetoothState,
   connect as connectMower,
   disconnect as disconnectMower,
   scanForBluetoothDevices,
@@ -11,6 +12,8 @@ import {
 } from '../services/bluetooth';
 import useMowerMode from './useMowerMode';
 import useAvailableMowerConnections from './useAvailableMowerConnections';
+import BluetoothState from '../services/BluetoothState';
+import {useTranslation} from 'react-i18next';
 
 /**
  * A command that can be sent to the current connected mower.
@@ -57,23 +60,43 @@ export enum MowerCommand {
 /**
  * Provides service functions for interacting with the active mower connection
  * via bluetooth and finding new connections.
+ *
+ * The service functions throw an error if bluetooth is not enabled or authorized, or if
+ * an error occurs in the bluetooth process, thus these errors should be catched.
  */
 function useBluetoothService() {
   const {activeConnection, setActiveConnection} = useActiveMowerConnection();
   const {setAvailableConnections} = useAvailableMowerConnections();
   const {mowerMode} = useMowerMode();
+  const {t} = useTranslation();
+
+  /**
+   * Checks whether bluetooth is enabled and authorized.
+   * Throws an error if not.
+   */
+  const requireBluetoothActive = useCallback<() => Promise<void>>(async () => {
+    const bluetoothState = await checkBluetoothState();
+
+    if (bluetoothState !== BluetoothState.On) {
+      console.error('Bluetooth is not on or authorized!');
+      throw new Error(t('errors.bluetoothNotOnOrAuthorized')!);
+    }
+  }, [t]);
 
   /**
    * Disconnects the active mower connection, if any exists, and sets the active connection to null.
    */
   const disconnect = useCallback(async () => {
+    await requireBluetoothActive();
+
     if (activeConnection !== null) {
       await disconnectMower(activeConnection);
       setActiveConnection(null);
+      return;
     }
 
     console.warn('Cannot disconnect active connection since there is none');
-  }, [activeConnection, setActiveConnection]);
+  }, [activeConnection, setActiveConnection, requireBluetoothActive]);
 
   /**
    * Sends a command to the current active mower, or throws an error if no active connection.
@@ -84,6 +107,8 @@ function useBluetoothService() {
     (command: MowerCommand, connection?: MowerConnection) => Promise<void>
   >(
     async (command, connection) => {
+      await requireBluetoothActive();
+
       if (activeConnection === null && !connection) {
         throw new Error(
           `Cannot send command ${command} because there is no active connection`,
@@ -92,7 +117,7 @@ function useBluetoothService() {
 
       await sendMessage(command, activeConnection ?? connection!);
     },
-    [activeConnection],
+    [activeConnection, requireBluetoothActive],
   );
 
   /**
@@ -106,6 +131,8 @@ function useBluetoothService() {
     (mowerConnection: MowerConnection) => Promise<MowerConnection>
   >(
     async mowerConnection => {
+      await requireBluetoothActive();
+
       if (activeConnection !== null) {
         await disconnect();
       }
@@ -125,7 +152,14 @@ function useBluetoothService() {
 
       return connectedMower;
     },
-    [activeConnection, setActiveConnection, disconnect, mowerMode, sendCommand],
+    [
+      activeConnection,
+      setActiveConnection,
+      disconnect,
+      mowerMode,
+      sendCommand,
+      requireBluetoothActive,
+    ],
   );
 
   /**
@@ -134,6 +168,8 @@ function useBluetoothService() {
    * The promise resolves once the scan has finished/stopped.
    */
   const scanForDevices = useCallback<() => Promise<void>>(async () => {
+    await requireBluetoothActive();
+
     setAvailableConnections(new Map<string, MowerConnection>());
     await scanForBluetoothDevices();
     // I don't know how to gracefully check that the scan has stopped, so just wait for the scan duration here
@@ -141,7 +177,7 @@ function useBluetoothService() {
       // Timeouts time value is in milliseconds, so multiply seconds with 1000 for ms
       setTimeout(() => resolve(null), SECONDS_TO_SCAN_FOR_DEVICES * 1000),
     );
-  }, [setAvailableConnections]);
+  }, [setAvailableConnections, requireBluetoothActive]);
 
   return {connect, disconnect, sendCommand, scanForDevices};
 }

@@ -4,6 +4,7 @@ import LayoutAndNavigation from './components/layout/LayoutAndNavigation';
 import './i18n.config';
 import {
   addBluetoothServiceListeners,
+  handleAndroidPermissions,
   removeBluetoothServiceListeners,
   startBluetoothService,
 } from './services/bluetooth';
@@ -19,6 +20,8 @@ import {
 import {MowerMode, MowerModeContext} from './hooks/useMowerMode';
 import {AppColorMode, AppColorModeContext} from './hooks/useAppColorMode';
 import StatusBar from './components/layout/StatusBar';
+import ErrorOverlay from './components/common/ErrorOverlay';
+import {ErrorState, ErrorStateContext} from './hooks/useErrorState';
 
 /**
  * The Mow-E Mobile app. Renders the complete application.
@@ -33,9 +36,15 @@ function App(): JSX.Element {
     useState<ShowablePathTimeDuration>(ShowablePathTimeDuration.h24);
   const [mowerMode, setMowerMode] = useState<MowerMode>('automatic');
   const [appColorMode, setAppColorMode] = useState<AppColorMode>('auto');
+  const [errorState, setErrorState] = useState<ErrorState>(null);
 
   useEffect(() => {
-    startBluetoothService();
+    handleAndroidPermissions()
+      .then(startBluetoothService)
+      .catch(reason => {
+        console.error(reason);
+        setErrorState(reason);
+      });
   }, []);
 
   useEffect(() => {
@@ -55,38 +64,63 @@ function App(): JSX.Element {
     };
   }, []);
 
-  return (
-    <NavigationContainer>
-      <AppColorModeContext.Provider
-        value={{
-          appColorMode,
-          setAppColorMode,
-        }}>
-        <AvailableMowerConnectionsContext.Provider
-          value={{
-            availableConnections: availableMowerConnections,
-            setAvailableConnections: setAvailableMowerConnections,
-          }}>
-          <ActiveMowerConnectionContext.Provider
+  try {
+    return (
+      <NavigationContainer>
+        <ErrorStateContext.Provider value={{errorState, setErrorState}}>
+          <AppColorModeContext.Provider
             value={{
-              activeConnection: activeMowerConnection,
-              setActiveConnection: setActiveMowerConnection,
+              appColorMode,
+              setAppColorMode,
             }}>
-            <MowerModeContext.Provider value={{mowerMode, setMowerMode}}>
-              <ShowablePathTimeDurationContext.Provider
+            <AvailableMowerConnectionsContext.Provider
+              value={{
+                availableConnections: availableMowerConnections,
+                setAvailableConnections: setAvailableMowerConnections,
+              }}>
+              <ActiveMowerConnectionContext.Provider
                 value={{
-                  timeDuration: showablePathTimeDuration,
-                  setTimeDuration: setShowablePathTimeDuration,
+                  activeConnection: activeMowerConnection,
+                  setActiveConnection: setActiveMowerConnection,
                 }}>
-                <StatusBar />
-                <LayoutAndNavigation />
-              </ShowablePathTimeDurationContext.Provider>
-            </MowerModeContext.Provider>
-          </ActiveMowerConnectionContext.Provider>
-        </AvailableMowerConnectionsContext.Provider>
-      </AppColorModeContext.Provider>
-    </NavigationContainer>
-  );
+                <MowerModeContext.Provider value={{mowerMode, setMowerMode}}>
+                  <ShowablePathTimeDurationContext.Provider
+                    value={{
+                      timeDuration: showablePathTimeDuration,
+                      setTimeDuration: setShowablePathTimeDuration,
+                    }}>
+                    <StatusBar />
+                    <LayoutAndNavigation />
+                    <ErrorOverlay
+                      text={errorState ?? ''}
+                      visible={errorState !== null}
+                      onClose={() => setErrorState(null)}
+                    />
+                  </ShowablePathTimeDurationContext.Provider>
+                </MowerModeContext.Provider>
+              </ActiveMowerConnectionContext.Provider>
+            </AvailableMowerConnectionsContext.Provider>
+          </AppColorModeContext.Provider>
+        </ErrorStateContext.Provider>
+      </NavigationContainer>
+    );
+  } catch (e: unknown) {
+    console.error(e);
+
+    if (e instanceof Error) {
+      setErrorState(e.message);
+
+      return (
+        <ErrorOverlay
+          text={e.message}
+          visible
+          onClose={() => setErrorState(null)}
+        />
+      );
+    }
+
+    return <></>;
+  }
 }
 
 export default App;

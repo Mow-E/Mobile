@@ -22,6 +22,7 @@ import useBluetoothService, {
 } from '../../hooks/useBluetoothService';
 import LoadingOverlay from '../../components/common/LoadingOverlay';
 import Button from '../../components/common/Button';
+import useErrorState from '../../hooks/useErrorState';
 
 /**
  * Section that allows the selection of the mower mode, which is either 'automatic' or 'manual'.
@@ -98,6 +99,7 @@ function MowerConnectionsListPage({
 >): JSX.Element {
   const {availableConnections} = useAvailableMowerConnections();
   const {activeConnection} = useActiveMowerConnection();
+  const {setErrorState} = useErrorState();
   const [connectingToMower, setConnectingToMower] = useState<boolean>(false);
   const [searchingForMowers, setSearchingForMowers] = useState<boolean>(false);
   const {t} = useTranslation();
@@ -109,17 +111,33 @@ function MowerConnectionsListPage({
   >(
     async connection => {
       setConnectingToMower(true);
-      await bluetoothService.connect(connection);
+      try {
+        await bluetoothService.connect(connection);
+      } catch (e) {
+        console.error(e);
+
+        if (e instanceof Error) {
+          setErrorState(e.message);
+        }
+      }
       setConnectingToMower(false);
     },
-    [bluetoothService],
+    [bluetoothService, setErrorState],
   );
 
   const handleScanForDevices = useCallback(async () => {
     setSearchingForMowers(true);
-    await bluetoothService.scanForDevices();
+    try {
+      await bluetoothService.scanForDevices();
+    } catch (e) {
+      console.error(e);
+
+      if (e instanceof Error) {
+        setErrorState(e.message);
+      }
+    }
     setSearchingForMowers(false);
-  }, [bluetoothService]);
+  }, [bluetoothService, setErrorState]);
 
   const handleOpenConnectionInfo = useCallback<
     (connection: MowerConnection) => void

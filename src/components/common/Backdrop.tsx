@@ -1,29 +1,52 @@
 import React, {PropsWithChildren} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Pressable, StyleSheet} from 'react-native';
 import useStyles from '../../hooks/useStyles';
 import colors from '../../styles/colors';
 import useIsInDarkMode from '../../hooks/useIsInDarkMode';
+
+/**
+ * The properties of <Backdrop />.
+ */
+interface BackdropProps {
+  /**
+   * Opacity value the backdrop background should have, as a hex string;
+   */
+  opacity?: string;
+  /**
+   * Called when the background of the overlay is pressed.
+   */
+  onPress?: () => void;
+}
 
 /**
  * A backdrop on the parent view by putting a semi-transparent background color
  * on top of the page and rendering the children in the center.
  * Best placed besides the most high-level page container.
  */
-function Backdrop({children}: PropsWithChildren<{}>): JSX.Element {
+function Backdrop({
+  opacity = colors.opacitySuffix['80%'],
+  onPress = () => {},
+  children,
+}: PropsWithChildren<BackdropProps>): JSX.Element {
   const isInDarkMode = useIsInDarkMode();
   const styles = useStyles();
 
   return (
-    <View
+    <Pressable
       style={[
         componentStyles.container,
-        isInDarkMode
-          ? componentStyles.backgroundDark
-          : componentStyles.backgroundLight,
+        {
+          backgroundColor:
+            (isInDarkMode
+              ? componentStyles.backgroundDark
+              : componentStyles.backgroundLight
+            ).backgroundColor + opacity,
+        },
         styles.centeredContent,
-      ]}>
+      ]}
+      onPress={onPress}>
       {children}
-    </View>
+    </Pressable>
   );
 }
 
@@ -40,10 +63,10 @@ const componentStyles = StyleSheet.create({
     zIndex: 10,
   },
   backgroundLight: {
-    backgroundColor: colors.gray['50'] + colors.opacitySuffix['80%'],
+    backgroundColor: colors.gray['50'],
   },
   backgroundDark: {
-    backgroundColor: colors.gray['700'] + colors.opacitySuffix['80%'],
+    backgroundColor: colors.gray['700'],
   },
 });
 

@@ -3,6 +3,8 @@ import {
   EventSubscription,
   NativeEventEmitter,
   NativeModules,
+  PermissionsAndroid,
+  Platform,
 } from 'react-native';
 import {MowerConnection} from '../hooks/useActiveMowerConnection';
 import BleManager, {
@@ -12,6 +14,7 @@ import BleManager, {
   Peripheral,
 } from 'react-native-ble-manager';
 import {Buffer} from 'buffer';
+import BluetoothState from './BluetoothState';
 
 const BleManagerModule = NativeModules.BleManager;
 const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
@@ -24,6 +27,17 @@ export const SECONDS_TO_SCAN_FOR_DEVICES = 7;
 export async function startBluetoothService(): Promise<void> {
   await BleManager.start();
   console.debug('[ble] started ble manager');
+}
+
+/**
+ * Checks the device for its current bluetooth state, e.g. on, off or unauthorized.
+ *
+ * @return Promise<BluetoothState> the current bluetooth state
+ */
+export async function checkBluetoothState(): Promise<BluetoothState> {
+  const bleState = await BleManager.checkState();
+  console.debug('[ble] current state', bleState);
+  return bleState;
 }
 
 async function convertDiscoveredPeripheralToMowerConnection(
@@ -298,5 +312,51 @@ function requireBluetoothInfosInConnection(
     throw new Error(
       errorMessage ?? `Mower ${connection.id} has no bluetooth infos about it`,
     );
+  }
+}
+
+/**
+ * Request permissions to use bluetooth from the user if on an android device.
+ * If not on android the function is just skipped.
+ */
+export async function handleAndroidPermissions(): Promise<void> {
+  if (Platform.OS !== 'android') {
+    console.debug(
+      '[ble] skipping request for bluetooth permissions since not android device',
+    );
+    return;
+  }
+
+  console.debug('[ble] requesting bluetooth permissions on android');
+
+  if (Platform.Version >= 31) {
+    const result = await PermissionsAndroid.requestMultiple([
+      PermissionsAndroid.PERMISSIONS.BLUETOOTH_SCAN,
+      PermissionsAndroid.PERMISSIONS.BLUETOOTH_CONNECT,
+    ]);
+
+    if (result) {
+      console.debug('[ble] User accepts runtime permissions android 12+');
+    } else {
+      console.error('[ble] User refuses runtime permissions android 12+');
+    }
+  } else if (Platform.Version >= 23) {
+    const checkResult = await PermissionsAndroid.check(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    );
+
+    if (checkResult) {
+      console.debug('[ble] runtime permission Android <12 already OK');
+    } else {
+      PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      ).then(requestResult => {
+        if (requestResult) {
+          console.debug('[ble] User accepts runtime permission android <12');
+        } else {
+          console.error('[ble] User refuses runtime permission android <12');
+        }
+      });
+    }
   }
 }

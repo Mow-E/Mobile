@@ -26,6 +26,7 @@ const colors = {
     dark: '#2f3163',
   },
   opacitySuffix: {
+    '0%': '00',
     '50%': '80',
     '80%': 'CC',
   },

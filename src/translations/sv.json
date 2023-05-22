@@ -78,5 +78,8 @@
     "header": {
       "back": "Tillbaka"
     }
+  },
+  "errors": {
+    "bluetoothNotOnOrAuthorized": "Bluetooth är inte aktiverat eller auktoriserat!"
   }
 }
