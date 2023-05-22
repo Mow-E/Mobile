@@ -8,9 +8,12 @@ import {
 } from 'react-native';
 import {MowerConnection} from '../hooks/useActiveMowerConnection';
 import BleManager, {
+  BleDisconnectPeripheralEvent,
+  BleDiscoverPeripheralEvent,
   BleScanCallbackType,
   BleScanMatchMode,
   BleScanMode,
+  BleStopScanEvent,
   Peripheral,
 } from 'react-native-ble-manager';
 import {Buffer} from 'buffer';
@@ -63,6 +66,7 @@ async function convertDiscoveredPeripheralToMowerConnection(
 
 export function addBluetoothServiceListeners(
   onDeviceDiscovered: (connection: MowerConnection) => void,
+  onDeviceDisconnected: (id: string) => void,
   onScanStop: () => void,
 ): EmitterSubscription[] {
   console.debug('[ble] adding listeners to bluetooth service');
@@ -70,7 +74,7 @@ export function addBluetoothServiceListeners(
   return [
     bleManagerEmitter.addListener(
       'BleManagerDiscoverPeripheral',
-      async (peripheral: Peripheral) => {
+      async (peripheral: BleDiscoverPeripheralEvent) => {
         if (peripheral.name !== undefined) {
           console.debug('[ble] new device discovered', peripheral);
           const mowerConnection =
@@ -79,10 +83,20 @@ export function addBluetoothServiceListeners(
         }
       },
     ),
-    bleManagerEmitter.addListener('BleManagerStopScan', event => {
-      console.log('[ble] stopped scanning for bluetooth devices', event);
-      onScanStop();
-    }),
+    bleManagerEmitter.addListener(
+      'BleManagerDisconnectPeripheral',
+      (event: BleDisconnectPeripheralEvent) => {
+        console.debug('[ble] disconnected from device', event);
+        onDeviceDisconnected(event.peripheral);
+      },
+    ),
+    bleManagerEmitter.addListener(
+      'BleManagerStopScan',
+      (event: BleStopScanEvent) => {
+        console.debug('[ble] stopped scanning for bluetooth devices', event);
+        onScanStop();
+      },
+    ),
   ];
 }
 

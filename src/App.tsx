@@ -54,6 +54,11 @@ function App(): JSX.Element {
       connection => {
         foundMowers.set(connection.bluetoothInfos!.id, connection);
       },
+      id => {
+        setActiveMowerConnection(prevState =>
+          prevState?.bluetoothInfos?.id === id ? null : prevState,
+        );
+      },
       () => {
         setAvailableMowerConnections(foundMowers);
       },
