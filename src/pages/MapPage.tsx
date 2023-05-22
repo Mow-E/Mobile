@@ -31,16 +31,16 @@ function MapPage(): JSX.Element {
     }
 
     await bluetoothService.sendCommand(MowerCommand.Start);
-    console.debug('[automatic control] started moving');
+    console.debug('[automatic control] started moving in automatic mode');
   }, [activeConnection, bluetoothService]);
 
-  const handleMowerStopPress = useCallback(async () => {
+  const handleMowerStopInAutomaticPress = useCallback(async () => {
     if (activeConnection === null) {
       return;
     }
 
-    await bluetoothService.sendCommand(MowerCommand.Stop);
-    console.debug('[automatic control] stopped moving');
+    await bluetoothService.sendCommand(MowerCommand.StopInAutomatic);
+    console.debug('[automatic control] stopped moving in automatic mode');
   }, [activeConnection, bluetoothService]);
 
   const handleManualControlPress = useCallback<
@@ -79,7 +79,7 @@ function MapPage(): JSX.Element {
         return;
       }
 
-      await bluetoothService.sendCommand(MowerCommand.Stop);
+      await bluetoothService.sendCommand(MowerCommand.StopInManual);
       console.debug(`[manual control] stopped moving ${direction}`);
     },
     [activeConnection, bluetoothService],
@@ -106,7 +106,7 @@ function MapPage(): JSX.Element {
       {activeConnection !== null && mowerMode === 'automatic' && (
         <MowerOnOffButton
           onStartPress={handleMowerStartPress}
-          onStopPress={handleMowerStopPress}
+          onStopPress={handleMowerStopInAutomaticPress}
         />
       )}
     </View>

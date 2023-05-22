@@ -21,9 +21,13 @@ export enum MowerCommand {
    */
   Start = 'G',
   /**
-   * Stops the mower.
+   * Stops the mower in manual mode.
    */
-  Stop = 'S',
+  StopInManual = 'S',
+  /**
+   * Stops the mower in automatic mode.
+   */
+  StopInAutomatic = 'O',
   /**
    * Lets the mower continuously move forward until stopped (if in manual mode).
    */
