@@ -5,7 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {SettingsRoutes} from './navigation';
 import colors from '../styles/colors';
 import SettingsMainPage from './settings/SettingsMainPage';
-import SettingsTimeDurationPage from './settings/SettingsTimeDurationPage';
+import SettingsMowingSessionsToShowInHistoryPage from './settings/SettingsMowingSessionsToShowInHistoryPage';
 import SettingsLanguagePage from './settings/SettingsLanguagePage';
 
 const Stack = createStackNavigator<SettingsRoutes>();
@@ -36,10 +36,12 @@ function SettingsPage(): JSX.Element {
         }}
       />
       <Stack.Screen
-        name="SettingsTimeDuration"
-        component={SettingsTimeDurationPage}
+        name="SettingsMowingSessionsToShowInHistory"
+        component={SettingsMowingSessionsToShowInHistoryPage}
         options={{
-          title: t('routes.settings.settingsTimeDuration.heading')!,
+          title: t(
+            'routes.settings.settingsMowingSessionsToShowInHistory.heading',
+          )!,
         }}
       />
       <Stack.Screen

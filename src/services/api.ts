@@ -9,6 +9,13 @@ export const REGISTER_URL = `${BASE_URL}/auth/signup`;
 /** The url to a test endpoint, e.g. to check that a token is valid or the api is reachable */
 export const API_TEST_URL = `${BASE_URL}/hello`;
 
+/** The url to the mower history endpoint, from where a history of past mowing sessions and events can be received */
+export const MOWER_HISTORY_URL = `${BASE_URL}/api/mower/history`;
+
+/** The url to the mower event image endpoint, from where an image (given by id) can be accessed */
+export const MOWER_EVENT_IMAGE_URL = (imageId: string) =>
+  `${BASE_URL}/api/mower/images/${imageId}`;
+
 /**
  * Fetches the given url with an added authorization token (if given).
  */

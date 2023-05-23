@@ -8,15 +8,12 @@ import {
   removeBluetoothServiceListeners,
   startBluetoothService,
 } from './services/bluetooth';
-import {
-  ActiveMowerConnectionContext,
-  MowerConnection,
-} from './hooks/useActiveMowerConnection';
+import {ActiveMowerConnectionContext} from './hooks/useActiveMowerConnection';
 import {AvailableMowerConnectionsContext} from './hooks/useAvailableMowerConnections';
 import {
-  ShowablePathTimeDuration,
-  ShowablePathTimeDurationContext,
-} from './hooks/useShowablePathTimeDuration';
+  MowingSessionsToShowInHistory,
+  MowingSessionsToShowInHistoryContext,
+} from './hooks/useMowingSessionsToShowInHistory';
 import {MowerMode, MowerModeContext} from './hooks/useMowerMode';
 import {AppColorMode, AppColorModeContext} from './hooks/useAppColorMode';
 import StatusBar from './components/layout/StatusBar';
@@ -27,13 +24,17 @@ import useStorageService, {
   LANGUAGE_STORAGE_KEY,
   LOGGED_IN_USER_STORAGE_KEY,
   MOWER_MODE_STORAGE_KEY,
-  SHOWABLE_TIME_DURATION_STORAGE_KEY,
+  MOWING_SESSIONS_TO_SHOW_IN_HISTORY_STORAGE_KEY,
 } from './hooks/useStorageService';
 import {useTranslation} from 'react-i18next';
-import {CurrentUser, CurrentUserContext} from './hooks/useCurrentUser';
+import {CurrentUserContext} from './hooks/useCurrentUser';
 import LoginPage from './pages/LoginPage';
 import LoadingOverlay from './components/common/LoadingOverlay';
 import {API_TEST_URL, fetchWithAuthorization} from './services/api';
+import MowerConnection from './models/MowerConnection';
+import CurrentUser from './models/CurrentUser';
+import MowerHistoryEvent from './models/MowerHistoryEvent';
+import {MowerHistoryEventsContext} from './hooks/useMowerHistoryEvents';
 
 /**
  * The Mow-E Mobile app. Renders the complete application.
@@ -45,12 +46,17 @@ function App(): JSX.Element {
   const [availableMowerConnections, setAvailableMowerConnections] = useState<
     Map<string, MowerConnection>
   >(new Map<string, MowerConnection>());
-  const [showablePathTimeDuration, setShowablePathTimeDuration] =
-    useState<ShowablePathTimeDuration>(ShowablePathTimeDuration.h24);
+  const [sessionsToShow, setSessionsToShow] =
+    useState<MowingSessionsToShowInHistory>(
+      MowingSessionsToShowInHistory.latestSession,
+    );
   const [mowerMode, setMowerMode] = useState<MowerMode>('automatic');
   const [appColorMode, setAppColorMode] = useState<AppColorMode>('auto');
   const [errorState, setErrorState] = useState<ErrorState>(null);
   const [loadingStoredData, setLoadingStoredData] = useState<boolean>(false);
+  const [mowerHistoryEvents, setMowerHistoryEvents] = useState<
+    MowerHistoryEvent[]
+  >([]);
   const storageService = useStorageService();
   const {t, i18n} = useTranslation();
 
@@ -92,12 +98,12 @@ function App(): JSX.Element {
       .then(setCurrentUser)
       .then(() =>
         storageService.get(
-          SHOWABLE_TIME_DURATION_STORAGE_KEY,
-          ShowablePathTimeDuration.h24,
+          MOWING_SESSIONS_TO_SHOW_IN_HISTORY_STORAGE_KEY,
+          MowingSessionsToShowInHistory.latestSession,
           true,
         ),
       )
-      .then(setShowablePathTimeDuration)
+      .then(setSessionsToShow)
       .then(() => storageService.get(MOWER_MODE_STORAGE_KEY, 'automatic', true))
       .then(setMowerMode)
       .finally(() => setLoadingStoredData(false));
@@ -127,12 +133,15 @@ function App(): JSX.Element {
     };
   }, []);
 
-  const handleShowableTimeDurationChange = useCallback<
-    (duration: ShowablePathTimeDuration) => Promise<void>
+  const handleSessionsToShowChange = useCallback<
+    (newSessionsToShow: MowingSessionsToShowInHistory) => Promise<void>
   >(
-    async duration => {
-      setShowablePathTimeDuration(duration);
-      await storageService.store(SHOWABLE_TIME_DURATION_STORAGE_KEY, duration);
+    async newSessionsToShow => {
+      setSessionsToShow(newSessionsToShow);
+      await storageService.store(
+        MOWING_SESSIONS_TO_SHOW_IN_HISTORY_STORAGE_KEY,
+        newSessionsToShow,
+      );
     },
     [storageService],
   );
@@ -215,23 +224,29 @@ function App(): JSX.Element {
                   }}>
                   <MowerModeContext.Provider
                     value={{mowerMode, setMowerMode: handleMowerModeChange}}>
-                    <ShowablePathTimeDurationContext.Provider
+                    <MowingSessionsToShowInHistoryContext.Provider
                       value={{
-                        timeDuration: showablePathTimeDuration,
-                        setTimeDuration: handleShowableTimeDurationChange,
+                        sessionsToShow,
+                        setSessionsToShow: handleSessionsToShowChange,
                       }}>
-                      <LoadingOverlay
-                        text={t('routes.app.loading')!}
-                        visible={loadingStoredData}
-                      />
-                      <StatusBar />
-                      <LayoutAndNavigation />
-                      <ErrorOverlay
-                        text={errorState ?? ''}
-                        visible={errorState !== null}
-                        onClose={() => setErrorState(null)}
-                      />
-                    </ShowablePathTimeDurationContext.Provider>
+                      <MowerHistoryEventsContext.Provider
+                        value={{
+                          events: mowerHistoryEvents,
+                          setEvents: setMowerHistoryEvents,
+                        }}>
+                        <LoadingOverlay
+                          text={t('routes.app.loading')!}
+                          visible={loadingStoredData}
+                        />
+                        <StatusBar />
+                        <LayoutAndNavigation />
+                        <ErrorOverlay
+                          text={errorState ?? ''}
+                          visible={errorState !== null}
+                          onClose={() => setErrorState(null)}
+                        />
+                      </MowerHistoryEventsContext.Provider>
+                    </MowingSessionsToShowInHistoryContext.Provider>
                   </MowerModeContext.Provider>
                 </ActiveMowerConnectionContext.Provider>
               </AvailableMowerConnectionsContext.Provider>

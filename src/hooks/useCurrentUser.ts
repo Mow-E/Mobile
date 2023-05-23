@@ -1,14 +1,5 @@
 import {createContext, useContext} from 'react';
-
-/**
- * The data of the current logged-in user.
- */
-export interface CurrentUser {
-  /**
-   * The token to authorize the user, e.g. in a web api.
-   */
-  authorizationToken: string;
-}
+import CurrentUser from '../models/CurrentUser';
 
 /**
  * The properties saved in the `CurrentUserContext`.

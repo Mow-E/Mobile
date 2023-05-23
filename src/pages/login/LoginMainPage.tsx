@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import {View, Text, Pressable, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import useStyles from '../../hooks/useStyles';
 import useApiService, {NO_TOKEN} from '../../hooks/useApiService';
 import useCurrentUser from '../../hooks/useCurrentUser';
@@ -81,22 +81,23 @@ function LoginMainPage({
             onChange={text => setPassword(text)}
           />
         </SectionWithHeading>
-        <View style={componentStyles.buttonsContainerRow}>
-          <Pressable
-            onPress={() => navigation.navigate('LoginRegister')}
-            style={componentStyles.registerLinkContainer}>
-            <Text style={styles.textNormal}>
-              {t('routes.login.loginMain.registrationLinkText')!}
-            </Text>
-          </Pressable>
+        <View style={componentStyles.loginButton}>
           <Button
             label={t('routes.login.loginMain.loginButtonLabel')!}
             onPress={handleLogin}
             color={isFormFilled ? 'secondary' : 'default'}
           />
         </View>
-        <View style={componentStyles.mowEIcon}>
-          <MowEIcon size={225} colored darkModeInverted={isInDarkMode} />
+        <View style={componentStyles.footer}>
+          <View style={componentStyles.mowEIcon}>
+            <MowEIcon size={225} colored darkModeInverted={isInDarkMode} />
+          </View>
+          <Button
+            label={t('routes.login.loginMain.registrationLinkText')!}
+            onPress={() => navigation.navigate('LoginRegister')}
+            color="secondary"
+            fullWidth
+          />
         </View>
       </View>
     </>
@@ -115,13 +116,15 @@ const componentStyles = StyleSheet.create({
   welcomeText: {textAlign: 'center', fontSize: 20},
   welcomeTextLightMode: {color: colors.gray['950']},
   welcomeTextDarkMode: {color: colors.gray['50']},
-  buttonsContainerRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: spacing.xs,
+  loginButton: {alignSelf: 'flex-end'},
+  mowEIcon: {alignSelf: 'center'},
+  footer: {
+    position: 'absolute',
+    bottom: 0,
+    alignSelf: 'center',
+    marginBottom: spacing.l,
+    width: '100%',
   },
-  registerLinkContainer: {justifyContent: 'center', flexShrink: 1},
-  mowEIcon: {position: 'absolute', bottom: 0, alignSelf: 'center'},
 });
 
 export default LoginMainPage;

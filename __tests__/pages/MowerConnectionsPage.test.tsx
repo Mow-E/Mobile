@@ -5,12 +5,10 @@ import MowerConnectionsPage from '../../src/pages/MowerConnectionsPage';
 // Note: test renderer must be required after react-native.
 import {act, fireEvent, render} from '@testing-library/react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {
-  ActiveMowerConnectionContext,
-  MowerConnection,
-} from '../../src/hooks/useActiveMowerConnection';
+import {ActiveMowerConnectionContext} from '../../src/hooks/useActiveMowerConnection';
 import {AvailableMowerConnectionsContext} from '../../src/hooks/useAvailableMowerConnections';
 import {setToDarkMode} from '../../jest/utils';
+import MowerConnection from '../../src/models/MowerConnection';
 
 it('renders correctly', () => {
   render(
@@ -25,15 +23,12 @@ it('renders details page of active connection with connection name in header', (
     id: 'foo',
     name: 'The Test Mower',
     password: 'foo',
-    modelName: 'foo',
-    modelNumber: 'foo',
-    serialNumber: 42,
   };
 
   const {getByText, getAllByText, getByTestId} = render(
     <NavigationContainer>
       <ActiveMowerConnectionContext.Provider
-        value={{activeConnection: connection}}>
+        value={{activeConnection: connection, setActiveConnection: () => {}}}>
         <MowerConnectionsPage />
       </ActiveMowerConnectionContext.Provider>
     </NavigationContainer>,
@@ -52,7 +47,8 @@ it('renders details page of active connection with connection name in header', (
 it('renders no info button for the active connection if there is none', () => {
   const {queryByTestId} = render(
     <NavigationContainer>
-      <ActiveMowerConnectionContext.Provider value={{activeConnection: null}}>
+      <ActiveMowerConnectionContext.Provider
+        value={{activeConnection: null, setActiveConnection: () => {}}}>
         <MowerConnectionsPage />
       </ActiveMowerConnectionContext.Provider>
     </NavigationContainer>,
@@ -63,28 +59,25 @@ it('renders no info button for the active connection if there is none', () => {
 
 it('selects available connection as active when pressed', () => {
   let activeConnection: MowerConnection | null = null;
-  const availableConnections: MowerConnection[] = [
-    {
-      name: 'foo',
-      id: 'foo',
-      password: 'foo',
-      modelName: 'foo',
-      modelNumber: 'foo',
-      serialNumber: 42,
-    },
-    {
-      name: 'bar',
-      id: 'bar',
-      password: 'bar',
-      modelName: 'bar',
-      modelNumber: 'bar',
-      serialNumber: 17,
-    },
-  ];
+  const availableConnections: Map<string, MowerConnection> = new Map<
+    string,
+    MowerConnection
+  >();
+  availableConnections.set('foo', {
+    name: 'The Foo Mowers',
+    id: 'foo',
+    password: 'foo',
+  });
+  availableConnections.set('bar', {
+    name: 'Bar and Mow',
+    id: 'bar',
+    password: 'bar',
+  });
 
   const {getByText} = render(
     <NavigationContainer>
-      <AvailableMowerConnectionsContext.Provider value={{availableConnections}}>
+      <AvailableMowerConnectionsContext.Provider
+        value={{availableConnections, setAvailableConnections: () => {}}}>
         <ActiveMowerConnectionContext.Provider
           value={{
             activeConnection,
@@ -114,7 +107,7 @@ it('selects available connection as active when pressed', () => {
     jest.advanceTimersByTime(3_000);
   });
 
-  expect(activeConnection).toBe(availableConnections[0]);
+  expect(activeConnection).toBe(availableConnections.get('foo'));
 });
 
 it('disconnects active connection when disconnect button is pressed', () => {
@@ -122,9 +115,6 @@ it('disconnects active connection when disconnect button is pressed', () => {
     id: 'foo',
     name: 'The Foo Mowers',
     password: 'foo',
-    modelName: 'foo',
-    modelNumber: 'foo',
-    serialNumber: 42,
   };
 
   let activeConnection: MowerConnection | null = connection;
@@ -154,9 +144,6 @@ it('shows and hides mower password when show/hide button is pressed', () => {
     id: 'foo',
     name: 'The Foo Mowers',
     password: 'foo-pass',
-    modelName: 'foo',
-    modelNumber: 'foo',
-    serialNumber: 42,
   };
 
   const {getByTestId, queryByText} = render(
@@ -164,6 +151,7 @@ it('shows and hides mower password when show/hide button is pressed', () => {
       <ActiveMowerConnectionContext.Provider
         value={{
           activeConnection,
+          setActiveConnection: () => {},
         }}>
         <MowerConnectionsPage />
       </ActiveMowerConnectionContext.Provider>
@@ -173,7 +161,7 @@ it('shows and hides mower password when show/hide button is pressed', () => {
   fireEvent(getByTestId('openActiveConnectionInfo'), 'press');
   fireEvent(getByTestId('showHidePasswordButton'), 'press');
 
-  expect(queryByText(activeConnection.password)).toBeFalsy();
+  expect(queryByText(activeConnection.password!)).toBeFalsy();
 });
 
 it('renders details page in dark mode', () => {
@@ -183,9 +171,6 @@ it('renders details page in dark mode', () => {
     id: 'foo',
     name: 'The Foo Mowers',
     password: 'foo-pass',
-    modelName: 'foo',
-    modelNumber: 'foo',
-    serialNumber: 42,
   };
 
   const {getByTestId} = render(
@@ -193,6 +178,7 @@ it('renders details page in dark mode', () => {
       <ActiveMowerConnectionContext.Provider
         value={{
           activeConnection,
+          setActiveConnection: () => {},
         }}>
         <MowerConnectionsPage />
       </ActiveMowerConnectionContext.Provider>
@@ -203,31 +189,29 @@ it('renders details page in dark mode', () => {
 });
 
 it('renders details page of inactive connection with connection name in header', () => {
-  const availableConnections: MowerConnection[] = [
-    {
-      name: 'The Foo Mowers',
-      id: 'foo',
-      password: 'foo',
-      modelName: 'foo',
-      modelNumber: 'foo',
-      serialNumber: 42,
-    },
-    {
-      name: 'Bar and Mow',
-      id: 'bar',
-      password: 'bar',
-      modelName: 'bar',
-      modelNumber: 'bar',
-      serialNumber: 17,
-    },
-  ];
+  const availableConnections: Map<string, MowerConnection> = new Map<
+    string,
+    MowerConnection
+  >();
+  availableConnections.set('foo', {
+    name: 'The Foo Mowers',
+    id: 'foo',
+    password: 'foo',
+  });
+  availableConnections.set('bar', {
+    name: 'Bar and Mow',
+    id: 'bar',
+    password: 'bar',
+  });
 
   const {getByText, getAllByText, getByTestId} = render(
     <NavigationContainer>
-      <AvailableMowerConnectionsContext.Provider value={{availableConnections}}>
+      <AvailableMowerConnectionsContext.Provider
+        value={{availableConnections, setAvailableConnections: () => {}}}>
         <ActiveMowerConnectionContext.Provider
           value={{
             activeConnection: null,
+            setActiveConnection: () => {},
           }}>
           <MowerConnectionsPage />
         </ActiveMowerConnectionContext.Provider>

@@ -6,7 +6,6 @@ import {
   PermissionsAndroid,
   Platform,
 } from 'react-native';
-import {MowerConnection} from '../hooks/useActiveMowerConnection';
 import BleManager, {
   BleDisconnectPeripheralEvent,
   BleDiscoverPeripheralEvent,
@@ -17,7 +16,8 @@ import BleManager, {
   Peripheral,
 } from 'react-native-ble-manager';
 import {Buffer} from 'buffer';
-import BluetoothState from './BluetoothState';
+import BluetoothState from '../models/BluetoothState';
+import MowerConnection from '../models/MowerConnection';
 
 const BleManagerModule = NativeModules.BleManager;
 const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
@@ -25,7 +25,7 @@ const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
 /** The default ending sequence for messages to mowers. */
 export const DEFAULT_ENDING_SEQUENCE = '*';
 
-export const SECONDS_TO_SCAN_FOR_DEVICES = 7;
+export const SECONDS_TO_SCAN_FOR_DEVICES = 4;
 
 /**
  * The fixed service uuids that our mowers use.

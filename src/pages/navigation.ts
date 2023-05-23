@@ -1,4 +1,4 @@
-import {MowerConnection} from '../hooks/useActiveMowerConnection';
+import MowerConnection from '../models/MowerConnection';
 
 /**
  * The root (main) routes of the application.
@@ -45,9 +45,9 @@ export type SettingsRoutes = {
    */
   SettingsMain: undefined;
   /**
-   * The screen is showing the available time durations.
+   * The screen is showing the available numbers of sessions to show in history.
    */
-  SettingsTimeDuration: undefined;
+  SettingsMowingSessionsToShowInHistory: undefined;
   /**
    * The screen is showing the available languages.
    */
