@@ -25,7 +25,7 @@ const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
 /** The default ending sequence for messages to mowers. */
 export const DEFAULT_ENDING_SEQUENCE = '*';
 
-export const SECONDS_TO_SCAN_FOR_DEVICES = 7;
+export const SECONDS_TO_SCAN_FOR_DEVICES = 4;
 
 /**
  * The fixed service uuids that our mowers use.
