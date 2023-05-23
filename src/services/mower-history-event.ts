@@ -2,6 +2,7 @@ import MowerHistoryEvent from '../models/MowerHistoryEvent';
 import ImageHistoryItem, {
   ImageClassificationResult,
 } from '../models/ImageHistoryItem';
+import {MowingSessionsToShowInHistory} from '../hooks/useMowingSessionsToShowInHistory';
 
 /** Map of labels and their probabilities as a result of a classification of an image. */
 export type MowerHistoryEventImageClassificationResults = Map<string, number>;
@@ -91,4 +92,47 @@ export function mowerHistoryEventToImageHistoryItem(
     classificationResult:
       getImageClassificationResultWithHighestProbability(event)!,
   };
+}
+
+/**
+ * Gets the latest session id of the sessions in the given events list.
+ *
+ * @param events MowerHistoryEvent[] the events to get the session id from.
+ *
+ * @return number the latest session id, or -1 if no events given.
+ */
+export function getLatestSessionId(events: MowerHistoryEvent[]): number {
+  return events.length > 0
+    ? events.sort((a, b) => b.sessionId - a.sessionId)[0].sessionId
+    : -1;
+}
+
+/**
+ * Checks whether an event should be shown depending on the MowingSessionsToShowInHistory selection and the latest session id.
+ *
+ * @param event MowerHistoryEvent the event to check.
+ * @param latestSessionId number the id of the latest session.
+ * @param sessionsToShow MowingSessionsToShowInHistory the configuration to decide with whether an event should be shown.
+ *
+ * @return boolean whether the event should be shown.
+ */
+export function isEventToShowDependingOnSessionId(
+  event: MowerHistoryEvent,
+  latestSessionId: number,
+  sessionsToShow: MowingSessionsToShowInHistory,
+): boolean {
+  if (sessionsToShow === MowingSessionsToShowInHistory.allSessions) {
+    return true;
+  }
+
+  switch (sessionsToShow) {
+    case MowingSessionsToShowInHistory.latestSession:
+      return event.sessionId === latestSessionId;
+    case MowingSessionsToShowInHistory.lastThreeSessions:
+      return event.sessionId > latestSessionId - 3;
+    case MowingSessionsToShowInHistory.lastTenSessions:
+      return event.sessionId > latestSessionId - 10;
+    default:
+      return false;
+  }
 }
