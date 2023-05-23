@@ -2,9 +2,7 @@ import React, {useCallback, useMemo, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {useTranslation} from 'react-i18next';
-import useActiveMowerConnection, {
-  MowerConnection,
-} from '../../hooks/useActiveMowerConnection';
+import useActiveMowerConnection from '../../hooks/useActiveMowerConnection';
 import useStyles from '../../hooks/useStyles';
 import SectionWithHeading from '../../components/common/SectionWithHeading';
 import ModeSelect from '../../components/common/ModeSelect';
@@ -23,6 +21,7 @@ import useBluetoothService, {
 import LoadingOverlay from '../../components/common/LoadingOverlay';
 import Button from '../../components/common/Button';
 import useErrorState from '../../hooks/useErrorState';
+import MowerConnection from '../../models/MowerConnection';
 
 /**
  * Section that allows the selection of the mower mode, which is either 'automatic' or 'manual'.

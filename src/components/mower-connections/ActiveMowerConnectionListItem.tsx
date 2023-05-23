@@ -1,8 +1,7 @@
 import MowerConnectionListItem from './MowerConnectionListItem';
 import React, {useCallback} from 'react';
-import useActiveMowerConnection, {
-  MowerConnection,
-} from '../../hooks/useActiveMowerConnection';
+import useActiveMowerConnection from '../../hooks/useActiveMowerConnection';
+import MowerConnection from '../../models/MowerConnection';
 
 /**
  * The properties for <ActiveMowerConnectionListItem />.

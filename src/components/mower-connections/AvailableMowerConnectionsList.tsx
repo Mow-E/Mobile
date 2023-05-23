@@ -2,8 +2,8 @@ import React from 'react';
 import {FlatList} from 'react-native';
 import LineListItemSeparator from '../common/LineListItemSeparator';
 import MowerConnectionListItem from './MowerConnectionListItem';
-import {MowerConnection} from '../../hooks/useActiveMowerConnection';
 import useStyles from '../../hooks/useStyles';
+import MowerConnection from '../../models/MowerConnection';
 
 /**
  * The properties for <AvailableMowerConnectionsList />.

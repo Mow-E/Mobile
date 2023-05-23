@@ -1,5 +1,6 @@
 import {createContext, useContext} from 'react';
-import {MowerConnection} from './useActiveMowerConnection';
+
+import MowerConnection from '../models/MowerConnection';
 
 /**
  * The properties saved in the `AvailableMowerConnectionsContext`.

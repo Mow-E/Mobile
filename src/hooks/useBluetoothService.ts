@@ -1,7 +1,5 @@
 import {useCallback} from 'react';
-import useActiveMowerConnection, {
-  MowerConnection,
-} from './useActiveMowerConnection';
+import useActiveMowerConnection from './useActiveMowerConnection';
 import {
   checkBluetoothState,
   connect as connectMower,
@@ -13,8 +11,9 @@ import {
 } from '../services/bluetooth';
 import useMowerMode from './useMowerMode';
 import useAvailableMowerConnections from './useAvailableMowerConnections';
-import BluetoothState from '../services/BluetoothState';
+import BluetoothState from '../models/BluetoothState';
 import {useTranslation} from 'react-i18next';
+import MowerConnection from '../models/MowerConnection';
 
 /**
  * A command that can be sent to the current connected mower.

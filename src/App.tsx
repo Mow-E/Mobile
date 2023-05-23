@@ -8,10 +8,7 @@ import {
   removeBluetoothServiceListeners,
   startBluetoothService,
 } from './services/bluetooth';
-import {
-  ActiveMowerConnectionContext,
-  MowerConnection,
-} from './hooks/useActiveMowerConnection';
+import {ActiveMowerConnectionContext} from './hooks/useActiveMowerConnection';
 import {AvailableMowerConnectionsContext} from './hooks/useAvailableMowerConnections';
 import {
   ShowablePathTimeDuration,
@@ -30,10 +27,12 @@ import useStorageService, {
   SHOWABLE_TIME_DURATION_STORAGE_KEY,
 } from './hooks/useStorageService';
 import {useTranslation} from 'react-i18next';
-import {CurrentUser, CurrentUserContext} from './hooks/useCurrentUser';
+import {CurrentUserContext} from './hooks/useCurrentUser';
 import LoginPage from './pages/LoginPage';
 import LoadingOverlay from './components/common/LoadingOverlay';
 import {API_TEST_URL, fetchWithAuthorization} from './services/api';
+import MowerConnection from './models/MowerConnection';
+import CurrentUser from './models/CurrentUser';
 
 /**
  * The Mow-E Mobile app. Renders the complete application.

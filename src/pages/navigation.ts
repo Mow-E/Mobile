@@ -1,4 +1,4 @@
-import {MowerConnection} from '../hooks/useActiveMowerConnection';
+import MowerConnection from '../models/MowerConnection';
 
 /**
  * The root (main) routes of the application.

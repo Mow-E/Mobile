@@ -1,12 +1,12 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-import {MowerConnection} from '../../hooks/useActiveMowerConnection';
 import {useTranslation} from 'react-i18next';
 import useStyles from '../../hooks/useStyles';
 import spacing from '../../styles/spacing';
 import MowerConnectionInfoButton, {
   INFO_ICON_SIZE,
 } from './MowerConnectionInfoButton';
+import MowerConnection from '../../models/MowerConnection';
 
 /**
  * The properties for <MowerConnectionListItem />.
