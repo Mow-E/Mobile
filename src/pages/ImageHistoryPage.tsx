@@ -1,5 +1,5 @@
 import {FlatList, StyleSheet, View} from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import useApiService from '../hooks/useApiService';
 import spacing from '../styles/spacing';
 import {
@@ -9,47 +9,51 @@ import {
 import ImageHistoryItem from '../models/ImageHistoryItem';
 import MowerHistoryEventImageListItem from '../components/image-history/MowerHistoryEventImageListItem';
 import useActiveMowerConnection from '../hooks/useActiveMowerConnection';
+import useMowerHistoryEvents from '../hooks/useMowerHistoryEvents';
 
 /**
  * The page that shows the history of images that the mower took.
  */
 function ImageHistoryPage(): JSX.Element {
-  const [items, setItems] = useState<ImageHistoryItem[] | null>(null);
-  const [loadingItems, setLoadingItems] = useState<boolean>(false);
+  const {events, setEvents} = useMowerHistoryEvents();
+  const [loading, setLoading] = useState<boolean>(false);
   const {activeConnection} = useActiveMowerConnection();
   const apiService = useApiService();
 
-  const fetchAndUpdateItems = useCallback(async () => {
-    setLoadingItems(true);
+  const fetchAndUpdateEvents = useCallback(async () => {
+    setLoading(true);
 
-    const fetchedItems = await apiService.getMowerHistory();
+    const fetchedEvents = await apiService.getMowerHistory();
+    setEvents(fetchedEvents);
+
+    setLoading(false);
+  }, [apiService, setEvents]);
+
+  useEffect(() => {
+    fetchAndUpdateEvents();
+    // This effect should only be run once, when the component is created, thus no dependencies
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const items = useMemo<ImageHistoryItem[]>(() => {
     const itemsOfActiveMower =
       activeConnection !== null
-        ? fetchedItems.filter(item => item.mowerId === activeConnection.id)
-        : fetchedItems;
+        ? events.filter(item => item.mowerId === activeConnection.id)
+        : events;
 
-    const itemsWithImages = itemsOfActiveMower
+    return itemsOfActiveMower
       .filter(isEventWithImageAttached)
       .map(mowerHistoryEventToImageHistoryItem)
       .sort((a, b) => b.date.getTime() - a.date.getTime());
-
-    setItems(itemsWithImages);
-    setLoadingItems(false);
-  }, [apiService, activeConnection]);
-
-  useEffect(() => {
-    if (items === null && !loadingItems) {
-      fetchAndUpdateItems();
-    }
-  }, [items, loadingItems, fetchAndUpdateItems]);
+  }, [events, activeConnection]);
 
   return (
     <View style={componentStyles.pageContainer}>
       <FlatList
         style={componentStyles.list}
         data={items ?? []}
-        onRefresh={fetchAndUpdateItems}
-        refreshing={loadingItems}
+        onRefresh={fetchAndUpdateEvents}
+        refreshing={loading}
         renderItem={({item}) => <MowerHistoryEventImageListItem item={item} />}
       />
     </View>

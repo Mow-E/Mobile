@@ -33,6 +33,8 @@ import LoadingOverlay from './components/common/LoadingOverlay';
 import {API_TEST_URL, fetchWithAuthorization} from './services/api';
 import MowerConnection from './models/MowerConnection';
 import CurrentUser from './models/CurrentUser';
+import MowerHistoryEvent from './models/MowerHistoryEvent';
+import {MowerHistoryEventsContext} from './hooks/useMowerHistoryEvents';
 
 /**
  * The Mow-E Mobile app. Renders the complete application.
@@ -50,6 +52,9 @@ function App(): JSX.Element {
   const [appColorMode, setAppColorMode] = useState<AppColorMode>('auto');
   const [errorState, setErrorState] = useState<ErrorState>(null);
   const [loadingStoredData, setLoadingStoredData] = useState<boolean>(false);
+  const [mowerHistoryEvents, setMowerHistoryEvents] = useState<
+    MowerHistoryEvent[]
+  >([]);
   const storageService = useStorageService();
   const {t, i18n} = useTranslation();
 
@@ -219,17 +224,23 @@ function App(): JSX.Element {
                         timeDuration: showablePathTimeDuration,
                         setTimeDuration: handleShowableTimeDurationChange,
                       }}>
-                      <LoadingOverlay
-                        text={t('routes.app.loading')!}
-                        visible={loadingStoredData}
-                      />
-                      <StatusBar />
-                      <LayoutAndNavigation />
-                      <ErrorOverlay
-                        text={errorState ?? ''}
-                        visible={errorState !== null}
-                        onClose={() => setErrorState(null)}
-                      />
+                      <MowerHistoryEventsContext.Provider
+                        value={{
+                          events: mowerHistoryEvents,
+                          setEvents: setMowerHistoryEvents,
+                        }}>
+                        <LoadingOverlay
+                          text={t('routes.app.loading')!}
+                          visible={loadingStoredData}
+                        />
+                        <StatusBar />
+                        <LayoutAndNavigation />
+                        <ErrorOverlay
+                          text={errorState ?? ''}
+                          visible={errorState !== null}
+                          onClose={() => setErrorState(null)}
+                        />
+                      </MowerHistoryEventsContext.Provider>
                     </ShowablePathTimeDurationContext.Provider>
                   </MowerModeContext.Provider>
                 </ActiveMowerConnectionContext.Provider>
