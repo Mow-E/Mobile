@@ -158,8 +158,9 @@ function useApiService() {
 
         if (!isError) {
           console.log(
-            '[api] loaded mower history event data successfully',
-            data,
+            `[api] loaded mower history event data successfully (${
+              (data as MowerHistoryEvent[]).length
+            } items)`,
           );
           return data as MowerHistoryEvent[];
         } else {
