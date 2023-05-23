@@ -75,7 +75,7 @@
     "imageHistory": {
       "headerTitle": "Bild historik",
       "tabBarLabel": "Bild",
-      "pagePlaceholder": "Platshållare för Bildhistorik"
+      "today": "Idag"
     },
     "login": {
       "loginMain": {

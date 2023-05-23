@@ -75,7 +75,7 @@
     "imageHistory": {
       "headerTitle": "Image History",
       "tabBarLabel": "Bilder",
-      "pagePlaceholder": "Image history placeholder"
+      "today": "Heute"
     },
     "login": {
       "loginMain": {
