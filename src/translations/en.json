@@ -55,16 +55,17 @@
         "appMode": "App Mode",
         "logout": "Log Out"
       },
-      "settingsTimeDuration": {
-        "heading": "Time Duration"
+      "settingsMowingSessionsToShowInHistory": {
+        "heading": "Sessions"
       },
       "settingsLanguage": {
         "heading": "Language"
       },
-      "settingsTimeDurationDetails": {
-        "last24Hours": "last 24 hours",
-        "last12Hours": "last 12 hours",
-        "last3Hours": "last 3 hours"
+      "settingsMowingSessionsToShowInHistoryDetails": {
+        "latestSession": "latest session",
+        "lastThreeSessions": "last 3 sessions",
+        "lastTenSessions": "last 10 sessions",
+        "allSessions": "all sessions"
       },
       "settingsLanguageDetails": {
         "en": "English",

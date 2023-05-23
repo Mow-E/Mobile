@@ -1,6 +1,7 @@
 import {get, store} from '../services/storage';
 
-export const SHOWABLE_TIME_DURATION_STORAGE_KEY = 'showable_time_duration';
+export const MOWING_SESSIONS_TO_SHOW_IN_HISTORY_STORAGE_KEY =
+  'mowing_sessions_to_show_in_history';
 export const LANGUAGE_STORAGE_KEY = 'language';
 export const APP_COLOR_MODE_STORAGE_KEY = 'app_color_mode';
 export const MOWER_MODE_STORAGE_KEY = 'mower_mode';

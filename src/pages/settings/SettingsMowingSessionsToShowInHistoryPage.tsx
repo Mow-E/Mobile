@@ -9,33 +9,46 @@ import {useTranslation} from 'react-i18next';
 import CheckMarkIcon from '../../assets/icons/CheckMarkIcon';
 import {INFO_ICON_SIZE} from '../../components/mower-connections/MowerConnectionInfoButton';
 import useIsInDarkMode from '../../hooks/useIsInDarkMode';
-import useShowablePathTimeDuration, {
-  ShowablePathTimeDuration,
-} from '../../hooks/useShowablePathTimeDuration';
+import useMowingSessionsToShowInHistory, {
+  MowingSessionsToShowInHistory,
+} from '../../hooks/useMowingSessionsToShowInHistory';
 
-function SettingsTimeDurationPage({}: StackScreenProps<
+function SettingsMowingSessionsToShowInHistoryPage({}: StackScreenProps<
   SettingsRoutes,
-  'SettingsTimeDuration'
+  'SettingsMowingSessionsToShowInHistory'
 >): JSX.Element {
   const styles = useStyles();
   const {t} = useTranslation();
   const isInDarkMode = useIsInDarkMode();
-  const {timeDuration, setTimeDuration} = useShowablePathTimeDuration();
+  const {sessionsToShow, setSessionsToShow} =
+    useMowingSessionsToShowInHistory();
   const informationItems = useMemo<
-    {label: string; timeDurationCode: ShowablePathTimeDuration}[]
+    {label: string; sessionsCode: MowingSessionsToShowInHistory}[]
   >(
     () => [
       {
-        label: t('routes.settings.settingsTimeDurationDetails.last24Hours')!,
-        timeDurationCode: ShowablePathTimeDuration.h24,
+        label: t(
+          'routes.settings.settingsMowingSessionsToShowInHistoryDetails.latestSession',
+        )!,
+        sessionsCode: MowingSessionsToShowInHistory.latestSession,
       },
       {
-        label: t('routes.settings.settingsTimeDurationDetails.last12Hours')!,
-        timeDurationCode: ShowablePathTimeDuration.h12,
+        label: t(
+          'routes.settings.settingsMowingSessionsToShowInHistoryDetails.lastThreeSessions',
+        )!,
+        sessionsCode: MowingSessionsToShowInHistory.lastThreeSessions,
       },
       {
-        label: t('routes.settings.settingsTimeDurationDetails.last3Hours')!,
-        timeDurationCode: ShowablePathTimeDuration.h3,
+        label: t(
+          'routes.settings.settingsMowingSessionsToShowInHistoryDetails.lastTenSessions',
+        )!,
+        sessionsCode: MowingSessionsToShowInHistory.lastTenSessions,
+      },
+      {
+        label: t(
+          'routes.settings.settingsMowingSessionsToShowInHistoryDetails.allSessions',
+        )!,
+        sessionsCode: MowingSessionsToShowInHistory.allSessions,
       },
     ],
     [t],
@@ -53,12 +66,12 @@ function SettingsTimeDurationPage({}: StackScreenProps<
         ItemSeparatorComponent={LineListItemSeparator}
         renderItem={({item}) => (
           <Pressable
-            onPress={() => setTimeDuration?.(item.timeDurationCode)}
+            onPress={() => setSessionsToShow?.(item.sessionsCode)}
             style={componentStyles.container}>
             <Text style={[styles.textNormal, componentStyles.label]}>
               {item.label}
             </Text>
-            {item.timeDurationCode === timeDuration && (
+            {item.sessionsCode === sessionsToShow && (
               <View style={componentStyles.button}>
                 <CheckMarkIcon
                   size={INFO_ICON_SIZE}
@@ -95,4 +108,4 @@ const componentStyles = StyleSheet.create({
   },
 });
 
-export default SettingsTimeDurationPage;
+export default SettingsMowingSessionsToShowInHistoryPage;

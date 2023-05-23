@@ -55,16 +55,17 @@
         "appMode": "App-läge",
         "logout": "Logga Ut"
       },
-      "settingsTimeDuration": {
-        "heading": "Tid Varaktighet"
+      "settingsMowingSessionsToShowInHistory": {
+        "heading": "Sessioner"
       },
       "settingsLanguage": {
         "heading": "Språk"
       },
-      "settingsTimeDurationDetails": {
-        "last24Hours": "Senaste 24 timmarna",
-        "last12Hours": "Senaste 12 timmarna",
-        "last3Hours": "Senaste 3 timmarna"
+      "settingsMowingSessionsToShowInHistoryDetails": {
+        "latestSession": "senaste sessionen",
+        "lastThreeSessions": "senaste 3 sessioner",
+        "lastTenSessions": "senaste 10 sessioner",
+        "allSessions": "alla sessioner"
       },
       "settingsLanguageDetails": {
         "en": "Engelska",

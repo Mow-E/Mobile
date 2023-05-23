@@ -55,16 +55,17 @@
         "appMode": "App Modus",
         "logout": "Abmelden"
       },
-      "settingsTimeDuration": {
-        "heading": "Zeitraum"
+      "settingsMowingSessionsToShowInHistory": {
+        "heading": "Sitzungen"
       },
       "settingsLanguage": {
         "heading": "Sprache"
       },
-      "settingsTimeDurationDetails": {
-        "last24Hours": "letzten 24 Stunden",
-        "last12Hours": "letzten 12 Stunden",
-        "last3Hours": "letzten 3 Stunden"
+      "settingsMowingSessionsToShowInHistoryDetails": {
+        "latestSession": "Aktuelle Sitzung",
+        "lastThreeSessions": "Letzte 3 Sitzungen",
+        "lastTenSessions": "Letzte 10 Sitzungen",
+        "allSessions": "Alle Sitzungen"
       },
       "settingsLanguageDetails": {
         "en": "Englisch",

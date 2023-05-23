@@ -11,9 +11,9 @@ import ModeSelect from '../../components/common/ModeSelect';
 import LightModeIcon from '../../assets/icons/LightModeIcon';
 import AutomaticLightDarkModeIcon from '../../assets/icons/AutomaticLightDarkModeIcon';
 import DarkModeIcon from '../../assets/icons/DarkModeIcon';
-import useShowablePathTimeDuration, {
-  ShowablePathTimeDuration,
-} from '../../hooks/useShowablePathTimeDuration';
+import useMowingSessionsToShowInHistory, {
+  MowingSessionsToShowInHistory,
+} from '../../hooks/useMowingSessionsToShowInHistory';
 import useAppColorMode from '../../hooks/useAppColorMode';
 import Button from '../../components/common/Button';
 import useCurrentUser from '../../hooks/useCurrentUser';
@@ -25,23 +25,28 @@ function SettingsMainPage({
   const {appColorMode, setAppColorMode} = useAppColorMode();
   const {t, i18n} = useTranslation();
   const styles = useStyles();
-  const {timeDuration} = useShowablePathTimeDuration();
+  const {sessionsToShow} = useMowingSessionsToShowInHistory();
 
-  let currentTimeDuration = '';
-  switch (timeDuration) {
-    case ShowablePathTimeDuration.h24:
-      currentTimeDuration = t(
-        'routes.settings.settingsTimeDurationDetails.last24Hours',
+  let currentMowingSessionsToShow = '';
+  switch (sessionsToShow) {
+    case MowingSessionsToShowInHistory.latestSession:
+      currentMowingSessionsToShow = t(
+        'routes.settings.settingsMowingSessionsToShowInHistoryDetails.latestSession',
       )!;
       break;
-    case ShowablePathTimeDuration.h12:
-      currentTimeDuration = t(
-        'routes.settings.settingsTimeDurationDetails.last12Hours',
+    case MowingSessionsToShowInHistory.lastThreeSessions:
+      currentMowingSessionsToShow = t(
+        'routes.settings.settingsMowingSessionsToShowInHistoryDetails.lastThreeSessions',
       )!;
       break;
-    case ShowablePathTimeDuration.h3:
-      currentTimeDuration = t(
-        'routes.settings.settingsTimeDurationDetails.last3Hours',
+    case MowingSessionsToShowInHistory.lastTenSessions:
+      currentMowingSessionsToShow = t(
+        'routes.settings.settingsMowingSessionsToShowInHistoryDetails.lastTenSessions',
+      )!;
+      break;
+    case MowingSessionsToShowInHistory.allSessions:
+      currentMowingSessionsToShow = t(
+        'routes.settings.settingsMowingSessionsToShowInHistoryDetails.allSessions',
       )!;
       break;
   }
@@ -83,13 +88,19 @@ function SettingsMainPage({
           },
         ]}>
         <SectionWithHeading
-          heading={t('routes.settings.settingsTimeDuration.heading')!}>
+          heading={
+            t('routes.settings.settingsMowingSessionsToShowInHistory.heading')!
+          }>
           <View style={styles.border}>
             <SubpageNavigationButton
               item={
-                <Text style={styles.textNormal}>{currentTimeDuration}</Text>
+                <Text style={styles.textNormal}>
+                  {currentMowingSessionsToShow}
+                </Text>
               }
-              onSelectItem={() => navigation.navigate('SettingsTimeDuration')}
+              onSelectItem={() =>
+                navigation.navigate('SettingsMowingSessionsToShowInHistory')
+              }
             />
           </View>
         </SectionWithHeading>
