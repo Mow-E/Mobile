@@ -13,7 +13,7 @@
       }
     },
     "mowerConnections": {
-      "tabBarLabel": "Slåttermaskin",
+      "tabBarLabel": "Gräsklippare",
       "mowerConnectionsList": {
         "headerTitle": "Anslutningar för gräsklippare",
         "activeConnection": {
@@ -25,8 +25,8 @@
         },
         "availableConnections": {
           "heading": "Andra gräsklippare som hittats",
-          "connectingLabel": "Anslutning...",
-          "searchingLabel": "Sökning..."
+          "connectingLabel": "Ansluter...",
+          "searchingLabel": "Söker..."
         },
         "drivingMode": {
           "heading": "Körläge"
@@ -42,7 +42,7 @@
         },
         "information": {
           "heading": "Information",
-          "serialNumber": "Serielnummer",
+          "serialNumber": "Serienummer",
           "modelName": "Modellnamn",
           "modelNumber": "Modellnummer"
         }
@@ -63,9 +63,9 @@
       },
       "settingsMowingSessionsToShowInHistoryDetails": {
         "latestSession": "senaste sessionen",
-        "lastThreeSessions": "senaste 3 sessioner",
-        "lastTenSessions": "senaste 10 sessioner",
-        "allSessions": "alla sessioner"
+        "lastThreeSessions": "senaste 3 sessions",
+        "lastTenSessions": "senaste 10 sessions",
+        "allSessions": "alla sessions"
       },
       "settingsLanguageDetails": {
         "en": "English",
@@ -87,8 +87,8 @@
         "passwordHeading": "Lösenord:",
         "passwordPlaceholder": "Ange lösenord här...",
         "registrationLinkText": "Har du inte registrerat dig ännu? Klicka här",
-        "loginButtonLabel": "Kom igen!",
-        "loggingInLabel": "Logga in..."
+        "loginButtonLabel": "Logga in!",
+        "loggingInLabel": "Loggar in..."
       },
       "loginRegister": {
         "headerTitle": "Mow-E Registrering",
@@ -99,8 +99,8 @@
         "passwordPlaceholder": "Ange lösenord här...",
         "confirmPasswordHeading": "Bekräfta Lösenordet:",
         "confirmPasswordPlaceholder": "Ange lösenordet här igen...",
-        "registerButtonLabel": "Börja nu!",
-        "registeringInLabel": "Registrering..."
+        "registerButtonLabel": "Logga in!",
+        "registeringInLabel": "Registrerar..."
       }
     }
   },
