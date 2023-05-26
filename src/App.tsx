@@ -65,8 +65,11 @@ function App(): JSX.Element {
   const [errorState, setErrorState] = useState<ErrorState>(null);
   const [loadingStoredData, setLoadingStoredData] = useState<boolean>(false);
   const [mowerHistoryEvents, setMowerHistoryEvents] = useState<
-    MowerHistoryEvent[]
-  >([]);
+    Map<string, MowerHistoryEvent>
+  >(new Map<string, MowerHistoryEvent>());
+  const [mowerEventsFromWebSocket, setMowerEventsFromWebSocket] = useState<
+    Map<string, MowerHistoryEvent>
+  >(new Map<string, MowerHistoryEvent>());
   const [apiWebSocket, setApiWebSocket] = useState<Client | null>(null);
   const storageService = useStorageService();
   const {t, i18n} = useTranslation();
@@ -223,19 +226,25 @@ function App(): JSX.Element {
 
         webSocket.onConnect = function () {
           const url = `/mower/${newConnection.id}/queue/coordinate`;
+          setMowerEventsFromWebSocket(new Map<string, MowerHistoryEvent>());
+
           webSocket.subscribe(url, frame => {
-            setMowerHistoryEvents(prevState => {
-              const latestSessionId = getLatestSessionId(prevState);
+            setMowerEventsFromWebSocket(prevState => {
+              const latestSessionId = getLatestSessionId(
+                Array.from(prevState.values()),
+              );
               const event = parseMowerHistoryEventFromWebSocketMessageBody(
                 frame.body,
                 latestSessionId,
               );
-              console.log(event);
+              console.debug('[websocket] new mower event received', event);
 
-              // TODO: duplicates (id+timestamp)
-              return [...prevState, event];
+              return new Map<string, MowerHistoryEvent>(
+                prevState.set(`${event.mowerId}-${event.time}`, event),
+              );
             });
           });
+
           console.log(`[websocket] subscribed to stomp topic ${url}`);
         };
         webSocket.onStompError = function (frame) {
@@ -250,6 +259,27 @@ function App(): JSX.Element {
       setActiveMowerConnection(newConnection);
     },
     [currentUser],
+  );
+
+  const allEvents = useMemo<MowerHistoryEvent[]>(() => {
+    const events = mowerHistoryEvents;
+    mowerEventsFromWebSocket.forEach(event =>
+      events.set(`${event.mowerId}-${event.time}`, event),
+    );
+
+    return Array.from(events.values());
+  }, [mowerHistoryEvents, mowerEventsFromWebSocket]);
+
+  const handleMowerHistoryEventsChange = useCallback<
+    (newEvents: MowerHistoryEvent[]) => void
+  >(
+    newEvents =>
+      setMowerHistoryEvents(
+        new Map<string, MowerHistoryEvent>(
+          newEvents.map(event => [`${event.mowerId}-${event.time}`, event]),
+        ),
+      ),
+    [],
   );
 
   if (currentUser === null) {
@@ -306,8 +336,8 @@ function App(): JSX.Element {
                       }}>
                       <MowerHistoryEventsContext.Provider
                         value={{
-                          events: mowerHistoryEvents,
-                          setEvents: setMowerHistoryEvents,
+                          events: allEvents,
+                          setEvents: handleMowerHistoryEventsChange,
                         }}>
                         <ApiWebSocketContext.Provider
                           value={{apiWebSocket, setApiWebSocket}}>
