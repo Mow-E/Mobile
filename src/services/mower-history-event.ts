@@ -3,6 +3,7 @@ import ImageHistoryItem, {
   ImageClassificationResult,
 } from '../models/ImageHistoryItem';
 import {MowingSessionsToShowInHistory} from '../hooks/useMowingSessionsToShowInHistory';
+import {WebSocketCoordinateMessage} from './api';
 
 /** Map of labels and their probabilities as a result of a classification of an image. */
 export type MowerHistoryEventImageClassificationResults = Map<string, number>;
@@ -85,7 +86,6 @@ export function mowerHistoryEventToImageHistoryItem(
   }
 
   return {
-    id: event.id,
     // event.time is in seconds while `new Date()` expects milliseconds
     date: new Date(event.time * 1000),
     imageId: event.imageId!,
@@ -135,4 +135,25 @@ export function isEventToShowDependingOnSessionId(
     default:
       return false;
   }
+}
+
+export function parseMowerHistoryEventFromWebSocketMessageBody(
+  messageBody: string,
+  latestSessionId: number,
+): MowerHistoryEvent {
+  const data: WebSocketCoordinateMessage = JSON.parse(messageBody);
+
+  return {
+    source: 'websocket',
+    mowerId: data.mowerId,
+    x: data.x,
+    y: data.y,
+    z: data.z,
+    time: data.time,
+    state: data.stateId,
+    sessionId: latestSessionId,
+    // The messages have no image/extra attached that is usable for us, so just leave them empty
+    imageId: null,
+    extra: '',
+  };
 }

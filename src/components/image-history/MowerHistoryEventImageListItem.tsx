@@ -58,7 +58,9 @@ function MowerHistoryEventImageListItem({
   return (
     <View
       style={[styles.flexColumn, componentStyles.container]}
-      key={`mower-history-event-image-list-item-${item.id}`}>
+      key={`mower-history-event-image-list-item-${
+        item.imageId
+      }-${item.date.getTime()}`}>
       <Text style={styles.textNormal}>
         {humanReadableTime} - {item.classificationResult.label}
       </Text>

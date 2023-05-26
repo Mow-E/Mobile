@@ -6,9 +6,10 @@ import MowerHistoryEventMowerState from './MowerHistoryEventMowerState';
  */
 interface MowerHistoryEvent {
   /**
-   * The unique id of the event.
+   * The source where the event came from.
+   * Can either be from a websocket connection or the (REST) api.
    */
-  id: number;
+  source: 'websocket' | 'api';
   /**
    * The id of the mowing session the event occured in.
    */

@@ -5,10 +5,6 @@ export type ImageClassificationResult = {label: string; probability: number};
  */
 interface ImageHistoryItem {
   /**
-   * The unique id of the item.
-   */
-  id: number;
-  /**
    * The date and time of the item.
    */
   date: Date;

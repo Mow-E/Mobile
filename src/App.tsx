@@ -30,10 +30,20 @@ import {useTranslation} from 'react-i18next';
 import {CurrentUserContext} from './hooks/useCurrentUser';
 import LoginPage from './pages/LoginPage';
 import LoadingOverlay from './components/common/LoadingOverlay';
-import {API_TEST_URL, fetchWithAuthorization} from './services/api';
+import {
+  API_TEST_URL,
+  createWebSocketClient,
+  fetchWithAuthorization,
+} from './services/api';
 import MowerConnection from './models/MowerConnection';
 import CurrentUser from './models/CurrentUser';
 import MowerHistoryEvent from './models/MowerHistoryEvent';
+import {ApiWebSocketContext} from './hooks/useApiWebSocket';
+import {Client} from '@stomp/stompjs';
+import {
+  getLatestSessionId,
+  parseMowerHistoryEventFromWebSocketMessageBody,
+} from './services/mower-history-event';
 import {MowerHistoryEventsContext} from './hooks/useMowerHistoryEvents';
 
 /**
@@ -57,6 +67,7 @@ function App(): JSX.Element {
   const [mowerHistoryEvents, setMowerHistoryEvents] = useState<
     MowerHistoryEvent[]
   >([]);
+  const [apiWebSocket, setApiWebSocket] = useState<Client | null>(null);
   const storageService = useStorageService();
   const {t, i18n} = useTranslation();
 
@@ -122,6 +133,14 @@ function App(): JSX.Element {
         setActiveMowerConnection(prevState =>
           prevState?.bluetoothInfos?.id === id ? null : prevState,
         );
+
+        setApiWebSocket(prevState => {
+          if (prevState !== null) {
+            prevState.deactivate();
+          }
+
+          return null;
+        });
       },
       () => {
         setAvailableMowerConnections(foundMowers);
@@ -168,6 +187,16 @@ function App(): JSX.Element {
     async (user: CurrentUser | null) => {
       setCurrentUser(user);
       await storageService.store(LOGGED_IN_USER_STORAGE_KEY, user);
+
+      if (user === null) {
+        setApiWebSocket(prevState => {
+          if (prevState !== null) {
+            prevState.deactivate();
+          }
+
+          return null;
+        });
+      }
     },
     [storageService],
   );
@@ -175,6 +204,52 @@ function App(): JSX.Element {
   const currentUserContextValue = useMemo(
     () => ({currentUser, setCurrentUser: handleCurrentUserChange}),
     [currentUser, handleCurrentUserChange],
+  );
+
+  const handleActiveMowerConnectionChange = useCallback<
+    (newConnection: MowerConnection | null) => void
+  >(
+    newConnection => {
+      if (newConnection === null) {
+        setApiWebSocket(prevState => {
+          if (prevState !== null) {
+            prevState.deactivate();
+          }
+
+          return null;
+        });
+      } else if (currentUser !== null) {
+        const webSocket = createWebSocketClient(currentUser.authorizationToken);
+
+        webSocket.onConnect = function () {
+          const url = `/mower/${newConnection.id}/queue/coordinate`;
+          webSocket.subscribe(url, frame => {
+            setMowerHistoryEvents(prevState => {
+              const latestSessionId = getLatestSessionId(prevState);
+              const event = parseMowerHistoryEventFromWebSocketMessageBody(
+                frame.body,
+                latestSessionId,
+              );
+              console.log(event);
+
+              // TODO: duplicates (id+timestamp)
+              return [...prevState, event];
+            });
+          });
+          console.log(`[websocket] subscribed to stomp topic ${url}`);
+        };
+        webSocket.onStompError = function (frame) {
+          console.error('[websocket]', frame.headers.message, frame.body);
+          setErrorState(frame.headers.message);
+        };
+        webSocket.activate();
+
+        setApiWebSocket(webSocket);
+      }
+
+      setActiveMowerConnection(newConnection);
+    },
+    [currentUser],
   );
 
   if (currentUser === null) {
@@ -220,7 +295,7 @@ function App(): JSX.Element {
                 <ActiveMowerConnectionContext.Provider
                   value={{
                     activeConnection: activeMowerConnection,
-                    setActiveConnection: setActiveMowerConnection,
+                    setActiveConnection: handleActiveMowerConnectionChange,
                   }}>
                   <MowerModeContext.Provider
                     value={{mowerMode, setMowerMode: handleMowerModeChange}}>
@@ -234,17 +309,20 @@ function App(): JSX.Element {
                           events: mowerHistoryEvents,
                           setEvents: setMowerHistoryEvents,
                         }}>
-                        <LoadingOverlay
-                          text={t('routes.app.loading')!}
-                          visible={loadingStoredData}
-                        />
-                        <StatusBar />
-                        <LayoutAndNavigation />
-                        <ErrorOverlay
-                          text={errorState ?? ''}
-                          visible={errorState !== null}
-                          onClose={() => setErrorState(null)}
-                        />
+                        <ApiWebSocketContext.Provider
+                          value={{apiWebSocket, setApiWebSocket}}>
+                          <LoadingOverlay
+                            text={t('routes.app.loading')!}
+                            visible={loadingStoredData}
+                          />
+                          <StatusBar />
+                          <LayoutAndNavigation />
+                          <ErrorOverlay
+                            text={errorState ?? ''}
+                            visible={errorState !== null}
+                            onClose={() => setErrorState(null)}
+                          />
+                        </ApiWebSocketContext.Provider>
                       </MowerHistoryEventsContext.Provider>
                     </MowingSessionsToShowInHistoryContext.Provider>
                   </MowerModeContext.Provider>
