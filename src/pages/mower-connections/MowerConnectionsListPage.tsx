@@ -22,6 +22,8 @@ import LoadingOverlay from '../../components/common/LoadingOverlay';
 import Button from '../../components/common/Button';
 import useErrorState from '../../hooks/useErrorState';
 import MowerConnection from '../../models/MowerConnection';
+import useApiService from '../../hooks/useApiService';
+import useMowerHistoryEvents from '../../hooks/useMowerHistoryEvents';
 
 /**
  * Section that allows the selection of the mower mode, which is either 'automatic' or 'manual'.
@@ -99,11 +101,13 @@ function MowerConnectionsListPage({
   const {availableConnections} = useAvailableMowerConnections();
   const {activeConnection} = useActiveMowerConnection();
   const {setErrorState} = useErrorState();
+  const {setEvents} = useMowerHistoryEvents();
   const [connectingToMower, setConnectingToMower] = useState<boolean>(false);
   const [searchingForMowers, setSearchingForMowers] = useState<boolean>(false);
   const {t} = useTranslation();
   const styles = useStyles();
   const bluetoothService = useBluetoothService();
+  const apiService = useApiService();
 
   const handleSelectConnection = useCallback<
     (connection: MowerConnection) => void
@@ -112,6 +116,8 @@ function MowerConnectionsListPage({
       setConnectingToMower(true);
       try {
         await bluetoothService.connect(connection);
+        const events = await apiService.getMowerHistory();
+        setEvents(events);
       } catch (e) {
         console.error(e);
 
@@ -123,7 +129,7 @@ function MowerConnectionsListPage({
       }
       setConnectingToMower(false);
     },
-    [bluetoothService, setErrorState],
+    [bluetoothService, setErrorState, setEvents, apiService],
   );
 
   const handleScanForDevices = useCallback(async () => {

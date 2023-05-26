@@ -31,8 +31,12 @@ type RegisterFetchResult =
       reason: string;
     };
 
+interface ApiMowerHistoryEvent extends MowerHistoryEvent {
+  source: 'api';
+}
+
 type MowerHistoryFetchResult =
-  | MowerHistoryEvent[]
+  | ApiMowerHistoryEvent[]
   | {status: 'error'; message: string};
 
 /**
@@ -159,10 +163,10 @@ function useApiService() {
         if (!isError) {
           console.log(
             `[api] loaded mower history event data successfully (${
-              (data as MowerHistoryEvent[]).length
+              (data as ApiMowerHistoryEvent[]).length
             } items)`,
           );
-          return data as MowerHistoryEvent[];
+          return data as ApiMowerHistoryEvent[];
         } else {
           console.error(
             '[api] loading of mower history event data unsuccessful',
