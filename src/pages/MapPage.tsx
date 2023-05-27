@@ -151,8 +151,8 @@ function MapPage(): JSX.Element {
   );
 
   const shouldShowEmptyStatePlaceholder = useMemo(
-    () => activeConnection === null && eventsToShowOnMap.length === 0,
-    [activeConnection, eventsToShowOnMap],
+    () => activeConnection === null,
+    [activeConnection],
   );
 
   const shouldShowMap = useMemo(
