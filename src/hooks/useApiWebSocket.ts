@@ -10,6 +10,10 @@ interface ApiWebSocketContextType {
    */
   apiWebSocket: Client | null;
   /**
+   * Whether the WebSocket connection is alive (if any exists).
+   */
+  webSocketConnectionAlive: boolean;
+  /**
    * Setter for the api WebSocket.
    *
    * @param ws Client the new WebSocket to set active.
@@ -22,6 +26,7 @@ interface ApiWebSocketContextType {
  */
 export const ApiWebSocketContext = createContext<ApiWebSocketContextType>({
   apiWebSocket: null,
+  webSocketConnectionAlive: false,
   setApiWebSocket: () => {},
 });
 

@@ -39,7 +39,7 @@ import MowerConnection from './models/MowerConnection';
 import CurrentUser from './models/CurrentUser';
 import MowerHistoryEvent from './models/MowerHistoryEvent';
 import {ApiWebSocketContext} from './hooks/useApiWebSocket';
-import {Client} from '@stomp/stompjs';
+import {ActivationState, Client} from '@stomp/stompjs';
 import {
   getLatestSessionId,
   parseMowerHistoryEventFromWebSocketMessageBody,
@@ -71,6 +71,8 @@ function App(): JSX.Element {
     Map<string, MowerHistoryEvent>
   >(new Map<string, MowerHistoryEvent>());
   const [apiWebSocket, setApiWebSocket] = useState<Client | null>(null);
+  const [webSocketConnectionAlive, setWebSocketConnectionAlive] =
+    useState<boolean>(false);
   const storageService = useStorageService();
   const {t, i18n} = useTranslation();
 
@@ -154,6 +156,12 @@ function App(): JSX.Element {
       removeBluetoothServiceListeners(listeners);
     };
   }, []);
+
+  useEffect(() => {
+    if (apiWebSocket === null) {
+      setWebSocketConnectionAlive(false);
+    }
+  }, [apiWebSocket]);
 
   const handleSessionsToShowChange = useCallback<
     (newSessionsToShow: MowingSessionsToShowInHistory) => Promise<void>
@@ -251,6 +259,10 @@ function App(): JSX.Element {
           console.error('[websocket]', frame.headers.message, frame.body);
           setErrorState(frame.headers.message);
         };
+        webSocket.onChangeState = state => {
+          console.log(`[websocket] onChangeState ${state}`);
+          setWebSocketConnectionAlive(state === ActivationState.ACTIVE);
+        };
         webSocket.activate();
 
         setApiWebSocket(webSocket);
@@ -340,7 +352,11 @@ function App(): JSX.Element {
                           setEvents: handleMowerHistoryEventsChange,
                         }}>
                         <ApiWebSocketContext.Provider
-                          value={{apiWebSocket, setApiWebSocket}}>
+                          value={{
+                            apiWebSocket,
+                            webSocketConnectionAlive,
+                            setApiWebSocket,
+                          }}>
                           <LoadingOverlay
                             text={t('routes.app.loading')!}
                             visible={loadingStoredData}

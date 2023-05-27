@@ -17,6 +17,8 @@ import useMowerHistoryEvents from '../hooks/useMowerHistoryEvents';
 import MowerHistoryEvent from '../models/MowerHistoryEvent';
 import {getLatestSessionId} from '../services/mower-history-event';
 import MowerMap from '../components/map/MowerMap';
+import useApiWebSocket from '../hooks/useApiWebSocket';
+import PositionMarkerIcon from '../assets/icons/PositionMarkerIcon';
 
 /**
  * The page that visualizes the mowers position and path.
@@ -27,6 +29,7 @@ function MapPage(): JSX.Element {
   const {mowerMode} = useMowerMode();
   const {setErrorState} = useErrorState();
   const {events} = useMowerHistoryEvents();
+  const {webSocketConnectionAlive} = useApiWebSocket();
   const {t} = useTranslation();
   const styles = useStyles();
   const bluetoothService = useBluetoothService();
@@ -196,6 +199,13 @@ function MapPage(): JSX.Element {
           onStopPress={handleMowerStopInAutomaticPress}
         />
       )}
+      <View style={componentStyles.webSocketConnectionIndicator}>
+        <PositionMarkerIcon
+          size={24}
+          darkModeInverted={isInDarkMode}
+          colored={webSocketConnectionAlive}
+        />
+      </View>
     </View>
   );
 }
@@ -211,6 +221,11 @@ const componentStyles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'flex-start',
     width: '100%',
+  },
+  webSocketConnectionIndicator: {
+    position: 'absolute',
+    top: spacing.m,
+    right: spacing.m,
   },
 });
 
