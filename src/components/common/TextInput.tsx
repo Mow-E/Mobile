@@ -47,6 +47,8 @@ interface TextInputProps {
 
 /**
  * A text input field that can also mask password values.
+ *
+ * Also see <ClearInputFocusOnPress /> for a handler to automatically loose focus if e.g. the page background is pressed.
  */
 function TextInput({
   value,
@@ -70,6 +72,7 @@ function TextInput({
         onChangeText={onChange}
         editable={!readonly}
         focusable={!readonly}
+        clearButtonMode="always"
       />
       {passwordField && (
         <Pressable
