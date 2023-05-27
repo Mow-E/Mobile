@@ -5,12 +5,11 @@ import {
   connect as connectMower,
   disconnect as disconnectMower,
   scanForBluetoothDevices,
-  SECONDS_TO_SCAN_FOR_DEVICES,
+  DEFAULT_SECONDS_TO_SCAN_FOR_DEVICES,
   sendMessage,
   stopScanningForBluetoothDevices,
 } from '../services/bluetooth';
 import useMowerMode from './useMowerMode';
-import useAvailableMowerConnections from './useAvailableMowerConnections';
 import BluetoothState from '../models/BluetoothState';
 import {useTranslation} from 'react-i18next';
 import MowerConnection from '../models/MowerConnection';
@@ -66,7 +65,6 @@ export enum MowerCommand {
  */
 function useBluetoothService() {
   const {activeConnection, setActiveConnection} = useActiveMowerConnection();
-  const {setAvailableConnections} = useAvailableMowerConnections();
   const {mowerMode} = useMowerMode();
   const {t} = useTranslation();
 
@@ -83,6 +81,33 @@ function useBluetoothService() {
     }
   }, [t]);
 
+  // I don't know how to gracefully check that the scan has stopped, so just wait for the scan duration here
+  const waitForScanToComplete = useCallback<
+    (secondsToWait: number) => Promise<void>
+  >(
+    secondsToWait =>
+      new Promise(resolve =>
+        // Timeouts time value is in milliseconds, so multiply seconds with 1000 for ms
+        setTimeout(() => resolve(), secondsToWait * 1000),
+      ),
+    [],
+  );
+
+  /**
+   * Starts a scan for available mower devices.
+   * All devices found are put into the `availableConnections` context, which is emptied before the scan.
+   * The promise resolves once the scan has finished/stopped.
+   */
+  const scanForDevices = useCallback<(secondsToWait?: number) => Promise<void>>(
+    async (secondsToWait = DEFAULT_SECONDS_TO_SCAN_FOR_DEVICES) => {
+      await requireBluetoothActive();
+
+      await scanForBluetoothDevices(secondsToWait);
+      await waitForScanToComplete(secondsToWait);
+    },
+    [requireBluetoothActive, waitForScanToComplete],
+  );
+
   /**
    * Disconnects the active mower connection, if any exists, and sets the active connection to null.
    */
@@ -91,12 +116,18 @@ function useBluetoothService() {
 
     if (activeConnection !== null) {
       await disconnectMower(activeConnection);
+      await scanForDevices(1);
       setActiveConnection(null);
       return;
     }
 
     console.warn('Cannot disconnect active connection since there is none');
-  }, [activeConnection, setActiveConnection, requireBluetoothActive]);
+  }, [
+    activeConnection,
+    setActiveConnection,
+    requireBluetoothActive,
+    scanForDevices,
+  ]);
 
   /**
    * Sends a command to the current active mower, or throws an error if no active connection.
@@ -171,23 +202,6 @@ function useBluetoothService() {
       requireBluetoothActive,
     ],
   );
-
-  /**
-   * Starts a scan for available mower devices.
-   * All devices found are put into the `availableConnections` context, which is emptied before the scan.
-   * The promise resolves once the scan has finished/stopped.
-   */
-  const scanForDevices = useCallback<() => Promise<void>>(async () => {
-    await requireBluetoothActive();
-
-    setAvailableConnections(new Map<string, MowerConnection>());
-    await scanForBluetoothDevices();
-    // I don't know how to gracefully check that the scan has stopped, so just wait for the scan duration here
-    await new Promise(resolve =>
-      // Timeouts time value is in milliseconds, so multiply seconds with 1000 for ms
-      setTimeout(() => resolve(null), SECONDS_TO_SCAN_FOR_DEVICES * 1000),
-    );
-  }, [setAvailableConnections, requireBluetoothActive]);
 
   /**
    * Stops any running scan for bluetooth devices.

@@ -34,7 +34,8 @@
       },
       "mowerConnectionDetails": {
         "deleteMower": {
-          "buttonLabel": "Disconnect mower"
+          "buttonLabel": "Disconnect mower",
+          "disconnectingLabel": "Disconnecting..."
         },
         "password": {
           "heading": "Password",
@@ -76,7 +77,8 @@
     "imageHistory": {
       "headerTitle": "Image History",
       "tabBarLabel": "Images",
-      "today": "Today"
+      "today": "Today",
+      "emptyListText": "No images to show. You can either extend the number of sessions to show or wait for your mower to take some pictures."
     },
     "login": {
       "loginMain": {

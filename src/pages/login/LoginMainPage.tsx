@@ -14,6 +14,7 @@ import {useTranslation} from 'react-i18next';
 import useIsInDarkMode from '../../hooks/useIsInDarkMode';
 import colors from '../../styles/colors';
 import LoadingOverlay from '../../components/common/LoadingOverlay';
+import ClearInputFocusOnPress from '../../components/common/ClearInputFocusOnPress';
 
 /**
  * The page for user login.
@@ -54,7 +55,8 @@ function LoginMainPage({
         text={t('routes.login.loginMain.loggingInLabel')!}
         visible={loggingIn}
       />
-      <View style={[styles.flexColumn, componentStyles.pageContainer]}>
+      <ClearInputFocusOnPress
+        style={[styles.flexColumn, componentStyles.pageContainer]}>
         <Text
           style={[
             componentStyles.welcomeText,
@@ -99,7 +101,7 @@ function LoginMainPage({
             fullWidth
           />
         </View>
-      </View>
+      </ClearInputFocusOnPress>
     </>
   );
 }

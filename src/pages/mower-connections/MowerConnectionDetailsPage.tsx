@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {MowerConnectionsRoutes} from '../navigation';
@@ -13,6 +13,7 @@ import useBluetoothService from '../../hooks/useBluetoothService';
 import Button from '../../components/common/Button';
 import TextInput from '../../components/common/TextInput';
 import useErrorState from '../../hooks/useErrorState';
+import LoadingOverlay from '../../components/common/LoadingOverlay';
 
 /**
  * Shows the details of a mower connection.
@@ -27,6 +28,7 @@ function MowerConnectionDetailsPage({
   MowerConnectionsRoutes,
   'MowerConnectionDetails'
 >): JSX.Element {
+  const [disconnecting, setDisconnecting] = useState<boolean>(false);
   const {activeConnection} = useActiveMowerConnection();
   const {setErrorState} = useErrorState();
   const styles = useStyles();
@@ -59,6 +61,7 @@ function MowerConnectionDetailsPage({
 
   const handleDisconnectPress = useCallback(async () => {
     try {
+      setDisconnecting(true);
       await bluetoothService.disconnect();
     } catch (e) {
       console.error(e);
@@ -69,69 +72,95 @@ function MowerConnectionDetailsPage({
         setErrorState(e);
       }
     } finally {
+      setDisconnecting(false);
       navigation.goBack();
     }
   }, [bluetoothService, setErrorState, navigation]);
 
   if (activeConnection?.id !== connection?.id) {
-    return <></>;
+    return (
+      <LoadingOverlay
+        text={
+          t(
+            'routes.mowerConnections.mowerConnectionDetails.deleteMower.disconnectingLabel',
+          )!
+        }
+        visible={disconnecting}
+      />
+    );
   }
 
   return (
-    <View
-      style={[
-        styles.flexColumn,
-        {marginTop: spacing.xxl, marginHorizontal: spacing.l, gap: spacing.xl},
-      ]}>
-      <Button
-        label={
+    <>
+      <LoadingOverlay
+        text={
           t(
-            'routes.mowerConnections.mowerConnectionDetails.deleteMower.buttonLabel',
+            'routes.mowerConnections.mowerConnectionDetails.deleteMower.disconnectingLabel',
           )!
         }
-        onPress={handleDisconnectPress}
-        fullWidth
-        testID="disconnectActiveMowerButton"
+        visible={disconnecting}
       />
-      <SectionWithHeading
-        heading={
-          t('routes.mowerConnections.mowerConnectionDetails.password.heading')!
-        }>
-        <TextInput
-          value={connection?.id ?? connection?.password ?? ''}
-          onChange={() => {}}
-          placeholder={
+      <View
+        style={[
+          styles.flexColumn,
+          {
+            marginTop: spacing.xxl,
+            marginHorizontal: spacing.l,
+            gap: spacing.xl,
+          },
+        ]}>
+        <Button
+          label={
             t(
-              'routes.mowerConnections.mowerConnectionDetails.password.inputPlaceholder',
+              'routes.mowerConnections.mowerConnectionDetails.deleteMower.buttonLabel',
             )!
           }
-          passwordField
-          readonly
+          onPress={handleDisconnectPress}
+          fullWidth
+          testID="disconnectActiveMowerButton"
         />
-      </SectionWithHeading>
-      <SectionWithHeading
-        heading={
-          t(
-            'routes.mowerConnections.mowerConnectionDetails.information.heading',
-          )!
-        }>
-        <FlatList
-          data={informationItems}
-          contentContainerStyle={styles.border}
-          ItemSeparatorComponent={LineListItemSeparator}
-          renderItem={({item}) => (
-            <View style={componentStyles.container}>
-              <Text style={[styles.textNormal, componentStyles.label]}>
-                {item.label}
-              </Text>
-              <Text style={[styles.textNormal, componentStyles.value]}>
-                {item.value}
-              </Text>
-            </View>
-          )}
-        />
-      </SectionWithHeading>
-    </View>
+        <SectionWithHeading
+          heading={
+            t(
+              'routes.mowerConnections.mowerConnectionDetails.password.heading',
+            )!
+          }>
+          <TextInput
+            value={connection?.id ?? connection?.password ?? ''}
+            onChange={() => {}}
+            placeholder={
+              t(
+                'routes.mowerConnections.mowerConnectionDetails.password.inputPlaceholder',
+              )!
+            }
+            passwordField
+            readonly
+          />
+        </SectionWithHeading>
+        <SectionWithHeading
+          heading={
+            t(
+              'routes.mowerConnections.mowerConnectionDetails.information.heading',
+            )!
+          }>
+          <FlatList
+            data={informationItems}
+            contentContainerStyle={styles.border}
+            ItemSeparatorComponent={LineListItemSeparator}
+            renderItem={({item}) => (
+              <View style={componentStyles.container}>
+                <Text style={[styles.textNormal, componentStyles.label]}>
+                  {item.label}
+                </Text>
+                <Text style={[styles.textNormal, componentStyles.value]}>
+                  {item.value}
+                </Text>
+              </View>
+            )}
+          />
+        </SectionWithHeading>
+      </View>
+    </>
   );
 }
 

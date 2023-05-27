@@ -12,6 +12,7 @@ import MowEIcon from '../../assets/icons/MowEIcon';
 import {useTranslation} from 'react-i18next';
 import useIsInDarkMode from '../../hooks/useIsInDarkMode';
 import LoadingOverlay from '../../components/common/LoadingOverlay';
+import ClearInputFocusOnPress from '../../components/common/ClearInputFocusOnPress';
 
 /**
  * The page for user registration.
@@ -53,7 +54,8 @@ function RegistrationPage(): JSX.Element {
         text={t('routes.login.loginMain.loggingInLabel')!}
         visible={registering}
       />
-      <View style={[styles.flexColumn, componentStyles.pageContainer]}>
+      <ClearInputFocusOnPress
+        style={[styles.flexColumn, componentStyles.pageContainer]}>
         <Text
           style={[
             componentStyles.welcomeText,
@@ -101,7 +103,7 @@ function RegistrationPage(): JSX.Element {
         <View style={componentStyles.mowEIcon}>
           <MowEIcon size={225} colored darkModeInverted={isInDarkMode} />
         </View>
-      </View>
+      </ClearInputFocusOnPress>
     </>
   );
 }

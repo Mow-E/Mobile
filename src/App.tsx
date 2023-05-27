@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import LayoutAndNavigation from './components/layout/LayoutAndNavigation';
 import './i18n.config';
+import {AvoidSoftInput} from 'react-native-avoid-softinput';
 import {
   addBluetoothServiceListeners,
   handleAndroidPermissions,
@@ -39,7 +40,7 @@ import MowerConnection from './models/MowerConnection';
 import CurrentUser from './models/CurrentUser';
 import MowerHistoryEvent from './models/MowerHistoryEvent';
 import {ApiWebSocketContext} from './hooks/useApiWebSocket';
-import {Client} from '@stomp/stompjs';
+import {ActivationState, Client} from '@stomp/stompjs';
 import {
   getLatestSessionId,
   parseMowerHistoryEventFromWebSocketMessageBody,
@@ -65,9 +66,14 @@ function App(): JSX.Element {
   const [errorState, setErrorState] = useState<ErrorState>(null);
   const [loadingStoredData, setLoadingStoredData] = useState<boolean>(false);
   const [mowerHistoryEvents, setMowerHistoryEvents] = useState<
-    MowerHistoryEvent[]
-  >([]);
+    Map<string, MowerHistoryEvent>
+  >(new Map<string, MowerHistoryEvent>());
+  const [mowerEventsFromWebSocket, setMowerEventsFromWebSocket] = useState<
+    Map<string, MowerHistoryEvent>
+  >(new Map<string, MowerHistoryEvent>());
   const [apiWebSocket, setApiWebSocket] = useState<Client | null>(null);
+  const [webSocketConnectionAlive, setWebSocketConnectionAlive] =
+    useState<boolean>(false);
   const storageService = useStorageService();
   const {t, i18n} = useTranslation();
 
@@ -84,6 +90,10 @@ function App(): JSX.Element {
   // Load previously stored settings and logged-in user at app startup
   useEffect(() => {
     setLoadingStoredData(true);
+
+    // Fix issues on Android where the keyboard weirdly moves the footer
+    AvoidSoftInput.setShouldMimicIOSBehavior(true);
+    AvoidSoftInput.setEnabled(true);
 
     storageService
       .get(APP_COLOR_MODE_STORAGE_KEY, 'auto', true)
@@ -143,7 +153,9 @@ function App(): JSX.Element {
         });
       },
       () => {
-        setAvailableMowerConnections(foundMowers);
+        setAvailableMowerConnections(
+          new Map<string, MowerConnection>(foundMowers),
+        );
       },
     );
 
@@ -151,6 +163,12 @@ function App(): JSX.Element {
       removeBluetoothServiceListeners(listeners);
     };
   }, []);
+
+  useEffect(() => {
+    if (apiWebSocket === null) {
+      setWebSocketConnectionAlive(false);
+    }
+  }, [apiWebSocket]);
 
   const handleSessionsToShowChange = useCallback<
     (newSessionsToShow: MowingSessionsToShowInHistory) => Promise<void>
@@ -223,24 +241,34 @@ function App(): JSX.Element {
 
         webSocket.onConnect = function () {
           const url = `/mower/${newConnection.id}/queue/coordinate`;
+          setMowerEventsFromWebSocket(new Map<string, MowerHistoryEvent>());
+
           webSocket.subscribe(url, frame => {
-            setMowerHistoryEvents(prevState => {
-              const latestSessionId = getLatestSessionId(prevState);
+            setMowerEventsFromWebSocket(prevState => {
+              const latestSessionId = getLatestSessionId(
+                Array.from(prevState.values()),
+              );
               const event = parseMowerHistoryEventFromWebSocketMessageBody(
                 frame.body,
                 latestSessionId,
               );
-              console.log(event);
+              console.debug('[websocket] new mower event received', event);
 
-              // TODO: duplicates (id+timestamp)
-              return [...prevState, event];
+              return new Map<string, MowerHistoryEvent>(
+                prevState.set(`${event.mowerId}-${event.time}`, event),
+              );
             });
           });
+
           console.log(`[websocket] subscribed to stomp topic ${url}`);
         };
         webSocket.onStompError = function (frame) {
           console.error('[websocket]', frame.headers.message, frame.body);
           setErrorState(frame.headers.message);
+        };
+        webSocket.onChangeState = state => {
+          console.log(`[websocket] onChangeState ${state}`);
+          setWebSocketConnectionAlive(state === ActivationState.ACTIVE);
         };
         webSocket.activate();
 
@@ -250,6 +278,27 @@ function App(): JSX.Element {
       setActiveMowerConnection(newConnection);
     },
     [currentUser],
+  );
+
+  const allEvents = useMemo<MowerHistoryEvent[]>(() => {
+    const events = mowerHistoryEvents;
+    mowerEventsFromWebSocket.forEach(event =>
+      events.set(`${event.mowerId}-${event.time}`, event),
+    );
+
+    return Array.from(events.values());
+  }, [mowerHistoryEvents, mowerEventsFromWebSocket]);
+
+  const handleMowerHistoryEventsChange = useCallback<
+    (newEvents: MowerHistoryEvent[]) => void
+  >(
+    newEvents =>
+      setMowerHistoryEvents(
+        new Map<string, MowerHistoryEvent>(
+          newEvents.map(event => [`${event.mowerId}-${event.time}`, event]),
+        ),
+      ),
+    [],
   );
 
   if (currentUser === null) {
@@ -306,11 +355,15 @@ function App(): JSX.Element {
                       }}>
                       <MowerHistoryEventsContext.Provider
                         value={{
-                          events: mowerHistoryEvents,
-                          setEvents: setMowerHistoryEvents,
+                          events: allEvents,
+                          setEvents: handleMowerHistoryEventsChange,
                         }}>
                         <ApiWebSocketContext.Provider
-                          value={{apiWebSocket, setApiWebSocket}}>
+                          value={{
+                            apiWebSocket,
+                            webSocketConnectionAlive,
+                            setApiWebSocket,
+                          }}>
                           <LoadingOverlay
                             text={t('routes.app.loading')!}
                             visible={loadingStoredData}

@@ -25,13 +25,18 @@ const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
 /** The default ending sequence for messages to mowers. */
 export const DEFAULT_ENDING_SEQUENCE = '*';
 
-export const SECONDS_TO_SCAN_FOR_DEVICES = 4;
+export const DEFAULT_SECONDS_TO_SCAN_FOR_DEVICES = 4;
 
 /**
  * The fixed service uuids that our mowers use.
  * Set here as a constant to enable filtering discovered devices for (supposedly) compatible devices.
  */
 const COMPATIBLE_MOWER_SERVICE_IDS = ['ec00'];
+/**
+ * The fixed characteristic id that reports our custom mower data.
+ * Must be present in (supposedly) compatible devices.
+ */
+const CUSTOM_MOWER_DATA_CHARACTERISTIC_ID = 'ec0F';
 
 export async function startBluetoothService(): Promise<void> {
   await BleManager.start();
@@ -109,17 +114,14 @@ export function removeBluetoothServiceListeners(
   }
 }
 
-export async function scanForBluetoothDevices(): Promise<void> {
-  await BleManager.scan(
-    COMPATIBLE_MOWER_SERVICE_IDS,
-    SECONDS_TO_SCAN_FOR_DEVICES,
-    false,
-    {
-      matchMode: BleScanMatchMode.Sticky,
-      scanMode: BleScanMode.LowLatency,
-      callbackType: BleScanCallbackType.AllMatches,
-    },
-  );
+export async function scanForBluetoothDevices(
+  secondsToScan: number = DEFAULT_SECONDS_TO_SCAN_FOR_DEVICES,
+): Promise<void> {
+  await BleManager.scan(COMPATIBLE_MOWER_SERVICE_IDS, secondsToScan, false, {
+    matchMode: BleScanMatchMode.Sticky,
+    scanMode: BleScanMode.LowLatency,
+    callbackType: BleScanCallbackType.AllMatches,
+  });
   console.log('[ble] started scanning for bluetooth devices');
 }
 
@@ -300,12 +302,21 @@ export async function getDeviceConnectionInfos(
     peripheralInfo,
   );
 
-  const serviceIds =
-    peripheralInfo.services?.map(service => service.uuid) ?? [];
-  const characteristicIds =
+  const serviceIds = (
+    peripheralInfo.services?.map(service => service.uuid) ?? []
+  ).filter(id => COMPATIBLE_MOWER_SERVICE_IDS.includes(id));
+
+  const characteristicIds = (
     peripheralInfo.characteristics?.map(
       characteristic => characteristic.characteristic,
-    ) ?? [];
+    ) ?? []
+  ).filter(
+    characteristic => characteristic === CUSTOM_MOWER_DATA_CHARACTERISTIC_ID,
+  );
+
+  if (serviceIds.length === 0 || characteristicIds.length === 0) {
+    throw new Error('Incompatible mower/device');
+  }
 
   const customReadResultData = await BleManager.read(
     mowerConnection.bluetoothInfos!.id,
