@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import LayoutAndNavigation from './components/layout/LayoutAndNavigation';
 import './i18n.config';
+import {AvoidSoftInput} from 'react-native-avoid-softinput';
 import {
   addBluetoothServiceListeners,
   handleAndroidPermissions,
@@ -89,6 +90,10 @@ function App(): JSX.Element {
   // Load previously stored settings and logged-in user at app startup
   useEffect(() => {
     setLoadingStoredData(true);
+
+    // Fix issues on Android where the keyboard weirdly moves the footer
+    AvoidSoftInput.setShouldMimicIOSBehavior(true);
+    AvoidSoftInput.setEnabled(true);
 
     storageService
       .get(APP_COLOR_MODE_STORAGE_KEY, 'auto', true)
