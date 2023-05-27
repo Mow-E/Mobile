@@ -148,7 +148,9 @@ function App(): JSX.Element {
         });
       },
       () => {
-        setAvailableMowerConnections(foundMowers);
+        setAvailableMowerConnections(
+          new Map<string, MowerConnection>(foundMowers),
+        );
       },
     );
 

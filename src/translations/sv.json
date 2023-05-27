@@ -34,7 +34,8 @@
       },
       "mowerConnectionDetails": {
         "deleteMower": {
-          "buttonLabel": "Koppla bort gräsklipparen"
+          "buttonLabel": "Koppla bort gräsklipparen",
+          "disconnectingLabel": "Koppla bort..."
         },
         "password": {
           "heading": "Lösenord",

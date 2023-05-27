@@ -34,7 +34,8 @@
       },
       "mowerConnectionDetails": {
         "deleteMower": {
-          "buttonLabel": "Disconnect mower"
+          "buttonLabel": "Disconnect mower",
+          "disconnectingLabel": "Disconnecting..."
         },
         "password": {
           "heading": "Password",

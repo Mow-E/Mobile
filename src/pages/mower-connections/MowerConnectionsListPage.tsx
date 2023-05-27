@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {useTranslation} from 'react-i18next';
@@ -24,6 +24,7 @@ import useErrorState from '../../hooks/useErrorState';
 import MowerConnection from '../../models/MowerConnection';
 import useApiService from '../../hooks/useApiService';
 import useMowerHistoryEvents from '../../hooks/useMowerHistoryEvents';
+import {useIsFocused} from '@react-navigation/native';
 
 /**
  * Section that allows the selection of the mower mode, which is either 'automatic' or 'manual'.
@@ -108,6 +109,7 @@ function MowerConnectionsListPage({
   const styles = useStyles();
   const bluetoothService = useBluetoothService();
   const apiService = useApiService();
+  const isPageFocused = useIsFocused();
 
   const handleSelectConnection = useCallback<
     (connection: MowerConnection) => void
@@ -148,6 +150,37 @@ function MowerConnectionsListPage({
     }
     setSearchingForMowers(false);
   }, [bluetoothService, setErrorState]);
+
+  // Do a short re-scan once in a while to keep the list up-to-date
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!isPageFocused && !connectingToMower && !searchingForMowers) {
+        // Don't drain the battery with unnecessary bluetooth scans when the list is not even shown
+        return;
+      }
+
+      bluetoothService
+        .stopScanForDevices()
+        .then(() => bluetoothService.scanForDevices(1))
+        .catch(e => {
+          console.error(e);
+
+          if (e instanceof Error) {
+            setErrorState(e.message);
+          } else if (typeof e === 'string') {
+            setErrorState(e);
+          }
+        });
+    }, 10_000);
+
+    return () => clearInterval(interval);
+  }, [
+    bluetoothService,
+    setErrorState,
+    isPageFocused,
+    connectingToMower,
+    searchingForMowers,
+  ]);
 
   const handleOpenConnectionInfo = useCallback<
     (connection: MowerConnection) => void

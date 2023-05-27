@@ -34,7 +34,8 @@
       },
       "mowerConnectionDetails": {
         "deleteMower": {
-          "buttonLabel": "Rasenmäher entkoppeln"
+          "buttonLabel": "Rasenmäher entkoppeln",
+          "disconnectingLabel": "Entkopple..."
         },
         "password": {
           "heading": "Passwort",
