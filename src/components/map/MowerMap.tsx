@@ -6,6 +6,7 @@ import MapMarker, {MARKER_BASE_HEIGHT, MARKER_BASE_WIDTH} from './MapMarker';
 import colors from '../../styles/colors';
 import useIsInDarkMode from '../../hooks/useIsInDarkMode';
 import MowEMarker from './MowEMarker';
+import FlagMarker from './FlagMarker';
 
 /**
  * The width to normalize the map coordinates to.
@@ -145,12 +146,12 @@ function MowerMap({events}: MowerMapProps): JSX.Element {
           textColor={colors.gray['50']}
           label="B"
         />
-        <MapMarker
+        <FlagMarker
           id="start-marker"
           color={colors.primary.light}
           textColor={colors.gray['50']}
         />
-        <MapMarker
+        <FlagMarker
           id="stop-marker"
           color={colors.red.dark}
           textColor={colors.gray['50']}
