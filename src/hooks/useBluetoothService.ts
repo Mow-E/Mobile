@@ -5,7 +5,7 @@ import {
   connect as connectMower,
   disconnect as disconnectMower,
   scanForBluetoothDevices,
-  SECONDS_TO_SCAN_FOR_DEVICES,
+  DEFAULT_SECONDS_TO_SCAN_FOR_DEVICES,
   sendMessage,
   stopScanningForBluetoothDevices,
 } from '../services/bluetooth';
@@ -82,6 +82,18 @@ function useBluetoothService() {
       throw new Error(t('errors.bluetoothNotOnOrAuthorized')!);
     }
   }, [t]);
+
+  // I don't know how to gracefully check that the scan has stopped, so just wait for the scan duration here
+  const waitForScanToComplete = useCallback<
+    (secondsToWait: number) => Promise<void>
+  >(
+    secondsToWait =>
+      new Promise(resolve =>
+        // Timeouts time value is in milliseconds, so multiply seconds with 1000 for ms
+        setTimeout(() => resolve(), secondsToWait * 1000),
+      ),
+    [],
+  );
 
   /**
    * Disconnects the active mower connection, if any exists, and sets the active connection to null.
@@ -177,17 +189,16 @@ function useBluetoothService() {
    * All devices found are put into the `availableConnections` context, which is emptied before the scan.
    * The promise resolves once the scan has finished/stopped.
    */
-  const scanForDevices = useCallback<() => Promise<void>>(async () => {
-    await requireBluetoothActive();
+  const scanForDevices = useCallback<(secondsToWait: number) => Promise<void>>(
+    async (secondsToWait = DEFAULT_SECONDS_TO_SCAN_FOR_DEVICES) => {
+      await requireBluetoothActive();
 
-    setAvailableConnections(new Map<string, MowerConnection>());
-    await scanForBluetoothDevices();
-    // I don't know how to gracefully check that the scan has stopped, so just wait for the scan duration here
-    await new Promise(resolve =>
-      // Timeouts time value is in milliseconds, so multiply seconds with 1000 for ms
-      setTimeout(() => resolve(null), SECONDS_TO_SCAN_FOR_DEVICES * 1000),
-    );
-  }, [setAvailableConnections, requireBluetoothActive]);
+      setAvailableConnections(new Map<string, MowerConnection>());
+      await scanForBluetoothDevices(secondsToWait);
+      await waitForScanToComplete(secondsToWait);
+    },
+    [setAvailableConnections, requireBluetoothActive, waitForScanToComplete],
+  );
 
   /**
    * Stops any running scan for bluetooth devices.

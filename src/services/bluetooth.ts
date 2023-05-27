@@ -25,7 +25,7 @@ const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
 /** The default ending sequence for messages to mowers. */
 export const DEFAULT_ENDING_SEQUENCE = '*';
 
-export const SECONDS_TO_SCAN_FOR_DEVICES = 4;
+export const DEFAULT_SECONDS_TO_SCAN_FOR_DEVICES = 4;
 
 /**
  * The fixed service uuids that our mowers use.
@@ -109,17 +109,14 @@ export function removeBluetoothServiceListeners(
   }
 }
 
-export async function scanForBluetoothDevices(): Promise<void> {
-  await BleManager.scan(
-    COMPATIBLE_MOWER_SERVICE_IDS,
-    SECONDS_TO_SCAN_FOR_DEVICES,
-    false,
-    {
-      matchMode: BleScanMatchMode.Sticky,
-      scanMode: BleScanMode.LowLatency,
-      callbackType: BleScanCallbackType.AllMatches,
-    },
-  );
+export async function scanForBluetoothDevices(
+  secondsToScan: number = DEFAULT_SECONDS_TO_SCAN_FOR_DEVICES,
+): Promise<void> {
+  await BleManager.scan(COMPATIBLE_MOWER_SERVICE_IDS, secondsToScan, false, {
+    matchMode: BleScanMatchMode.Sticky,
+    scanMode: BleScanMode.LowLatency,
+    callbackType: BleScanCallbackType.AllMatches,
+  });
   console.log('[ble] started scanning for bluetooth devices');
 }
 
