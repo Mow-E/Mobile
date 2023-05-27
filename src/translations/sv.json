@@ -76,7 +76,8 @@
     "imageHistory": {
       "headerTitle": "Bild historik",
       "tabBarLabel": "Bild",
-      "today": "Idag"
+      "today": "Idag",
+      "emptyListText": "Inga bilder att visa. Du kan antingen utöka antalet sessions som ska visas eller vänta på att gräsklipparen tar några bilder."
     },
     "login": {
       "loginMain": {

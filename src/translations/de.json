@@ -76,7 +76,8 @@
     "imageHistory": {
       "headerTitle": "Image History",
       "tabBarLabel": "Bilder",
-      "today": "Heute"
+      "today": "Heute",
+      "emptyListText": "Keine Bilder zu zeigen. Du kannst entweder die Anzahl der anzuzeigenden Sitzungen verlängern oder darauf warten, dass dein Mäher einige Bilder aufnimmt."
     },
     "login": {
       "loginMain": {
