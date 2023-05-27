@@ -32,6 +32,11 @@ export const DEFAULT_SECONDS_TO_SCAN_FOR_DEVICES = 4;
  * Set here as a constant to enable filtering discovered devices for (supposedly) compatible devices.
  */
 const COMPATIBLE_MOWER_SERVICE_IDS = ['ec00'];
+/**
+ * The fixed characteristic id that reports our custom mower data.
+ * Must be present in (supposedly) compatible devices.
+ */
+const CUSTOM_MOWER_DATA_CHARACTERISTIC_ID = 'ec0F';
 
 export async function startBluetoothService(): Promise<void> {
   await BleManager.start();
@@ -297,12 +302,21 @@ export async function getDeviceConnectionInfos(
     peripheralInfo,
   );
 
-  const serviceIds =
-    peripheralInfo.services?.map(service => service.uuid) ?? [];
-  const characteristicIds =
+  const serviceIds = (
+    peripheralInfo.services?.map(service => service.uuid) ?? []
+  ).filter(id => COMPATIBLE_MOWER_SERVICE_IDS.includes(id));
+
+  const characteristicIds = (
     peripheralInfo.characteristics?.map(
       characteristic => characteristic.characteristic,
-    ) ?? [];
+    ) ?? []
+  ).filter(
+    characteristic => characteristic === CUSTOM_MOWER_DATA_CHARACTERISTIC_ID,
+  );
+
+  if (serviceIds.length === 0 || characteristicIds.length === 0) {
+    throw new Error('Incompatible mower/device');
+  }
 
   const customReadResultData = await BleManager.read(
     mowerConnection.bluetoothInfos!.id,
