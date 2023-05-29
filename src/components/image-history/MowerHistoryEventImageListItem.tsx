@@ -38,7 +38,7 @@ function MowerHistoryEventImageListItem({
       item.date.getMonth() === now.getMonth() &&
       item.date.getFullYear() === now.getFullYear();
 
-    const fullDateStringRepresentation = `${item.date.toLocaleDateString(
+    const fullDateStringRepresentation = item.date.toLocaleDateString(
       i18n.language,
       {
         day: '2-digit',
@@ -48,10 +48,19 @@ function MowerHistoryEventImageListItem({
         minute: '2-digit',
         hour12: i18n.language === 'en',
       },
-    )}`;
+    );
+    const justTimeStringRepresentation = item.date.toLocaleTimeString(
+      i18n.language,
+      {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: i18n.language === 'en',
+      },
+    );
+    console.log(fullDateStringRepresentation, justTimeStringRepresentation);
 
     return isToday
-      ? t('routes.imageHistory.today')
+      ? `${t('routes.imageHistory.today')}, ${justTimeStringRepresentation}`
       : fullDateStringRepresentation;
   }, [item, t, i18n]);
 
