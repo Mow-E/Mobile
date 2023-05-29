@@ -96,17 +96,13 @@ function CameraIcon({
     : colors.gray['950'];
 
   const primaryColoredFillColor = colors.primary.dark;
-  const primaryGrayscaleFillColor = darkModeInverted
-    ? colors.gray['300']
-    : colors.gray['400'];
+  const primaryGrayscaleFillColor = colors.gray['300'];
   const primaryFillColor = colored
     ? primaryColoredFillColor
     : primaryGrayscaleFillColor;
 
   const secondaryColoredFillColor = colors.primary.light;
-  const secondaryGrayscaleFillColor = darkModeInverted
-    ? colors.gray['400']
-    : colors.gray['300'];
+  const secondaryGrayscaleFillColor = colors.gray['200'];
   const secondaryFillColor = colored
     ? secondaryColoredFillColor
     : secondaryGrayscaleFillColor;
@@ -122,6 +118,7 @@ function CameraIcon({
       primaryColor={primaryFillColor}
       secondaryColor={secondaryFillColor}
       lensColor={lensColor}
+      strokeWidth={size > 128 ? 128 / size : 24 / size}
     />
   );
 }
