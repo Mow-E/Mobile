@@ -116,6 +116,52 @@ function MowerMap({events}: MowerMapProps): JSX.Element {
     [events],
   );
 
+  const renderedMowerMapMarkers = useMemo<JSX.Element[]>(() => {
+    const renderedTimestamps: number[] = [];
+
+    return eventsWithMarkers
+      .map(event => {
+        if (renderedTimestamps.includes(event.time)) {
+          return null;
+        }
+
+        renderedTimestamps.push(event.time);
+
+        let id = '';
+
+        switch (event.state) {
+          case MowerHistoryEventMowerState.Start:
+            id = '#start-marker';
+            break;
+          case MowerHistoryEventMowerState.Stop:
+            id = '#stop-marker';
+            break;
+          case MowerHistoryEventMowerState.Error:
+            id = '#error-marker';
+            break;
+          case MowerHistoryEventMowerState.Collision:
+            id = '#collision-marker';
+            break;
+          case MowerHistoryEventMowerState.Border:
+            id = '#border-marker';
+            break;
+        }
+
+        return (
+          <Use
+            href={id}
+            // Shift marker coordinates so that marker is placed with its tip on the actual event coordinate
+            x={normalizeXValue(event.x) - MARKER_WIDTH / 2}
+            y={normalizeYValue(event.y) - MARKER_HEIGHT}
+            width={MARKER_WIDTH}
+            height={MARKER_HEIGHT}
+            key={`map-marker-${event.mowerId}-${event.time}`}
+          />
+        );
+      })
+      .filter(value => value !== null) as JSX.Element[];
+  }, [eventsWithMarkers, normalizeXValue, normalizeYValue]);
+
   return (
     <Svg
       // Expand viewbox so that markers will be fully visible on all sides (going out of the actual map).
@@ -166,39 +212,7 @@ function MowerMap({events}: MowerMapProps): JSX.Element {
         strokeDasharray={NORMALIZED_MAP_WIDTH / 70}
         markerEnd="url(#mow-e-marker)"
       />
-      {eventsWithMarkers.map(event => {
-        let id = '';
-
-        switch (event.state) {
-          case MowerHistoryEventMowerState.Start:
-            id = '#start-marker';
-            break;
-          case MowerHistoryEventMowerState.Stop:
-            id = '#stop-marker';
-            break;
-          case MowerHistoryEventMowerState.Error:
-            id = '#error-marker';
-            break;
-          case MowerHistoryEventMowerState.Collision:
-            id = '#collision-marker';
-            break;
-          case MowerHistoryEventMowerState.Border:
-            id = '#border-marker';
-            break;
-        }
-
-        return (
-          <Use
-            href={id}
-            // Shift marker coordinates so that marker is placed with its tip on the actual event coordinate
-            x={normalizeXValue(event.x) - MARKER_WIDTH / 2}
-            y={normalizeYValue(event.y) - MARKER_HEIGHT}
-            width={MARKER_WIDTH}
-            height={MARKER_HEIGHT}
-            key={`map-marker-${event.mowerId}-${event.time}`}
-          />
-        );
-      })}
+      {renderedMowerMapMarkers}
     </Svg>
   );
 }

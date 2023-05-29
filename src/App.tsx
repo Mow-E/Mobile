@@ -66,11 +66,11 @@ function App(): JSX.Element {
   const [errorState, setErrorState] = useState<ErrorState>(null);
   const [loadingStoredData, setLoadingStoredData] = useState<boolean>(false);
   const [mowerHistoryEvents, setMowerHistoryEvents] = useState<
-    Map<string, MowerHistoryEvent>
-  >(new Map<string, MowerHistoryEvent>());
+    MowerHistoryEvent[]
+  >([]);
   const [mowerEventsFromWebSocket, setMowerEventsFromWebSocket] = useState<
-    Map<string, MowerHistoryEvent>
-  >(new Map<string, MowerHistoryEvent>());
+    MowerHistoryEvent[]
+  >([]);
   const [apiWebSocket, setApiWebSocket] = useState<Client | null>(null);
   const [webSocketConnectionAlive, setWebSocketConnectionAlive] =
     useState<boolean>(false);
@@ -241,22 +241,18 @@ function App(): JSX.Element {
 
         webSocket.onConnect = function () {
           const url = `/mower/${newConnection.id}/queue/coordinate`;
-          setMowerEventsFromWebSocket(new Map<string, MowerHistoryEvent>());
+          setMowerEventsFromWebSocket([]);
 
           webSocket.subscribe(url, frame => {
             setMowerEventsFromWebSocket(prevState => {
-              const latestSessionId = getLatestSessionId(
-                Array.from(prevState.values()),
-              );
+              const latestSessionId = getLatestSessionId(prevState);
               const event = parseMowerHistoryEventFromWebSocketMessageBody(
                 frame.body,
                 latestSessionId,
               );
               console.debug('[websocket] new mower event received', event);
 
-              return new Map<string, MowerHistoryEvent>(
-                prevState.set(`${event.mowerId}-${event.time}`, event),
-              );
+              return [...prevState, event];
             });
           });
 
@@ -281,25 +277,19 @@ function App(): JSX.Element {
   );
 
   const allEvents = useMemo<MowerHistoryEvent[]>(() => {
-    const events = mowerHistoryEvents;
-    mowerEventsFromWebSocket.forEach(event =>
-      events.set(`${event.mowerId}-${event.time}`, event),
-    );
+    const apiSessionId = getLatestSessionId(mowerHistoryEvents);
+    const wsSessionId = getLatestSessionId(mowerEventsFromWebSocket);
+    const sessionId = Math.max(apiSessionId, wsSessionId);
 
-    return Array.from(events.values());
+    return [
+      ...mowerHistoryEvents,
+      ...mowerEventsFromWebSocket.map(event => ({...event, sessionId})),
+    ];
   }, [mowerHistoryEvents, mowerEventsFromWebSocket]);
 
   const handleMowerHistoryEventsChange = useCallback<
     (newEvents: MowerHistoryEvent[]) => void
-  >(
-    newEvents =>
-      setMowerHistoryEvents(
-        new Map<string, MowerHistoryEvent>(
-          newEvents.map(event => [`${event.mowerId}-${event.time}`, event]),
-        ),
-      ),
-    [],
-  );
+  >(newEvents => setMowerHistoryEvents(newEvents), []);
 
   if (currentUser === null) {
     return (
