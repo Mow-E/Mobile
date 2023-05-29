@@ -304,14 +304,20 @@ export async function getDeviceConnectionInfos(
 
   const serviceIds = (
     peripheralInfo.services?.map(service => service.uuid) ?? []
-  ).filter(id => COMPATIBLE_MOWER_SERVICE_IDS.includes(id));
+  ).filter(id =>
+    COMPATIBLE_MOWER_SERVICE_IDS.map(serviceId =>
+      serviceId.toLowerCase(),
+    ).includes(id.toLowerCase()),
+  );
 
   const characteristicIds = (
     peripheralInfo.characteristics?.map(
       characteristic => characteristic.characteristic,
     ) ?? []
   ).filter(
-    characteristic => characteristic === CUSTOM_MOWER_DATA_CHARACTERISTIC_ID,
+    characteristic =>
+      characteristic.toLowerCase() ===
+      CUSTOM_MOWER_DATA_CHARACTERISTIC_ID.toLowerCase(),
   );
 
   if (serviceIds.length === 0 || characteristicIds.length === 0) {
