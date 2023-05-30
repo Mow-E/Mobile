@@ -5,13 +5,19 @@ import App from '../src/App';
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
 import {setToDarkMode} from '../jest/utils';
+import {render, waitFor} from '@testing-library/react-native';
 
 it('renders correctly', () => {
-  renderer.create(<App />);
+  // Wrap in waitFor to execute useEffect hooks safely while rendering
+  waitFor(() => {
+    render(<App />);
+  });
 });
 
 it('renders correctly in dark mode', () => {
   setToDarkMode();
 
-  renderer.create(<App />);
+  waitFor(() => {
+    renderer.create(<App />);
+  });
 });

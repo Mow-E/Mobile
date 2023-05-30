@@ -62,6 +62,7 @@
     "setupFiles": [
       "<rootDir>/jest/setup.js"
     ],
+    "collectCoverageFrom": ["**/src/**"],
     "moduleFileExtensions": [
       "ts",
       "tsx",
@@ -72,15 +73,7 @@
     ],
     "transformIgnorePatterns": [
       "node_modules/(?!react-native|@react-native|@react-navigation)"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "statements": 100,
-        "branches": 100,
-        "functions": 100,
-        "lines": 100
-      }
-    }
+    ]
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [

@@ -25,8 +25,8 @@ exports[`renders colored correctly 1`] = `
       },
     ]
   }
-  vbHeight={28}
-  vbWidth={23}
+  vbHeight={206}
+  vbWidth={160}
   width={24}
 >
   <RNSVGGroup
@@ -44,16 +44,28 @@ exports[`renders colored correctly 1`] = `
       }
     }
   >
-    <RNSVGLine
+    <RNSVGPath
+      d="M0-7.5h241.8M0-7.5h241.8M0-7.5h241.8"
       fill={
         {
           "payload": 4278190080,
           "type": 0,
         }
       }
+      matrix={
+        [
+          0.5969,
+          -0.80231,
+          0.72118,
+          0.69274,
+          11,
+          205,
+        ]
+      }
       propList={
         [
           "stroke",
+          "strokeWidth",
         ]
       }
       stroke={
@@ -62,21 +74,30 @@ exports[`renders colored correctly 1`] = `
           "type": 0,
         }
       }
-      x1="22.2544"
-      x2="0.254366"
-      y1="14.4305"
-      y2="27.4305"
+      strokeWidth="15"
     />
-    <RNSVGLine
+    <RNSVGPath
+      d="M0-7.5h241.8M0-7.5h241.8M0-7.5h241.8"
       fill={
         {
           "payload": 4278190080,
           "type": 0,
         }
       }
+      matrix={
+        [
+          0.59663,
+          0.80251,
+          -0.87096,
+          0.49135,
+          2,
+          11,
+        ]
+      }
       propList={
         [
           "stroke",
+          "strokeWidth",
         ]
       }
       stroke={
@@ -85,10 +106,7 @@ exports[`renders colored correctly 1`] = `
           "type": 0,
         }
       }
-      x1="21.7226"
-      x2="0.72265"
-      y1="14.416"
-      y2="0.416025"
+      strokeWidth="15"
     />
   </RNSVGGroup>
 </RNSVGSvgView>
@@ -119,8 +137,8 @@ exports[`renders default correctly 1`] = `
       },
     ]
   }
-  vbHeight={28}
-  vbWidth={23}
+  vbHeight={206}
+  vbWidth={160}
   width={24}
 >
   <RNSVGGroup
@@ -138,16 +156,28 @@ exports[`renders default correctly 1`] = `
       }
     }
   >
-    <RNSVGLine
+    <RNSVGPath
+      d="M0-7.5h241.8M0-7.5h241.8M0-7.5h241.8"
       fill={
         {
           "payload": 4278190080,
           "type": 0,
         }
       }
+      matrix={
+        [
+          0.5969,
+          -0.80231,
+          0.72118,
+          0.69274,
+          11,
+          205,
+        ]
+      }
       propList={
         [
           "stroke",
+          "strokeWidth",
         ]
       }
       stroke={
@@ -156,21 +186,30 @@ exports[`renders default correctly 1`] = `
           "type": 0,
         }
       }
-      x1="22.2544"
-      x2="0.254366"
-      y1="14.4305"
-      y2="27.4305"
+      strokeWidth="15"
     />
-    <RNSVGLine
+    <RNSVGPath
+      d="M0-7.5h241.8M0-7.5h241.8M0-7.5h241.8"
       fill={
         {
           "payload": 4278190080,
           "type": 0,
         }
       }
+      matrix={
+        [
+          0.59663,
+          0.80251,
+          -0.87096,
+          0.49135,
+          2,
+          11,
+        ]
+      }
       propList={
         [
           "stroke",
+          "strokeWidth",
         ]
       }
       stroke={
@@ -179,10 +218,7 @@ exports[`renders default correctly 1`] = `
           "type": 0,
         }
       }
-      x1="21.7226"
-      x2="0.72265"
-      y1="14.416"
-      y2="0.416025"
+      strokeWidth="15"
     />
   </RNSVGGroup>
 </RNSVGSvgView>
@@ -199,7 +235,7 @@ exports[`renders in dark mode correctly 1`] = `
   meetOrSlice={0}
   minX={0}
   minY={0}
-  stroke="#ffffff"
+  stroke="#000000"
   style={
     [
       {
@@ -213,8 +249,8 @@ exports[`renders in dark mode correctly 1`] = `
       },
     ]
   }
-  vbHeight={28}
-  vbWidth={23}
+  vbHeight={206}
+  vbWidth={160}
   width={24}
 >
   <RNSVGGroup
@@ -227,56 +263,74 @@ exports[`renders in dark mode correctly 1`] = `
     }
     stroke={
       {
-        "payload": 4294967295,
+        "payload": 4278190080,
         "type": 0,
       }
     }
   >
-    <RNSVGLine
+    <RNSVGPath
+      d="M0-7.5h241.8M0-7.5h241.8M0-7.5h241.8"
       fill={
         {
           "payload": 4278190080,
           "type": 0,
         }
       }
+      matrix={
+        [
+          0.5969,
+          -0.80231,
+          0.72118,
+          0.69274,
+          11,
+          205,
+        ]
+      }
       propList={
         [
           "stroke",
+          "strokeWidth",
         ]
       }
       stroke={
         {
-          "payload": 4294967295,
+          "payload": 4278190080,
           "type": 0,
         }
       }
-      x1="22.2544"
-      x2="0.254366"
-      y1="14.4305"
-      y2="27.4305"
+      strokeWidth="15"
     />
-    <RNSVGLine
+    <RNSVGPath
+      d="M0-7.5h241.8M0-7.5h241.8M0-7.5h241.8"
       fill={
         {
           "payload": 4278190080,
           "type": 0,
         }
       }
+      matrix={
+        [
+          0.59663,
+          0.80251,
+          -0.87096,
+          0.49135,
+          2,
+          11,
+        ]
+      }
       propList={
         [
           "stroke",
+          "strokeWidth",
         ]
       }
       stroke={
         {
-          "payload": 4294967295,
+          "payload": 4278190080,
           "type": 0,
         }
       }
-      x1="21.7226"
-      x2="0.72265"
-      y1="14.416"
-      y2="0.416025"
+      strokeWidth="15"
     />
   </RNSVGGroup>
 </RNSVGSvgView>
@@ -307,8 +361,8 @@ exports[`renders uncolored correctly 1`] = `
       },
     ]
   }
-  vbHeight={28}
-  vbWidth={23}
+  vbHeight={206}
+  vbWidth={160}
   width={24}
 >
   <RNSVGGroup
@@ -326,16 +380,28 @@ exports[`renders uncolored correctly 1`] = `
       }
     }
   >
-    <RNSVGLine
+    <RNSVGPath
+      d="M0-7.5h241.8M0-7.5h241.8M0-7.5h241.8"
       fill={
         {
           "payload": 4278190080,
           "type": 0,
         }
       }
+      matrix={
+        [
+          0.5969,
+          -0.80231,
+          0.72118,
+          0.69274,
+          11,
+          205,
+        ]
+      }
       propList={
         [
           "stroke",
+          "strokeWidth",
         ]
       }
       stroke={
@@ -344,21 +410,30 @@ exports[`renders uncolored correctly 1`] = `
           "type": 0,
         }
       }
-      x1="22.2544"
-      x2="0.254366"
-      y1="14.4305"
-      y2="27.4305"
+      strokeWidth="15"
     />
-    <RNSVGLine
+    <RNSVGPath
+      d="M0-7.5h241.8M0-7.5h241.8M0-7.5h241.8"
       fill={
         {
           "payload": 4278190080,
           "type": 0,
         }
       }
+      matrix={
+        [
+          0.59663,
+          0.80251,
+          -0.87096,
+          0.49135,
+          2,
+          11,
+        ]
+      }
       propList={
         [
           "stroke",
+          "strokeWidth",
         ]
       }
       stroke={
@@ -367,10 +442,7 @@ exports[`renders uncolored correctly 1`] = `
           "type": 0,
         }
       }
-      x1="21.7226"
-      x2="0.72265"
-      y1="14.416"
-      y2="0.416025"
+      strokeWidth="15"
     />
   </RNSVGGroup>
 </RNSVGSvgView>

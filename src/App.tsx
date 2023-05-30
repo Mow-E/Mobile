@@ -83,7 +83,12 @@ function App(): JSX.Element {
       .then(startBluetoothService)
       .catch(reason => {
         console.error(reason);
-        setErrorState(reason);
+
+        if (typeof reason === 'string') {
+          setErrorState(reason);
+        } else if (reason instanceof Error) {
+          setErrorState(reason.message);
+        }
       });
   }, []);
 

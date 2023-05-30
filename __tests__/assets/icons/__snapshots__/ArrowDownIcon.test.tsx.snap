@@ -4,14 +4,14 @@ exports[`renders colored correctly 1`] = `
 <RNSVGSvgView
   align="xMidYMid"
   bbHeight="24"
-  bbWidth="24"
-  fill="none"
+  bbWidth="16.653061224489797"
+  fill="#2f3163"
   focusable={false}
   height={24}
   meetOrSlice={0}
   minX={0}
   minY={0}
-  stroke="#000000"
+  stroke="#2f3163"
   style={
     [
       {
@@ -21,16 +21,21 @@ exports[`renders colored correctly 1`] = `
       {
         "flex": 0,
         "height": 24,
-        "width": 24,
+        "width": 16,
       },
     ]
   }
-  vbHeight={28}
-  vbWidth={23}
-  width={24}
+  vbHeight={98}
+  vbWidth={68}
+  width={16.653061224489797}
 >
   <RNSVGGroup
-    fill={null}
+    fill={
+      {
+        "payload": 4281282915,
+        "type": 0,
+      }
+    }
     propList={
       [
         "fill",
@@ -39,56 +44,55 @@ exports[`renders colored correctly 1`] = `
     }
     stroke={
       {
-        "payload": 4278190080,
+        "payload": 4281282915,
         "type": 0,
       }
     }
   >
-    <RNSVGLine
+    <RNSVGRect
       fill={
         {
-          "payload": 4278190080,
+          "payload": 4281282915,
           "type": 0,
         }
       }
+      height="67.2277"
       propList={
         [
+          "fill",
           "stroke",
         ]
       }
       stroke={
         {
-          "payload": 4278190080,
+          "payload": 4281282915,
           "type": 0,
         }
       }
-      x1="22.2544"
-      x2="0.254366"
-      y1="14.4305"
-      y2="27.4305"
+      width="34"
+      x="17"
+      y="0"
     />
-    <RNSVGLine
+    <RNSVGPath
+      d="M 34 97 L 67 61 H 1 L 34 97 Z"
       fill={
         {
-          "payload": 4278190080,
+          "payload": 4281282915,
           "type": 0,
         }
       }
       propList={
         [
+          "fill",
           "stroke",
         ]
       }
       stroke={
         {
-          "payload": 4278190080,
+          "payload": 4281282915,
           "type": 0,
         }
       }
-      x1="21.7226"
-      x2="0.72265"
-      y1="14.416"
-      y2="0.416025"
     />
   </RNSVGGroup>
 </RNSVGSvgView>
@@ -98,14 +102,14 @@ exports[`renders default correctly 1`] = `
 <RNSVGSvgView
   align="xMidYMid"
   bbHeight="24"
-  bbWidth="24"
-  fill="none"
+  bbWidth="16.653061224489797"
+  fill="#2f3163"
   focusable={false}
   height={24}
   meetOrSlice={0}
   minX={0}
   minY={0}
-  stroke="#000000"
+  stroke="#2f3163"
   style={
     [
       {
@@ -115,16 +119,21 @@ exports[`renders default correctly 1`] = `
       {
         "flex": 0,
         "height": 24,
-        "width": 24,
+        "width": 16,
       },
     ]
   }
-  vbHeight={28}
-  vbWidth={23}
-  width={24}
+  vbHeight={98}
+  vbWidth={68}
+  width={16.653061224489797}
 >
   <RNSVGGroup
-    fill={null}
+    fill={
+      {
+        "payload": 4281282915,
+        "type": 0,
+      }
+    }
     propList={
       [
         "fill",
@@ -133,56 +142,55 @@ exports[`renders default correctly 1`] = `
     }
     stroke={
       {
-        "payload": 4278190080,
+        "payload": 4281282915,
         "type": 0,
       }
     }
   >
-    <RNSVGLine
+    <RNSVGRect
       fill={
         {
-          "payload": 4278190080,
+          "payload": 4281282915,
           "type": 0,
         }
       }
+      height="67.2277"
       propList={
         [
+          "fill",
           "stroke",
         ]
       }
       stroke={
         {
-          "payload": 4278190080,
+          "payload": 4281282915,
           "type": 0,
         }
       }
-      x1="22.2544"
-      x2="0.254366"
-      y1="14.4305"
-      y2="27.4305"
+      width="34"
+      x="17"
+      y="0"
     />
-    <RNSVGLine
+    <RNSVGPath
+      d="M 34 97 L 67 61 H 1 L 34 97 Z"
       fill={
         {
-          "payload": 4278190080,
+          "payload": 4281282915,
           "type": 0,
         }
       }
       propList={
         [
+          "fill",
           "stroke",
         ]
       }
       stroke={
         {
-          "payload": 4278190080,
+          "payload": 4281282915,
           "type": 0,
         }
       }
-      x1="21.7226"
-      x2="0.72265"
-      y1="14.416"
-      y2="0.416025"
     />
   </RNSVGGroup>
 </RNSVGSvgView>
@@ -192,14 +200,14 @@ exports[`renders in dark mode correctly 1`] = `
 <RNSVGSvgView
   align="xMidYMid"
   bbHeight="24"
-  bbWidth="24"
-  fill="none"
+  bbWidth="16.653061224489797"
+  fill="#2f3163"
   focusable={false}
   height={24}
   meetOrSlice={0}
   minX={0}
   minY={0}
-  stroke="#ffffff"
+  stroke="#2f3163"
   style={
     [
       {
@@ -209,16 +217,21 @@ exports[`renders in dark mode correctly 1`] = `
       {
         "flex": 0,
         "height": 24,
-        "width": 24,
+        "width": 16,
       },
     ]
   }
-  vbHeight={28}
-  vbWidth={23}
-  width={24}
+  vbHeight={98}
+  vbWidth={68}
+  width={16.653061224489797}
 >
   <RNSVGGroup
-    fill={null}
+    fill={
+      {
+        "payload": 4281282915,
+        "type": 0,
+      }
+    }
     propList={
       [
         "fill",
@@ -227,56 +240,55 @@ exports[`renders in dark mode correctly 1`] = `
     }
     stroke={
       {
-        "payload": 4294967295,
+        "payload": 4281282915,
         "type": 0,
       }
     }
   >
-    <RNSVGLine
+    <RNSVGRect
       fill={
         {
-          "payload": 4278190080,
+          "payload": 4281282915,
           "type": 0,
         }
       }
+      height="67.2277"
       propList={
         [
+          "fill",
           "stroke",
         ]
       }
       stroke={
         {
-          "payload": 4294967295,
+          "payload": 4281282915,
           "type": 0,
         }
       }
-      x1="22.2544"
-      x2="0.254366"
-      y1="14.4305"
-      y2="27.4305"
+      width="34"
+      x="17"
+      y="0"
     />
-    <RNSVGLine
+    <RNSVGPath
+      d="M 34 97 L 67 61 H 1 L 34 97 Z"
       fill={
         {
-          "payload": 4278190080,
+          "payload": 4281282915,
           "type": 0,
         }
       }
       propList={
         [
+          "fill",
           "stroke",
         ]
       }
       stroke={
         {
-          "payload": 4294967295,
+          "payload": 4281282915,
           "type": 0,
         }
       }
-      x1="21.7226"
-      x2="0.72265"
-      y1="14.416"
-      y2="0.416025"
     />
   </RNSVGGroup>
 </RNSVGSvgView>
@@ -286,14 +298,14 @@ exports[`renders uncolored correctly 1`] = `
 <RNSVGSvgView
   align="xMidYMid"
   bbHeight="24"
-  bbWidth="24"
-  fill="none"
+  bbWidth="16.653061224489797"
+  fill="#2f3163"
   focusable={false}
   height={24}
   meetOrSlice={0}
   minX={0}
   minY={0}
-  stroke="#000000"
+  stroke="#2f3163"
   style={
     [
       {
@@ -303,16 +315,21 @@ exports[`renders uncolored correctly 1`] = `
       {
         "flex": 0,
         "height": 24,
-        "width": 24,
+        "width": 16,
       },
     ]
   }
-  vbHeight={28}
-  vbWidth={23}
-  width={24}
+  vbHeight={98}
+  vbWidth={68}
+  width={16.653061224489797}
 >
   <RNSVGGroup
-    fill={null}
+    fill={
+      {
+        "payload": 4281282915,
+        "type": 0,
+      }
+    }
     propList={
       [
         "fill",
@@ -321,56 +338,55 @@ exports[`renders uncolored correctly 1`] = `
     }
     stroke={
       {
-        "payload": 4278190080,
+        "payload": 4281282915,
         "type": 0,
       }
     }
   >
-    <RNSVGLine
+    <RNSVGRect
       fill={
         {
-          "payload": 4278190080,
+          "payload": 4281282915,
           "type": 0,
         }
       }
+      height="67.2277"
       propList={
         [
+          "fill",
           "stroke",
         ]
       }
       stroke={
         {
-          "payload": 4278190080,
+          "payload": 4281282915,
           "type": 0,
         }
       }
-      x1="22.2544"
-      x2="0.254366"
-      y1="14.4305"
-      y2="27.4305"
+      width="34"
+      x="17"
+      y="0"
     />
-    <RNSVGLine
+    <RNSVGPath
+      d="M 34 97 L 67 61 H 1 L 34 97 Z"
       fill={
         {
-          "payload": 4278190080,
+          "payload": 4281282915,
           "type": 0,
         }
       }
       propList={
         [
+          "fill",
           "stroke",
         ]
       }
       stroke={
         {
-          "payload": 4278190080,
+          "payload": 4281282915,
           "type": 0,
         }
       }
-      x1="21.7226"
-      x2="0.72265"
-      y1="14.416"
-      y2="0.416025"
     />
   </RNSVGGroup>
 </RNSVGSvgView>
