@@ -24,5 +24,31 @@ jest.mock('react-native-reanimated', () => {
 // eslint-disable-next-line no-undef
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
 
+// eslint-disable-next-line no-undef
+jest.mock(
+  '../node_modules/react-native/Libraries/EventEmitter/NativeEventEmitter',
+);
+
+// eslint-disable-next-line no-undef
+jest.mock('@react-native-async-storage/async-storage', () =>
+  require('@react-native-async-storage/async-storage/jest/async-storage-mock'),
+);
+
+// eslint-disable-next-line no-undef
+jest.mock('react-native-avoid-softinput', () => {
+  const mock = require('react-native-avoid-softinput/jest/mock');
+
+  /**
+   * If needed, override mock like so:
+   *
+   * return Object.assign(mock, { useSoftInputState: jest.fn(() => ({ isSoftInputShown: true, softInputHeight: 300 })) });
+   */
+
+  return mock;
+});
+
+// eslint-disable-next-line no-undef
+jest.mock('react-native-ble-manager');
+
 // So that tests execute without warnings that don't load `App.tsx`
 import '../src/i18n.config';
