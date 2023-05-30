@@ -1,0 +1,393 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders colored correctly 1`] = `
+<RNSVGSvgView
+  align="xMidYMid"
+  bbHeight="16.653061224489797"
+  bbWidth="24"
+  fill="#2f3163"
+  focusable={false}
+  height={16.653061224489797}
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
+  stroke="#2f3163"
+  style={
+    [
+      {
+        "backgroundColor": "transparent",
+        "borderWidth": 0,
+      },
+      {
+        "flex": 0,
+        "height": 16,
+        "width": 24,
+      },
+    ]
+  }
+  vbHeight={68}
+  vbWidth={98}
+  width={24}
+>
+  <RNSVGGroup
+    fill={
+      {
+        "payload": 4281282915,
+        "type": 0,
+      }
+    }
+    propList={
+      [
+        "fill",
+        "stroke",
+      ]
+    }
+    stroke={
+      {
+        "payload": 4281282915,
+        "type": 0,
+      }
+    }
+  >
+    <RNSVGRect
+      fill={
+        {
+          "payload": 4281282915,
+          "type": 0,
+        }
+      }
+      height="34"
+      propList={
+        [
+          "fill",
+          "stroke",
+        ]
+      }
+      stroke={
+        {
+          "payload": 4281282915,
+          "type": 0,
+        }
+      }
+      width="67.2277"
+      x="29.772"
+      y="17"
+    />
+    <RNSVGPath
+      d="M 1 34 L 37 67 V 1 L 1 34 Z"
+      fill={
+        {
+          "payload": 4281282915,
+          "type": 0,
+        }
+      }
+      propList={
+        [
+          "fill",
+          "stroke",
+        ]
+      }
+      stroke={
+        {
+          "payload": 4281282915,
+          "type": 0,
+        }
+      }
+    />
+  </RNSVGGroup>
+</RNSVGSvgView>
+`;
+
+exports[`renders default correctly 1`] = `
+<RNSVGSvgView
+  align="xMidYMid"
+  bbHeight="16.653061224489797"
+  bbWidth="24"
+  fill="#2f3163"
+  focusable={false}
+  height={16.653061224489797}
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
+  stroke="#2f3163"
+  style={
+    [
+      {
+        "backgroundColor": "transparent",
+        "borderWidth": 0,
+      },
+      {
+        "flex": 0,
+        "height": 16,
+        "width": 24,
+      },
+    ]
+  }
+  vbHeight={68}
+  vbWidth={98}
+  width={24}
+>
+  <RNSVGGroup
+    fill={
+      {
+        "payload": 4281282915,
+        "type": 0,
+      }
+    }
+    propList={
+      [
+        "fill",
+        "stroke",
+      ]
+    }
+    stroke={
+      {
+        "payload": 4281282915,
+        "type": 0,
+      }
+    }
+  >
+    <RNSVGRect
+      fill={
+        {
+          "payload": 4281282915,
+          "type": 0,
+        }
+      }
+      height="34"
+      propList={
+        [
+          "fill",
+          "stroke",
+        ]
+      }
+      stroke={
+        {
+          "payload": 4281282915,
+          "type": 0,
+        }
+      }
+      width="67.2277"
+      x="29.772"
+      y="17"
+    />
+    <RNSVGPath
+      d="M 1 34 L 37 67 V 1 L 1 34 Z"
+      fill={
+        {
+          "payload": 4281282915,
+          "type": 0,
+        }
+      }
+      propList={
+        [
+          "fill",
+          "stroke",
+        ]
+      }
+      stroke={
+        {
+          "payload": 4281282915,
+          "type": 0,
+        }
+      }
+    />
+  </RNSVGGroup>
+</RNSVGSvgView>
+`;
+
+exports[`renders in dark mode correctly 1`] = `
+<RNSVGSvgView
+  align="xMidYMid"
+  bbHeight="16.653061224489797"
+  bbWidth="24"
+  fill="#2f3163"
+  focusable={false}
+  height={16.653061224489797}
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
+  stroke="#2f3163"
+  style={
+    [
+      {
+        "backgroundColor": "transparent",
+        "borderWidth": 0,
+      },
+      {
+        "flex": 0,
+        "height": 16,
+        "width": 24,
+      },
+    ]
+  }
+  vbHeight={68}
+  vbWidth={98}
+  width={24}
+>
+  <RNSVGGroup
+    fill={
+      {
+        "payload": 4281282915,
+        "type": 0,
+      }
+    }
+    propList={
+      [
+        "fill",
+        "stroke",
+      ]
+    }
+    stroke={
+      {
+        "payload": 4281282915,
+        "type": 0,
+      }
+    }
+  >
+    <RNSVGRect
+      fill={
+        {
+          "payload": 4281282915,
+          "type": 0,
+        }
+      }
+      height="34"
+      propList={
+        [
+          "fill",
+          "stroke",
+        ]
+      }
+      stroke={
+        {
+          "payload": 4281282915,
+          "type": 0,
+        }
+      }
+      width="67.2277"
+      x="29.772"
+      y="17"
+    />
+    <RNSVGPath
+      d="M 1 34 L 37 67 V 1 L 1 34 Z"
+      fill={
+        {
+          "payload": 4281282915,
+          "type": 0,
+        }
+      }
+      propList={
+        [
+          "fill",
+          "stroke",
+        ]
+      }
+      stroke={
+        {
+          "payload": 4281282915,
+          "type": 0,
+        }
+      }
+    />
+  </RNSVGGroup>
+</RNSVGSvgView>
+`;
+
+exports[`renders uncolored correctly 1`] = `
+<RNSVGSvgView
+  align="xMidYMid"
+  bbHeight="16.653061224489797"
+  bbWidth="24"
+  fill="#2f3163"
+  focusable={false}
+  height={16.653061224489797}
+  meetOrSlice={0}
+  minX={0}
+  minY={0}
+  stroke="#2f3163"
+  style={
+    [
+      {
+        "backgroundColor": "transparent",
+        "borderWidth": 0,
+      },
+      {
+        "flex": 0,
+        "height": 16,
+        "width": 24,
+      },
+    ]
+  }
+  vbHeight={68}
+  vbWidth={98}
+  width={24}
+>
+  <RNSVGGroup
+    fill={
+      {
+        "payload": 4281282915,
+        "type": 0,
+      }
+    }
+    propList={
+      [
+        "fill",
+        "stroke",
+      ]
+    }
+    stroke={
+      {
+        "payload": 4281282915,
+        "type": 0,
+      }
+    }
+  >
+    <RNSVGRect
+      fill={
+        {
+          "payload": 4281282915,
+          "type": 0,
+        }
+      }
+      height="34"
+      propList={
+        [
+          "fill",
+          "stroke",
+        ]
+      }
+      stroke={
+        {
+          "payload": 4281282915,
+          "type": 0,
+        }
+      }
+      width="67.2277"
+      x="29.772"
+      y="17"
+    />
+    <RNSVGPath
+      d="M 1 34 L 37 67 V 1 L 1 34 Z"
+      fill={
+        {
+          "payload": 4281282915,
+          "type": 0,
+        }
+      }
+      propList={
+        [
+          "fill",
+          "stroke",
+        ]
+      }
+      stroke={
+        {
+          "payload": 4281282915,
+          "type": 0,
+        }
+      }
+    />
+  </RNSVGGroup>
+</RNSVGSvgView>
+`;

@@ -62,6 +62,7 @@
     "setupFiles": [
       "<rootDir>/jest/setup.js"
     ],
+    "collectCoverageFrom": ["**/src/**"],
     "moduleFileExtensions": [
       "ts",
       "tsx",
